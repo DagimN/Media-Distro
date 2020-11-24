@@ -50,6 +50,7 @@
             this.detailPanel = new System.Windows.Forms.Panel();
             this.removeButton = new System.Windows.Forms.Button();
             this.detailListView = new System.Windows.Forms.ListView();
+            this.coverArtImageList = new System.Windows.Forms.ImageList(this.components);
             this.priceExtLabel = new System.Windows.Forms.Label();
             this.priceLabel = new System.Windows.Forms.Label();
             this.cartSizeExtLabel = new System.Windows.Forms.Label();
@@ -60,12 +61,11 @@
             this.musicLabel = new System.Windows.Forms.Label();
             this.movieExtLabel = new System.Windows.Forms.Label();
             this.movieLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.progressSelected = new System.Windows.Forms.PictureBox();
             this.cartsSelected = new System.Windows.Forms.PictureBox();
-            this.transferCompNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.coverArtImageList = new System.Windows.Forms.ImageList(this.components);
             this.progressListView = new Media_Distro.ProgressListView();
+            this.transferCompNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.cartsContextMenuStrip.SuspendLayout();
             this.devicePanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -315,8 +315,7 @@
             // 
             // detailListView
             // 
-            this.detailListView.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.detailListView.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("detailListView.BackgroundImage")));
+            this.detailListView.BackColor = System.Drawing.Color.White;
             this.detailListView.HideSelection = false;
             this.detailListView.LargeImageList = this.coverArtImageList;
             this.detailListView.Location = new System.Drawing.Point(0, 27);
@@ -326,6 +325,12 @@
             this.detailListView.TabIndex = 13;
             this.detailListView.UseCompatibleStateImageBehavior = false;
             this.detailListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.detailListView_ItemSelectionChanged);
+            // 
+            // coverArtImageList
+            // 
+            this.coverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("coverArtImageList.ImageStream")));
+            this.coverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.coverArtImageList.Images.SetKeyName(0, "20200624_141917.jpg");
             // 
             // priceExtLabel
             // 
@@ -438,6 +443,20 @@
             this.movieLabel.TabIndex = 1;
             this.movieLabel.Text = "Movie";
             // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.label1.Location = new System.Drawing.Point(0, 144);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(287, 19);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "To remove unwanted item, select it and click the remove button.";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // progressSelected
             // 
             this.progressSelected.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(32)))), ((int)(((byte)(86)))));
@@ -457,32 +476,6 @@
             this.cartsSelected.TabIndex = 6;
             this.cartsSelected.TabStop = false;
             // 
-            // transferCompNotifyIcon
-            // 
-            this.transferCompNotifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.transferCompNotifyIcon.BalloonTipTitle = "Transfer Completed";
-            this.transferCompNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("transferCompNotifyIcon.Icon")));
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.label1.Location = new System.Drawing.Point(0, 144);
-            this.label1.Name = "label1";
-            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(287, 19);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "To remove unwanted item, select it and click the remove button.";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // coverArtImageList
-            // 
-            this.coverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("coverArtImageList.ImageStream")));
-            this.coverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.coverArtImageList.Images.SetKeyName(0, "20200624_141917.jpg");
-            // 
             // progressListView
             // 
             this.progressListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -496,6 +489,12 @@
             this.progressListView.Size = new System.Drawing.Size(545, 214);
             this.progressListView.TabIndex = 4;
             this.progressListView.Visible = false;
+            // 
+            // transferCompNotifyIcon
+            // 
+            this.transferCompNotifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.transferCompNotifyIcon.BalloonTipTitle = "Transfer Completed";
+            this.transferCompNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("transferCompNotifyIcon.Icon")));
             // 
             // ShareForm
             // 
@@ -536,7 +535,6 @@
         public System.Windows.Forms.Panel sharePanel;
         public System.Windows.Forms.ListView cartsListView;
         private System.Windows.Forms.ColumnHeader cartNameColumn;
-        private System.Windows.Forms.Panel detailPanel;
         private System.Windows.Forms.Label cartSizeExtLabel;
         private System.Windows.Forms.Label cartSizeLabel;
         private System.Windows.Forms.Label seriesExtLabel;
@@ -566,5 +564,6 @@
         private System.Windows.Forms.ImageList shareImageList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ImageList coverArtImageList;
+        public System.Windows.Forms.Panel detailPanel;
     }
 }

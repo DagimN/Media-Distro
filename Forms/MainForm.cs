@@ -8,18 +8,10 @@ using Mobile_Service_Distribution.Managers;
 using Media_Distro;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Management;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using Mobile_Service_Distribution.Forms;
-
 
 namespace Mobile_Service_Distribution
 {
@@ -63,7 +55,7 @@ namespace Mobile_Service_Distribution
       
         public mediaDistroFrame()
         {
-           if(Media_Distro.Properties.Settings.Default.Movie_Media_Location == null &
+            if(Media_Distro.Properties.Settings.Default.Movie_Media_Location == null &
                 Media_Distro.Properties.Settings.Default.Music_Media_Location == null &
                 Media_Distro.Properties.Settings.Default.Series_Media_Location == null)
             {
@@ -237,55 +229,18 @@ namespace Mobile_Service_Distribution
                 statsFile.Close();
             }
                 
-
             movieDir = new ArrayList();
             musicDir = new ArrayList();
             seriesDir = new ArrayList();
 
-            foreach(string dir in Media_Distro.Properties.Settings.Default.Movie_Media_Location)
-            {
-                foreach (string file in GetFiles(dir))
-                    if (GetExtension(file) == ".mp4" || GetExtension(file) == ".mkv" || GetExtension(file) == ".avi" ||
-                            GetExtension(file) == ".flv" || GetExtension(file) == ".wmv" || GetExtension(file) == ".f4v" ||
-                            GetExtension(file) == ".f4p" || GetExtension(file) == ".f4a" || GetExtension(file) == ".f4b" ||
-                            GetExtension(file) == ".3gp" || GetExtension(file) == ".m4v" || GetExtension(file) == ".mpeg" ||
-                            GetExtension(file) == ".mpg" || GetExtension(file) == ".mov" || GetExtension(file) == ".qt")
-                        movieDir.Add(file);
-                
-                RetrieveMediaDirectories(dir, movieDir, this);
-            }
-
-            foreach(string dir in Media_Distro.Properties.Settings.Default.Series_Media_Location)
-                foreach (string subDir in GetDirectories(dir)) 
-                    seriesDir.Add(subDir);
-
-            foreach(string dir in Media_Distro.Properties.Settings.Default.Music_Media_Location)
-            {
-                foreach (string file in GetFiles(dir))
-                    if (GetExtension(file) == ".mp3" || GetExtension(file) == ".m4a" || GetExtension(file) == ".webm" || 
-                        GetExtension(file) == ".wv" || GetExtension(file) == ".wma" || GetExtension(file) == ".wav" || 
-                        GetExtension(file) == ".m4b" || GetExtension(file) == ".m4p")
-                            musicDir.Add(file);
-
-                RetrieveMediaDirectories(dir, musicDir, this);
-            }
-
-            foreach(string dir in movieDir) { ManageMediaReference(dir, MediaType.Movie, GetFileNameWithoutExtension(dir)); }
-            foreach (object dir in musicDir)
-            {
-                if (dir is string)
-                    ManageMediaReference((string)dir, MediaType.Music, GetFileNameWithoutExtension((string)dir));
-                else if (dir is ArrayList)
-                    ManageMediaReference((ArrayList)dir);
-            }
-            foreach (string dir in seriesDir) { ManageMediaReference(dir, MediaType.Series, GetFileName(dir)); }
-
+            Task manageMediaTask = new Task(() => ManageMedia());
+            manageMediaTask.Start();
 
             libraryForm = new LibraryForm(this);
-            homeForm = new HomeForm(this);
             statsForm = new StatsForm();
+            homeForm = new HomeForm(this);
             shareForm = new ShareForm(this, homeForm, statsForm);
-            settingsForm = new SettingsForm(shareForm.progressListView);
+            settingsForm = new SettingsForm(shareForm.progressListView, this, homeForm, libraryForm, shareForm, statsForm);
 
             openChildForm(statsForm);
             openChildForm(homeForm);
@@ -416,8 +371,9 @@ namespace Mobile_Service_Distribution
             if (this.sideMenuPanel.Width == 235)
             {
                 this.sideMenuPanel.SetBounds(0, 0, 52, 482);
-                this.workPanel.SetBounds(52, 30, 750, 452);
                 this.activeForm.SetBounds(0, 0, 750, 452);
+                this.workPanel.SetBounds(52, 30, 750, 452);
+                
                 this.cartToolStrip.Location = new Point(58, 5);
                 this.pictureBox1.Location = new Point(58, 27);
 
@@ -432,6 +388,15 @@ namespace Mobile_Service_Distribution
                 if (this.libraryForm.infoPanel.Visible) this.libraryForm.infoPanel.Visible = false;
                 this.libraryForm.libraryPanel.SetBounds(12, 12, 725, 431);
                 this.libraryForm.infoPanel.SetBounds(0, 306, 750, 146);
+                this.libraryForm.durationLabel.Location = new Point(184, 48);
+                this.libraryForm.durationLabelExt.Location = new Point(243, 48);
+                this.libraryForm.genreLabel.Location = new Point(184, 65);
+                this.libraryForm.genreTextBox.Location = new Point(230, 65);
+                this.libraryForm.yearLabel.Location = new Point(184, 82);
+                this.libraryForm.yearTextBox.Location = new Point(230, 82);
+                this.libraryForm.ratingLabel.Location = new Point(184, 99);
+                this.libraryForm.ratingTextBox.Location = new Point(232, 99);
+                this.libraryForm.moreInfoLinkLabel.Location = new Point(184, 124);
 
                 this.shareForm.devicePanel.SetBounds(10, 12, 725, 177);
                 this.shareForm.sharePanel.SetBounds(10, 195, 725, 245);
@@ -440,15 +405,13 @@ namespace Mobile_Service_Distribution
                 this.statsForm.panel1.Location = new Point(558, 0);
                 this.statsForm.descriptionLabel.Size = new Size(537, 35);
                 this.statsForm.summaryChart.Size = new Size(540, 314);
-
-                this.settingsForm.splitContainer1.SetBounds(0, 0, 750, 452);
-
             }
             else
             {
                 this.sideMenuPanel.SetBounds(0, 0, 235, 482);
-                this.workPanel.SetBounds(235, 30, 567, 452);
                 this.activeForm.SetBounds(0, 0, 567, 452);
+                this.workPanel.SetBounds(235, 30, 567, 452);
+                
                 this.cartToolStrip.Location = new Point(238, 5);
                 this.pictureBox1.Location = new Point(238, 27);
 
@@ -463,6 +426,15 @@ namespace Mobile_Service_Distribution
                 if (this.libraryForm.infoPanel.Visible) this.libraryForm.infoPanel.Visible = false;
                 this.libraryForm.libraryPanel.SetBounds(12, 12, 546, 431);
                 this.libraryForm.infoPanel.SetBounds(0, 306, 567, 146);
+                this.libraryForm.durationLabel.Location = new Point(144, 48);
+                this.libraryForm.durationLabelExt.Location = new Point(203, 48);
+                this.libraryForm.genreLabel.Location = new Point(144, 65);
+                this.libraryForm.genreTextBox.Location = new Point(190, 65);
+                this.libraryForm.yearLabel.Location = new Point(144, 82);
+                this.libraryForm.yearTextBox.Location = new Point(190, 82);
+                this.libraryForm.ratingLabel.Location = new Point(144, 99);
+                this.libraryForm.ratingTextBox.Location = new Point(192, 99);
+                this.libraryForm.moreInfoLinkLabel.Location = new Point(144, 124);
 
                 this.shareForm.devicePanel.SetBounds(10, 12, 545, 177);
                 this.shareForm.sharePanel.SetBounds(10, 195, 545, 245);
@@ -471,9 +443,9 @@ namespace Mobile_Service_Distribution
                 this.statsForm.panel1.Location = new Point(374, 0);
                 this.statsForm.descriptionLabel.Size = new Size(353, 35);
                 this.statsForm.summaryChart.Size = new Size(356, 314);
-
-                this.settingsForm.splitContainer1.SetBounds(0, 0, 567, 452);
             }
+
+            workPanel.Focus();
         }
 
         private void searchTextBox_MouseClick(object sender, MouseEventArgs e)
@@ -495,6 +467,47 @@ namespace Mobile_Service_Distribution
                 resultPanel.Controls.Clear();
                 searchPanel.Visible = false;
                 pictureBox2.Visible = false;
+            }
+        }
+
+        private void ManageMedia()
+        {
+            foreach (string dir in Media_Distro.Properties.Settings.Default.Movie_Media_Location)
+            {
+                foreach (string file in GetFiles(dir))
+                    if (GetExtension(file) == ".mp4" || GetExtension(file) == ".mkv" || GetExtension(file) == ".avi" ||
+                            GetExtension(file) == ".flv" || GetExtension(file) == ".wmv" || GetExtension(file) == ".f4v" ||
+                            GetExtension(file) == ".f4p" || GetExtension(file) == ".f4a" || GetExtension(file) == ".f4b" ||
+                            GetExtension(file) == ".3gp" || GetExtension(file) == ".m4v" || GetExtension(file) == ".mpeg" ||
+                            GetExtension(file) == ".mpg" || GetExtension(file) == ".mov" || GetExtension(file) == ".qt")
+                        movieDir.Add(file);
+
+                RetrieveMediaDirectories(dir, movieDir, this);
+            }
+
+            foreach (string dir in Media_Distro.Properties.Settings.Default.Series_Media_Location)
+                foreach (string subDir in GetDirectories(dir))
+                    seriesDir.Add(subDir);
+
+            foreach (string dir in Media_Distro.Properties.Settings.Default.Music_Media_Location)
+            {
+                foreach (string file in GetFiles(dir))
+                    if (GetExtension(file) == ".mp3" || GetExtension(file) == ".m4a" || GetExtension(file) == ".webm" ||
+                        GetExtension(file) == ".wv" || GetExtension(file) == ".wma" || GetExtension(file) == ".wav" ||
+                        GetExtension(file) == ".m4b" || GetExtension(file) == ".m4p" || GetExtension(file) == ".aac")
+                        musicDir.Add(file);
+
+                RetrieveMediaDirectories(dir, musicDir, this);
+            }
+
+            foreach (string dir in movieDir) { ManageMediaReference(dir, MediaType.Movie, GetFileNameWithoutExtension(dir)); }
+            foreach (string dir in seriesDir) { ManageMediaReference(dir, MediaType.Series, GetFileName(dir)); }
+            foreach (object dir in musicDir)
+            {
+                if (dir is string)
+                    ManageMediaReference((string)dir, MediaType.Music, GetFileNameWithoutExtension((string)dir));
+                else if (dir is ArrayList)
+                    ManageMediaReference((ArrayList)dir);
             }
         }
 
@@ -730,7 +743,7 @@ namespace Mobile_Service_Distribution
             {
                 cartLabelEdit.Visible = false;
                 cartLabel.Visible = true;
-                cartLabel.BackColor = Color.FromArgb(18, 32, 86);
+                cartLabel.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
             }
 
             if (cartsToolStripSplitButton.DropDownItems != null)
@@ -815,19 +828,19 @@ namespace Mobile_Service_Distribution
 
         private void cartLabel_MouseHover(object sender, EventArgs e)
         {
-            cartLabel.BackColor = Color.FromArgb(18, 32, 70);
+            cartLabel.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
         }
 
         private void cartLabel_MouseLeave(object sender, EventArgs e)
         {
-            cartLabel.BackColor = Color.FromArgb(18, 32, 86);
+            cartLabel.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
         }
 
         private void cartLabelEdit_Leave(object sender, EventArgs e)
         {
             cartLabelEdit.Visible = false;
             cartLabel.Visible = true;
-            cartLabel.BackColor = Color.FromArgb(18, 32, 86);
+            cartLabel.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
         }
 
         private void sideMenuPanel_MouseClick(object sender, MouseEventArgs e)
@@ -849,19 +862,45 @@ namespace Mobile_Service_Distribution
             cartToolStrip.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
             pictureBox1.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
 
+            searchButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            searchButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            minimizeButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            minimizeButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            menushowButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            menushowButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            homeSubMenu.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            homeSubMenu.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            librarySubMenu.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            librarySubMenu.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            sharesubMenu.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            sharesubMenu.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            statssubMenu.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            statssubMenu.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            settingsubMenu.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            settingsubMenu.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+
             libraryForm.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
             libraryForm.moviesTabButton.ForeColor = Media_Distro.Properties.Settings.Default.Active_Theme_Preference;
             libraryForm.moviesSelected.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Preference;
+            libraryForm.genreListView.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
+            libraryForm.movieList.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
+            libraryForm.musicList.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
+            libraryForm.seriesList.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
 
             shareForm.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
             shareForm.cartsSelected.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
             shareForm.cartsButton.ForeColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
             shareForm.progressSelected.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
-            shareForm.panel1.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
+            shareForm.panel1.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Preference;
+            shareForm.detailPanel.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Preference;
 
             settingsForm.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
 
             homeForm.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
+            homeForm.goLeftButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            homeForm.goRightButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            homeForm.goLeftButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            homeForm.goRightButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
             statsForm.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
         }
 

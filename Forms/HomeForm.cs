@@ -1,17 +1,11 @@
 ﻿using System;
 using System.IO;
-using static System.IO.Directory;
 using static System.IO.Path;
 using static System.Environment;
 using static Mobile_Service_Distribution.LibraryManager;
 using Mobile_Service_Distribution.Managers;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Wpf;
@@ -25,8 +19,6 @@ namespace Mobile_Service_Distribution.Forms
         public PieSeries pausedTasks;
 
         private mediaDistroFrame reference;
-
-        private PictureBox coverArtPictureBox;
         private Button addToCartButton = new Button {
             Size = new Size(116, 30),
             FlatStyle = FlatStyle.Flat,
@@ -46,9 +38,9 @@ namespace Mobile_Service_Distribution.Forms
             int initial1 = 3;
             foreach (LibraryManager media in SortPRS())
             {
-                coverArtPictureBox = new PictureBox
+                PictureBox coverArtPictureBox = new PictureBox
                 {
-                    Image = (media.CoverArtDirectory != "") ? Image.FromFile(media.CoverArtDirectory) : Image.FromFile(Combine(GetFolderPath(SpecialFolder.UserProfile), "Documents", "Euphoria Games", "Form Designs", "Sample Pictures", "20200624_141949.jpg")),
+                    //Image = (media.CoverArtDirectory != "") ? Image.FromFile(media.CoverArtDirectory) : Image.FromFile(Combine(GetFolderPath(SpecialFolder.UserProfile), "Documents", "Euphoria Games", "Form Designs", "Sample Pictures", "20200624_141949.jpg")),
                     SizeMode = PictureBoxSizeMode.StretchImage,
                     Size = new Size(116, 140),
                     Location = new Point(initial1, 10),
@@ -64,11 +56,13 @@ namespace Mobile_Service_Distribution.Forms
 
             taskPieChart.InnerRadius = 20; 
             taskPieChart.LegendLocation = LegendLocation.Right;
+            taskPieChart.Font = new Font("Microsoft JhengHei", 8.25f);
 
             tempPieChart.InnerRadius = 30;
             tempPieChart.LegendLocation = LegendLocation.Right;
             tempPieChart.Series.Add(new PieSeries { Title = "No Tasks", Values = new ChartValues<int> { 1 }, Fill = System.Windows.Media.Brushes.LightGray });
             tempPieChart.Enabled = false;
+            tempPieChart.Font = new Font("Microsoft JhengHei", 8.25f);
 
             taskCompleted = new PieSeries { Title = "Task Completed" };
             onGoingTask = new PieSeries { Title = "Tasks On-Going" };
@@ -115,8 +109,8 @@ namespace Mobile_Service_Distribution.Forms
                         graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                         graphics.FillEllipse(brushes[(int)iter++], i, 175, 15, 15);
                         graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                        graphics.DrawString(hardDrive.Name, new Font("Arial", 10), Brushes.Black, new PointF(i + 20, 175));
-                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Arial", 7), Brushes.Black, new PointF(initial + 4, 148));
+                        graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
+                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 147));
                         i += 60;
                         initial = (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
 
@@ -124,7 +118,7 @@ namespace Mobile_Service_Distribution.Forms
 
 
                     graphics.DrawRectangle(Pens.Black, 350, 145, 207, 17);
-                    graphics.DrawString("GB", new Font("Arial", 7), Brushes.Black, new PointF(540, 148));
+                    graphics.DrawString("GB", new Font("Microsoft JhengHei", 7), Brushes.Black, new PointF(540, 148));
                 }
                 else
                 {
@@ -140,8 +134,8 @@ namespace Mobile_Service_Distribution.Forms
                         graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                         graphics.FillEllipse(brushes[(int)iter++], i, 175, 15, 15);
                         graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                        graphics.DrawString(hardDrive.Name, new Font("Arial", 10), Brushes.Black, new PointF(i + 20, 175));
-                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Arial", 7), Brushes.Black, new PointF(initial + 4, 148));
+                        graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
+                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 148));
                         i += 60;
                         initial = (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
 
@@ -149,7 +143,7 @@ namespace Mobile_Service_Distribution.Forms
 
 
                     graphics.DrawRectangle(Pens.Black, 534, 145, 207, 17);
-                    graphics.DrawString("GB", new Font("Arial", 7), Brushes.Black, new PointF(724, 148));
+                    graphics.DrawString("GB", new Font("Microsoft JhengHei", 7), Brushes.Black, new PointF(724, 148));
                 }
                 
             }
@@ -207,7 +201,8 @@ namespace Mobile_Service_Distribution.Forms
                 if (value > popularNowPanel.HorizontalScroll.Minimum)
                         popularNowPanel.HorizontalScroll.Value = (value > 130) ? value - 130 : popularNowPanel.HorizontalScroll.Minimum;
             }
-            
+
+            popularNowPanel.Focus();
         }
 
         private void goRightButton_Click(object sender, EventArgs e)
@@ -217,8 +212,8 @@ namespace Mobile_Service_Distribution.Forms
                 for (int i = 0; i < 2; i++)
                     popularNowPanel.HorizontalScroll.Value += 130;
             }
-        }
 
-       
+            popularNowPanel.Focus();
+        }
     }
 }

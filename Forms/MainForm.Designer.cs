@@ -115,7 +115,7 @@
             this.titleBarPanel.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
             this.titleBarPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.titleBarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(32)))), ((int)(((byte)(86)))));
+            this.titleBarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(140)))), ((int)(((byte)(200)))));
             this.titleBarPanel.Controls.Add(this.pictureBox2);
             this.titleBarPanel.Controls.Add(this.cartLabelEdit);
             this.titleBarPanel.Controls.Add(this.searchTextBox);
@@ -159,7 +159,7 @@
             // searchTextBox
             // 
             this.searchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(32)))), ((int)(((byte)(140)))));
+            this.searchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(105)))), ((int)(((byte)(175)))));
             this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
@@ -174,7 +174,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(32)))), ((int)(((byte)(86)))));
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(140)))), ((int)(((byte)(200)))));
             this.pictureBox1.Location = new System.Drawing.Point(238, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(250, 10);
@@ -183,7 +183,7 @@
             // 
             // cartToolStrip
             // 
-            this.cartToolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(32)))), ((int)(((byte)(86)))));
+            this.cartToolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(140)))), ((int)(((byte)(200)))));
             this.cartToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.cartToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.cartToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -254,7 +254,7 @@
             // 
             // sideMenuPanel
             // 
-            this.sideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(14)))), ((int)(((byte)(52)))));
+            this.sideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(50)))), ((int)(((byte)(95)))));
             this.sideMenuPanel.Controls.Add(this.logoPictureBox);
             this.sideMenuPanel.Controls.Add(this.logoLabel);
             this.sideMenuPanel.Controls.Add(this.menushowButton);
@@ -300,9 +300,8 @@
             // 
             // menushowButton
             // 
+            this.menushowButton.BackColor = System.Drawing.Color.Transparent;
             this.menushowButton.FlatAppearance.BorderSize = 0;
-            this.menushowButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
-            this.menushowButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
             this.menushowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.menushowButton.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menushowButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
@@ -311,15 +310,14 @@
             this.menushowButton.Size = new System.Drawing.Size(53, 31);
             this.menushowButton.TabIndex = 7;
             this.menushowButton.Text = "≡";
-            this.menushowButton.UseVisualStyleBackColor = true;
+            this.menushowButton.UseVisualStyleBackColor = false;
             this.menushowButton.Click += new System.EventHandler(this.menushowButton_Click);
             // 
             // homeSubMenu
             // 
+            this.homeSubMenu.BackColor = System.Drawing.Color.Transparent;
             this.homeSubMenu.Cursor = System.Windows.Forms.Cursors.Default;
             this.homeSubMenu.FlatAppearance.BorderSize = 0;
-            this.homeSubMenu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
-            this.homeSubMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
             this.homeSubMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.homeSubMenu.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.homeSubMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
@@ -333,15 +331,14 @@
             this.homeSubMenu.Text = "HOME";
             this.homeSubMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.sideMenuToolTip.SetToolTip(this.homeSubMenu, "Home");
-            this.homeSubMenu.UseVisualStyleBackColor = true;
+            this.homeSubMenu.UseVisualStyleBackColor = false;
             this.homeSubMenu.Click += new System.EventHandler(this.homesubMenu_Click);
             // 
             // librarySubMenu
             // 
+            this.librarySubMenu.BackColor = System.Drawing.Color.Transparent;
             this.librarySubMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.librarySubMenu.FlatAppearance.BorderSize = 0;
-            this.librarySubMenu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
-            this.librarySubMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
             this.librarySubMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.librarySubMenu.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.librarySubMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
@@ -355,15 +352,13 @@
             this.librarySubMenu.Text = "LIBRARY";
             this.librarySubMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.sideMenuToolTip.SetToolTip(this.librarySubMenu, "Library");
-            this.librarySubMenu.UseVisualStyleBackColor = true;
+            this.librarySubMenu.UseVisualStyleBackColor = false;
             this.librarySubMenu.Click += new System.EventHandler(this.librarysubMenu_Click);
             // 
             // sharesubMenu
             // 
-            this.sharesubMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(15)))), ((int)(((byte)(50)))));
+            this.sharesubMenu.BackColor = System.Drawing.Color.Transparent;
             this.sharesubMenu.FlatAppearance.BorderSize = 0;
-            this.sharesubMenu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
-            this.sharesubMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
             this.sharesubMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sharesubMenu.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sharesubMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
@@ -383,9 +378,8 @@
             // 
             // statssubMenu
             // 
+            this.statssubMenu.BackColor = System.Drawing.Color.Transparent;
             this.statssubMenu.FlatAppearance.BorderSize = 0;
-            this.statssubMenu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
-            this.statssubMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
             this.statssubMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.statssubMenu.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statssubMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
@@ -399,14 +393,13 @@
             this.statssubMenu.Text = "STATS";
             this.statssubMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.sideMenuToolTip.SetToolTip(this.statssubMenu, "Stats");
-            this.statssubMenu.UseVisualStyleBackColor = true;
+            this.statssubMenu.UseVisualStyleBackColor = false;
             this.statssubMenu.Click += new System.EventHandler(this.statssubMenu_Click);
             // 
             // settingsubMenu
             // 
+            this.settingsubMenu.BackColor = System.Drawing.Color.Transparent;
             this.settingsubMenu.FlatAppearance.BorderSize = 0;
-            this.settingsubMenu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
-            this.settingsubMenu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
             this.settingsubMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.settingsubMenu.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.settingsubMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
@@ -420,13 +413,13 @@
             this.settingsubMenu.Text = "SETTINGS";
             this.settingsubMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.sideMenuToolTip.SetToolTip(this.settingsubMenu, "Settings");
-            this.settingsubMenu.UseVisualStyleBackColor = true;
+            this.settingsubMenu.UseVisualStyleBackColor = false;
             this.settingsubMenu.Click += new System.EventHandler(this.settingsubMenu_Click);
             // 
             // workPanel
             // 
             this.workPanel.AutoSize = true;
-            this.workPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(215)))), ((int)(((byte)(255)))));
+            this.workPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(243)))), ((int)(((byte)(252)))));
             this.workPanel.Controls.Add(this.searchPanel);
             this.workPanel.Location = new System.Drawing.Point(235, 30);
             this.workPanel.Name = "workPanel";
@@ -541,23 +534,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button minimizeButton;
         private System.Windows.Forms.Button closeButton;
-        private System.Windows.Forms.Panel titleBarPanel;
         public System.Windows.Forms.Panel sideMenuPanel;
         private System.Windows.Forms.Label logoLabel;
         private System.Windows.Forms.PictureBox logoPictureBox;
-        private System.Windows.Forms.Button menushowButton;
-        private System.Windows.Forms.Button settingsubMenu;
-        private System.Windows.Forms.Button statssubMenu;
-        private System.Windows.Forms.Button librarySubMenu;
-        private System.Windows.Forms.Button homeSubMenu;
-        private System.Windows.Forms.TextBox searchTextBox;
-        private System.Windows.Forms.Panel workPanel;
-        private System.Windows.Forms.Button searchButton;
-        private System.Windows.Forms.ToolStrip cartToolStrip;
         public System.Windows.Forms.ToolStripButton newCartToolStripButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.ToolStripLabel cartLabel;
         private System.Windows.Forms.TextBox cartLabelEdit;
         public System.Windows.Forms.ToolStripSplitButton cartsToolStripSplitButton;
@@ -571,6 +552,18 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         public System.Windows.Forms.Button sharesubMenu;
+        public System.Windows.Forms.Panel titleBarPanel;
+        public System.Windows.Forms.TextBox searchTextBox;
+        public System.Windows.Forms.Panel workPanel;
+        public System.Windows.Forms.ToolStrip cartToolStrip;
+        public System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.Button menushowButton;
+        public System.Windows.Forms.Button settingsubMenu;
+        public System.Windows.Forms.Button statssubMenu;
+        public System.Windows.Forms.Button librarySubMenu;
+        public System.Windows.Forms.Button homeSubMenu;
+        public System.Windows.Forms.Button minimizeButton;
+        public System.Windows.Forms.Button searchButton;
     }
 }
 

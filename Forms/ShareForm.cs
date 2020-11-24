@@ -1,19 +1,11 @@
 ﻿using System;
 using System.IO;
-using static System.IO.Path;
-using static System.IO.Directory;
-using static System.Environment;
 using Mobile_Service_Distribution.Managers;
 using static Mobile_Service_Distribution.Managers.CartManager;
-using System.Collections;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
+
 
 namespace Mobile_Service_Distribution.Forms
 {

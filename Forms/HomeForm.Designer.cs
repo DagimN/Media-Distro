@@ -55,7 +55,7 @@
             // tempPieChart
             // 
             this.tempPieChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tempPieChart.Location = new System.Drawing.Point(360, 3);
+            this.tempPieChart.Location = new System.Drawing.Point(360, 10);
             this.tempPieChart.Name = "tempPieChart";
             this.tempPieChart.Size = new System.Drawing.Size(200, 100);
             this.tempPieChart.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.volumeLabel);
             this.panel1.Controls.Add(this.tempPieChart);
             this.panel1.Controls.Add(this.taskPieChart);
@@ -78,9 +78,10 @@
             // 
             this.volumeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.volumeLabel.AutoSize = true;
-            this.volumeLabel.Location = new System.Drawing.Point(424, 106);
+            this.volumeLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F);
+            this.volumeLabel.Location = new System.Drawing.Point(424, 120);
             this.volumeLabel.Name = "volumeLabel";
-            this.volumeLabel.Size = new System.Drawing.Size(76, 13);
+            this.volumeLabel.Size = new System.Drawing.Size(83, 15);
             this.volumeLabel.TabIndex = 3;
             this.volumeLabel.Text = "Volume Labels";
             // 
@@ -118,7 +119,7 @@
             // 
             // goLeftButton
             // 
-            this.goLeftButton.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.goLeftButton.BackColor = System.Drawing.Color.Transparent;
             this.goLeftButton.FlatAppearance.BorderSize = 0;
             this.goLeftButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.goLeftButton.Image = global::Media_Distro.Properties.Resources.Entypo_25c2_0__24;
@@ -135,7 +136,7 @@
             // goRightButton
             // 
             this.goRightButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.goRightButton.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.goRightButton.BackColor = System.Drawing.Color.Transparent;
             this.goRightButton.FlatAppearance.BorderSize = 0;
             this.goRightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.goRightButton.Image = global::Media_Distro.Properties.Resources.Entypo_25b8_0__24;
@@ -189,12 +190,12 @@
         public LiveCharts.WinForms.PieChart tempPieChart;
         public System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label popularNowLabel;
-        private System.Windows.Forms.Button goLeftButton;
         public System.Windows.Forms.Panel popularNowPanel;
         public System.Windows.Forms.Panel adsPanel;
         public System.Windows.Forms.Button goRightButton;
         public LiveCharts.WinForms.PieChart taskPieChart;
         public System.Windows.Forms.Label volumeLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.Button goLeftButton;
     }
 }

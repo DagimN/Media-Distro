@@ -54,6 +54,7 @@ namespace Mobile_Service_Distribution.Forms
             this.nameToolStripMenuItem.Checked = true;
             ascendingChecked = true;
             nameChecked = true;
+            addSTCart.Visible = false;
 
             movieGenreCatalogue.Sort();
             foreach (string genre in movieGenreCatalogue)
@@ -748,7 +749,7 @@ namespace Mobile_Service_Distribution.Forms
         {
             if (genreInfo == null) genreInfo = genreTextBox.Text;
 
-            saveInfoButton.Location = new Point(292, 59);
+            saveInfoButton.Location = new Point(genreTextBox.Location.X + genreTextBox.Width + 10, 59);
 
             currentTextBox = genreTextBox;
             infoPanel.Refresh();
@@ -782,7 +783,7 @@ namespace Mobile_Service_Distribution.Forms
         {
             if (yearInfo == null) yearInfo = yearTextBox.Text;
 
-            saveInfoButton.Location = new Point(254, 76);
+            saveInfoButton.Location = new Point(yearTextBox.Location.X + yearTextBox.Width + 10, 76);
 
             currentTextBox = yearTextBox;
             infoPanel.Refresh();
@@ -816,7 +817,7 @@ namespace Mobile_Service_Distribution.Forms
         {
             if (ratingInfo == null) ratingInfo = ratingTextBox.Text;
 
-            saveInfoButton.Location = new Point(256, 93);
+            saveInfoButton.Location = new Point(ratingTextBox.Location.X + ratingTextBox.Width + 10, 93);
 
             currentTextBox = ratingTextBox;
             infoPanel.Refresh();

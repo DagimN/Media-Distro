@@ -14,7 +14,6 @@ using LiveCharts.WinForms;
 using Mobile_Service_Distribution;
 using static Mobile_Service_Distribution.Forms.StatsForm;
 using LiveCharts;
-using LiveCharts.Wpf;
 
 namespace Media_Distro
 {
@@ -55,6 +54,7 @@ namespace Media_Distro
             private Button pauseButton;
             private Label progressLabel;
             public Label customerLabel;
+            private Label amountOfMedia;
             private SolidGauge progressGauge;
             private ProgressListView list;
             private bool paused = false, stopped = false, started = true;
@@ -84,79 +84,106 @@ namespace Media_Distro
                     itemViewPanel.Size = new Size(187, 205);
                     itemViewPanel.SuspendLayout();
 
-                    closeButton = new Button();
+                    closeButton = new Button
+                    {
+                        Location = new Point(160, 0),
+                        Size = new Size(27, 23),
+                        FlatStyle = FlatStyle.Flat,
+                        BackColor = Color.Transparent,
+                        Image = Media_Distro.Properties.Resources.Close_2_Icon,
+                        ImageAlign = ContentAlignment.MiddleCenter
+                    };
                     itemViewPanel.Controls.Add(closeButton);
-                    closeButton.Location = new Point(160, 0);
-                    closeButton.Size = new Size(27, 23);
-                    closeButton.FlatStyle = FlatStyle.Flat;
                     closeButton.FlatAppearance.BorderSize = 0;
-                    closeButton.BackColor = Color.FromArgb(235, 235, 235);
                     closeButton.FlatAppearance.MouseOverBackColor = Color.DodgerBlue;
-                    closeButton.Image = Media_Distro.Properties.Resources.Close_2_Icon;
-                    closeButton.ImageAlign = ContentAlignment.MiddleCenter;
                     closeButton.Click += new EventHandler(closeButton_Click);
 
-                    startButton = new Button();
+                    startButton = new Button
+                    {
+                        Location = new Point(45, 170),
+                        Size = new Size(27, 23),
+                        FlatStyle = FlatStyle.Flat,
+                        BackColor = Color.Transparent,
+                        Image = Media_Distro.Properties.Resources.Play_Icon,
+                        ImageAlign = ContentAlignment.MiddleCenter,
+                        Enabled = false
+                    };
                     itemViewPanel.Controls.Add(startButton);
-                    startButton.Location = new Point(45, 170);
-                    startButton.Size = new Size(27, 23);
-                    startButton.FlatStyle = FlatStyle.Flat;
                     startButton.FlatAppearance.BorderSize = 0;
-                    startButton.BackColor = Color.FromArgb(235, 235, 235);
-                    startButton.Image = Media_Distro.Properties.Resources.Play_Icon;
-                    startButton.ImageAlign = ContentAlignment.MiddleCenter;
                     startButton.Click += new EventHandler(startButton_Click);
-                    startButton.Enabled = false;
 
-                    stopButton = new Button();
+                    stopButton = new Button 
+                    {
+                        Location = new Point(111, 170),
+                        Size = new Size(27, 23),
+                        FlatStyle = FlatStyle.Flat,
+                        BackColor = Color.Transparent,
+                        Image = Media_Distro.Properties.Resources.Stop_Icon,
+                        ImageAlign = ContentAlignment.MiddleCenter,
+                        Padding = new Padding(0, 0, 2, 0)
+                    };
                     itemViewPanel.Controls.Add(stopButton);
-                    stopButton.Location = new Point(111, 170);
-                    stopButton.Size = new Size(27, 23);
-                    stopButton.FlatStyle = FlatStyle.Flat;
                     stopButton.FlatAppearance.BorderSize = 0;
-                    stopButton.BackColor = Color.FromArgb(235, 235, 235);
-                    stopButton.Image = Media_Distro.Properties.Resources.Stop_Icon;
-                    stopButton.ImageAlign = ContentAlignment.MiddleCenter;
-                    stopButton.Padding = new Padding(0, 0, 2, 0);
                     stopButton.Click += new EventHandler(stopButton_Click);
 
-                    pauseButton = new Button();
-                    itemViewPanel.Controls.Add(pauseButton);
-                    pauseButton.Location = new Point(78, 170);
-                    pauseButton.Size = new Size(27, 23);
-                    pauseButton.FlatStyle = FlatStyle.Flat;
+                    pauseButton = new Button
+                    {
+                        Location = new Point(78, 170),
+                        Size = new Size(27, 23),
+                        FlatStyle = FlatStyle.Flat,
+                        BackColor = Color.Transparent,
+                        Image = Media_Distro.Properties.Resources.Pause_Icon,
+                        ImageAlign = ContentAlignment.MiddleCenter
+                    };
                     pauseButton.FlatAppearance.BorderSize = 0;
-                    pauseButton.BackColor = Color.FromArgb(235, 235, 235);
-                    pauseButton.Image = Media_Distro.Properties.Resources.Pause_Icon;
-                    pauseButton.ImageAlign = ContentAlignment.MiddleCenter;
                     pauseButton.Click += new EventHandler(pauseButton_Click);
+                    itemViewPanel.Controls.Add(pauseButton);
 
-                    progressGauge = new SolidGauge();
-                    progressGauge.Location = new Point(45, 14);
-                    progressGauge.Size = new Size(99, 99);
-                    progressGauge.TabIndex = 0;
-                    progressGauge.BackColor = Color.Transparent;
-                    progressGauge.Uses360Mode = true;
-                    progressGauge.To = 100;
-                    progressGauge.InnerRadius = 45;
+                    amountOfMedia = new Label
+                    {
+                        Text = "0/" + cart.cartList.Count,
+                        Location = new Point(83, 35),
+                        Font = new Font("Microsoft JhengHei", 8.25f),
+                        ForeColor = Color.Black,
+                        AutoSize = true
+                    };
+                    amountOfMedia.BringToFront();
+                    itemViewPanel.Controls.Add(amountOfMedia);
+
+                    progressGauge = new SolidGauge
+                    {
+                        Location = new Point(45, 20),
+                        Size = new Size(99, 99),
+                        TabIndex = 0,
+                        BackColor = Color.Transparent,
+                        Uses360Mode = true,
+                        To = 100,
+                        InnerRadius = 45
+                    };
                     progressGauge.SendToBack();
                     itemViewPanel.Controls.Add(progressGauge);
 
-                    progressLabel = new Label();
+                    progressLabel = new Label
+                    {
+                        Location = new Point(5, 120),
+                        Text = "Copying to " + destination,
+                        Font = new Font("Microsoft JhengHei", 7.5f),
+                        Size = new Size(157, 50),
+                        ForeColor = Color.DarkGray
+                    };
                     itemViewPanel.Controls.Add(progressLabel);
-                    progressLabel.Location = new Point(5, 120);
-                    progressLabel.Text = "Copying to " + volumeLabel + " " + destination;
-                    progressLabel.Font = new Font("Microsoft JhengHei", 7.5F);
-                    progressLabel.Size = new Size(157, 50);
-                    progressLabel.ForeColor = Color.DarkGray;
                     progressLabel.SendToBack();
 
-                    customerLabel = new Label();
+                    customerLabel = new Label
+                    {
+                        Location = new Point(3, 3),
+                        Text = customer + " - " + volumeLabel,
+                        Font = new Font("Microsoft JhengHei", 7, FontStyle.Bold),
+                        ForeColor = Color.SlateGray,
+                        AutoSize = true
+                    };
                     itemViewPanel.Controls.Add(customerLabel);
-                    customerLabel.Location = new Point(3, 3);
-                    customerLabel.Text = customer;
-                    customerLabel.Font = new Font("Microsoft JhengHei", 7, FontStyle.Bold);
-                    customerLabel.ForeColor = Color.SlateGray;
+                    customerLabel.SendToBack();
 
                     this.Tag = cart;
                     itemViewPanel.ResumeLayout(false);
@@ -166,8 +193,6 @@ namespace Media_Distro
                     Task copyTask = new Task(() => StartCopy(cart, destination));
                     copyTask.Start();
                 }
-                
-
             }
 
             public void Copy(FileStream source, string dest)
@@ -230,6 +255,7 @@ namespace Media_Distro
             {
                 LibraryManager[] medias = cart.ShowList();
                 totalSSize = cart.cartSize;
+                int iter = 0;
 
                 if(onGoing == 0)
                 {
@@ -390,6 +416,8 @@ namespace Media_Distro
                             }
                         }   
                     }
+
+                    this.amountOfMedia.Invoke((MethodInvoker)delegate { amountOfMedia.Text = ++iter + "/" + cart.cartList.Count; }) ;
                 }
 
                 this.progressLabel.Invoke((MethodInvoker)delegate { progressLabel.Text = "Finished"; });
@@ -408,9 +436,8 @@ namespace Media_Distro
                     notifyComp.transferCompNotifyIcon.Visible = true;
                     notifyComp.transferCompNotifyIcon.BalloonTipText = this.customerLabel.Text + "'s cart transfer completed successfully. ";
                     notifyComp.transferCompNotifyIcon.ShowBalloonTip(5);
+                    stopped = true;
                 }
-
-
 
                 lineChart.Invoke((MethodInvoker)delegate
                 {
@@ -507,23 +534,46 @@ namespace Media_Distro
 
             private void closeButton_Click(object sender, EventArgs e)
             {
-                foreach(ProgressListViewItem item in this.list.Items)
+                if (stopped)
                 {
-                    if(this.itemViewPanel.Location.X < item.itemViewPanel.Location.X)
+                    foreach (ProgressListViewItem item in this.list.Items)
                     {
-                        int x = item.itemViewPanel.Location.X - 187;
-                        item.itemViewPanel.Location = new Point(x, item.Location.Y);
-                    }
-                    
-                }
-                this.list.Controls.Remove(this.itemViewPanel);
-                this.list.Items.Remove(this);
-                this.list.Focus();
+                        if (this.itemViewPanel.Location.X < item.itemViewPanel.Location.X)
+                        {
+                            int x = item.itemViewPanel.Location.X - 187;
+                            item.itemViewPanel.Location = new Point(x, item.Location.Y);
+                        }
 
-                pieChart.taskCompleted.Values = new ChartValues<int> { --completed };
-                completedTasks.completedTasks = completed;
-                completedTasks.sharesubMenu.Refresh();
-                if (completed == 0) pieChart.tempPieChart.Visible = true;
+                    }
+                    this.list.Controls.Remove(this.itemViewPanel);
+                    this.list.Items.Remove(this);
+                    this.list.Focus();
+
+                    pieChart.taskCompleted.Values = new ChartValues<int> { --completed };
+                    completedTasks.completedTasks = completed;
+                    completedTasks.sharesubMenu.Refresh();
+                    if (completed == 0) pieChart.tempPieChart.Visible = true;
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show("There are media files currently being transferred. Do you want to stop this task?",
+                        "Transfer in progress", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if(result == DialogResult.Yes)
+                    {
+                        this.paused = false;
+                        this.stopped = true;
+                        this.started = false;
+                        if (!paused) this.progressLabel.Text = "Stopping...";
+                        else this.progressLabel.Text = "Stopped";
+                        this.progressGauge.FromColor = System.Windows.Media.Color.FromRgb(255, 0, 0);
+                        this.progressGauge.ToColor = System.Windows.Media.Color.FromRgb(255, 0, 0);
+                        this.stopButton.Enabled = false;
+                        this.pauseButton.Enabled = false;
+                        this.startButton.Enabled = false;
+                    }
+                }
+                    
             }
 
         }

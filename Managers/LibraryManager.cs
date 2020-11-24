@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WMPLib;
 
 
 namespace Mobile_Service_Distribution
@@ -24,7 +25,8 @@ namespace Mobile_Service_Distribution
         public static List<string> movieGenreCatalogue = new List<string>();
         public static List<string> musicGenreCatalogue = new List<string>();
         public static List<string> seriesGenreCatalogue = new List<string>();
-        
+
+        private static WindowsMediaPlayer mediaFile = new WindowsMediaPlayer(); 
         public string Title { get; set; }
         public string Name { get; set; }
         public string Genre { get; set; }
@@ -268,7 +270,7 @@ namespace Mobile_Service_Distribution
                 {
                     this.Name = info[0].Substring(6);
                     this.Title = info[1].Substring(7);
-                    this.Duration = info[2].Substring(10);
+                    this.Duration = new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("HH:mm:ss");
                     this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
                     this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
                     this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0;
@@ -300,7 +302,7 @@ namespace Mobile_Service_Distribution
 
                         this.Name = info[0].Substring(6);
                         this.Title = info[1].Substring(7);
-                        this.Duration = info[2].Substring(10);
+                        this.Duration = (info[2].Substring(10).ElementAt(1) == '0') ? new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("mm:ss") : new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("HH:mm:ss"); ; new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("mm:ss");
                         this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
                         this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
                         this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0;
@@ -333,7 +335,7 @@ namespace Mobile_Service_Distribution
                     {
                         this.Name = info[0].Substring(6);
                         this.Title = info[1].Substring(7);
-                        this.Duration = info[2].Substring(10);
+                        this.Duration = (info[2].Substring(10).ElementAt(1) == '0') ? new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("mm:ss") : new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("HH:mm:ss");;
                         this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
                         this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
                         this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0;
@@ -503,7 +505,7 @@ namespace Mobile_Service_Distribution
             writer.Dispose();
         }
 
-        public static void RetrieveMediaDirectories(string dir, ArrayList list, mediaDistroFrame form = null, byte i = 0)
+        public static void RetrieveMediaDirectories(string dir, ArrayList list, mediaDistroFrame form = null)
         {
             if (GetDirectories(dir) != null)
             {
@@ -526,29 +528,26 @@ namespace Mobile_Service_Distribution
 
                 else if (form != null && list == form.musicDir)
                 {
-                    if(i != 0)
+                    string[] albums = GetFiles(dir);
+                    ArrayList album;
+
+                    if (albums.Length > 0)
                     {
-                        string[] albums = GetFiles(dir);
-                        ArrayList album;
+                        album = new ArrayList();
+                        album.Add(dir);
 
-                        if (albums.Length > 0)
-                        {
-                            album = new ArrayList();
-                            album.Add(dir);
+                        foreach (string file in albums)
+                            if (GetExtension(file) == ".mp3" || GetExtension(file) == ".m4a" || GetExtension(file) == ".webm" ||
+                             GetExtension(file) == ".wv" || GetExtension(file) == ".wma" || GetExtension(file) == ".wav" ||
+                             GetExtension(file) == ".m4b" || GetExtension(file) == ".m4p" || GetExtension(file) == ".aac")
+                                album.Add(file);
+                        list.Add(album);
 
-                            foreach (string file in albums)
-                                if (GetExtension(file) == ".mp3" || GetExtension(file) == ".m4a" || GetExtension(file) == ".webm" ||
-                                 GetExtension(file) == ".wv" || GetExtension(file) == ".wma" || GetExtension(file) == ".wav" ||
-                                 GetExtension(file) == ".m4b" || GetExtension(file) == ".m4p" || GetExtension(file) == ".aac")
-                                    album.Add(file);
-                            list.Add(album);
-                        }
+                        if (album.Count < 2)
+                            list.Remove(album);
                     }
-
-                    i = 1;
-
-                    foreach (string subDir in GetDirectories(dir)) RetrieveMediaDirectories(subDir, list, form, i);
-
+                   
+                    foreach (string subDir in GetDirectories(dir)) RetrieveMediaDirectories(subDir, list, form);
                 }
                 
                 else
@@ -570,37 +569,23 @@ namespace Mobile_Service_Distribution
             string directory = Combine(musicFolder, GetFileName((string)dir[0]));
             FileInfo file;
             StreamWriter writer;
-
+            TimeSpan albumDuration = new TimeSpan();
+           
             CreateDirectory(directory);
-            file = new FileInfo(Combine(directory, "(.00)" + GetFileName((string)dir[0])) + ".txt");
-
-            if (!file.Exists)
-            {
-                writer = File.CreateText(file.FullName);
-                writer.WriteLine("Name: " + GetFileName((string)dir[0]));
-                writer.WriteLine("Title: " + GetFileName((string)dir[0]));
-                writer.WriteLine("Duration: ");
-                writer.WriteLine("Genre: ");
-                writer.WriteLine("Year: ");
-                writer.WriteLine("Rating: ");
-                writer.WriteLine("Directory: " + (string)dir[0]);
-                writer.WriteLine("Cover Art Directory: ");
-                writer.Close();
-                writer.Dispose();
-            }
-
+            
             for (int i = 1; i < dir.Count; i++)
             {
                 string fileName = GetFileName((string)dir[i]);
                 string path = Combine(directory, fileName + ".txt");
                 file = new FileInfo(path);
+                TimeSpan videoInfo = TimeSpan.FromSeconds(mediaFile.newMedia((string)dir[i]).duration);
 
                 if (!file.Exists)
                 {
                     writer = File.CreateText(path);
                     writer.WriteLine("Name: " + fileName);
                     writer.WriteLine("Title: " + fileName);
-                    writer.WriteLine("Duration: ");
+                    writer.WriteLine("Duration: " + videoInfo);
                     writer.WriteLine("Genre: ");
                     writer.WriteLine("Year: ");
                     writer.WriteLine("Rating: ");
@@ -609,6 +594,25 @@ namespace Mobile_Service_Distribution
                     writer.Close();
                     writer.Dispose();
                 }
+
+                albumDuration += videoInfo;
+            }
+
+            file = new FileInfo(Combine(directory, "(.00)" + GetFileName((string)dir[0])) + ".txt");
+
+            if (!file.Exists)
+            {
+                writer = File.CreateText(file.FullName);
+                writer.WriteLine("Name: " + GetFileName((string)dir[0]));
+                writer.WriteLine("Title: " + GetFileName((string)dir[0]));
+                writer.WriteLine("Duration: " + albumDuration);
+                writer.WriteLine("Genre: ");
+                writer.WriteLine("Year: ");
+                writer.WriteLine("Rating: ");
+                writer.WriteLine("Directory: " + (string)dir[0]);
+                writer.WriteLine("Cover Art Directory: ");
+                writer.Close();
+                writer.Dispose();
             }
         }
 
@@ -617,7 +621,7 @@ namespace Mobile_Service_Distribution
             string directory;
             FileInfo file, seasonFile, episodeFile;
             StreamWriter writer;
-
+            
             if (type == MediaType.Movie)
             {
                 directory = Combine(movieFolder, fileName + ".txt");
@@ -625,10 +629,12 @@ namespace Mobile_Service_Distribution
 
                 if (!file.Exists)
                 {
+                    TimeSpan videoInfo = TimeSpan.FromSeconds(mediaFile.newMedia(dir).duration);
+
                     writer = File.CreateText(directory);
                     writer.WriteLine("Name: " + fileName);
                     writer.WriteLine("Title: " + fileName);
-                    writer.WriteLine("Duration: ");
+                    writer.WriteLine("Duration: " + videoInfo);
                     writer.WriteLine("Genre: ");
                     writer.WriteLine("Year: ");
                     writer.WriteLine("Rating: ");
@@ -640,6 +646,7 @@ namespace Mobile_Service_Distribution
             }
             else if (type == MediaType.Series)
             {
+                TimeSpan seriesDuration = new TimeSpan();
                 seasonFiles = new ArrayList();
                 directory = Combine(seriesFolder, fileName);
                 CreateDirectory(directory);
@@ -651,7 +658,32 @@ namespace Mobile_Service_Distribution
                     if(seasons.Count > 1)
                     {
                         string fileString = GetFileName((string)seasons[0]);
+                        TimeSpan seasonDuration = new TimeSpan();
                         CreateDirectory(Combine(directory, fileString));
+
+                        for (int i = 1; i < seasons.Count; i++)
+                        {
+                            string episodeName = GetFileNameWithoutExtension((string)seasons[i]);
+                            episodeFile = new FileInfo(Combine(directory, GetFileName((string)seasons[0]), episodeName + ".txt"));
+
+                            if (!episodeFile.Exists)
+                            {
+                                TimeSpan videoInfo = TimeSpan.FromSeconds(mediaFile.newMedia((string)seasons[i]).duration);
+
+                                writer = File.CreateText(episodeFile.FullName);
+                                writer.WriteLine("Name: " + episodeName);
+                                writer.WriteLine("Title: " + episodeName);
+                                writer.WriteLine("Duration: " + videoInfo);
+                                writer.WriteLine("Year: ");
+                                writer.WriteLine("Genre: ");
+                                writer.WriteLine("Rating: ");
+                                writer.WriteLine("Directory: " + seasons[i]);
+                                writer.Close();
+                                writer.Dispose();
+
+                                seasonDuration += videoInfo;
+                            }
+                        }
 
                         seasonFile = new FileInfo(Combine(directory, fileString, "(.00)" + fileString + ".txt"));
 
@@ -660,7 +692,7 @@ namespace Mobile_Service_Distribution
                             writer = File.CreateText(seasonFile.FullName);
                             writer.WriteLine("Folder Name: " + fileString);
                             writer.WriteLine("Title: " + fileString);
-                            writer.WriteLine("Duration: ");
+                            writer.WriteLine("Duration: " + seasonDuration);
                             writer.WriteLine("Year: ");
                             writer.WriteLine("Genre: ");
                             writer.WriteLine("Rating: ");
@@ -671,28 +703,10 @@ namespace Mobile_Service_Distribution
                             writer.Dispose();
                         }
 
-                        for (int i = 1; i < seasons.Count; i++)
-                        {
-                            string episodeName = GetFileNameWithoutExtension((string)seasons[i]);
-                            episodeFile = new FileInfo(Combine(directory, GetFileName((string)seasons[0]), episodeName + ".txt"));
-
-                            if (!episodeFile.Exists)
-                            {
-                                writer = File.CreateText(episodeFile.FullName);
-                                writer.WriteLine("Name: " + episodeName);
-                                writer.WriteLine("Title: " + episodeName);
-                                writer.WriteLine("Duration: ");
-                                writer.WriteLine("Year: ");
-                                writer.WriteLine("Genre: ");
-                                writer.WriteLine("Rating: ");
-                                writer.WriteLine("Directory: " + seasons[i]);
-                                writer.Close();
-                                writer.Dispose();
-                            }
-                        }
+                        seriesDuration += seasonDuration;
                     }    
                 }
-                
+
                 seasonFile = new FileInfo(Combine(directory, fileName + ".txt"));
 
                 if (!seasonFile.Exists)
@@ -700,7 +714,7 @@ namespace Mobile_Service_Distribution
                     writer = File.CreateText(seasonFile.FullName);
                     writer.WriteLine("Folder Name: " + fileName);
                     writer.WriteLine("Title: " + fileName);
-                    writer.WriteLine("Duration: ");
+                    writer.WriteLine("Duration: " + seriesDuration);
                     writer.WriteLine("Year: ");
                     writer.WriteLine("Genre: ");
                     writer.WriteLine("Rating: ");
@@ -709,7 +723,28 @@ namespace Mobile_Service_Distribution
                     writer.Close();
                     writer.Dispose();
                 }
+            }
+            else if (type == MediaType.Music)
+            {
+                directory = Combine(musicFolder, fileName + ".txt");
+                file = new FileInfo(directory);
 
+                if (!file.Exists)
+                {
+                    TimeSpan videoInfo = TimeSpan.FromSeconds(mediaFile.newMedia(dir).duration);
+
+                    writer = File.CreateText(directory);
+                    writer.WriteLine("Name: " + fileName);
+                    writer.WriteLine("Title: " + fileName);
+                    writer.WriteLine("Duration: " + videoInfo);
+                    writer.WriteLine("Genre: ");
+                    writer.WriteLine("Year: ");
+                    writer.WriteLine("Rating: ");
+                    writer.WriteLine("Directory: " + dir);
+                    writer.WriteLine("Cover Art Directory: ");
+                    writer.Close();
+                    writer.Dispose();
+                }
             }
         }
 

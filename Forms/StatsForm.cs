@@ -1,20 +1,15 @@
 ﻿using System;
 using System.IO;
 using static System.IO.Path;
-using static System.IO.Directory;
 using static System.Environment;
-using Mobile_Service_Distribution.Managers;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using static Mobile_Service_Distribution.LibraryManager;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Configurations;
 using LiveCharts.Wpf;
+
 
 namespace Mobile_Service_Distribution.Forms
 {
@@ -25,6 +20,8 @@ namespace Mobile_Service_Distribution.Forms
         public int moviesSent = 0, musicSent = 0, seriesSent = 0, cartsSent = 0;
         private int numYears = DateTime.Now.Year;
         private Axis xAxis;
+        private double currentDTMinValue, currentDTMaxValue;
+        private long minValue, maxValue;
         public class DateModel
         {
             public System.DateTime DateTime { get; set; }
@@ -48,13 +45,13 @@ namespace Mobile_Service_Distribution.Forms
 
             priceSeries = new LineSeries
             {
-                ScalesYAt = 0,
+                ScalesYAt = 1,
                 Values = new ChartValues<DateModel>(),
                 Title = "Revenue"
             };
             cartSeries = new ColumnSeries
             {
-                ScalesYAt = 1,
+                ScalesYAt = 0,
                 Values = new ChartValues<DateModel>(),
                 Title = "Cart Size",
                 MaxColumnWidth = 8
@@ -67,25 +64,31 @@ namespace Mobile_Service_Distribution.Forms
                 MaxValue = DateTime.Now.AddDays(3).Ticks / TimeSpan.TicksPerDay
             };
 
+            currentDTMinValue = xAxis.MinValue;
+            currentDTMaxValue = xAxis.MaxValue;
+            minValue = DateTime.Now.Subtract(TimeSpan.FromDays(4)).Ticks;
+            maxValue = DateTime.Now.AddDays(3).Ticks;
+
             summaryChart.Series = new SeriesCollection(dayConfig);
             summaryChart.LegendLocation = LegendLocation.Bottom;
-
-  
+            summaryChart.Pan = PanningOptions.X;
 
             summaryChart.AxisX.Add(xAxis);
-            summaryChart.AxisY.Add(new Axis
-            {
-                Position = AxisPosition.LeftBottom,
-                Foreground = System.Windows.Media.Brushes.Red,
-                LabelFormatter = value => value + " ETB",
-                MinValue = 0
-            }) ;
             summaryChart.AxisY.Add(new Axis
             {
                 MinValue = 0,
                 Foreground = System.Windows.Media.Brushes.Blue,
                 LabelFormatter = value => value + " GB"
+            });
+            summaryChart.AxisY.Add(new Axis
+            {
+                Position = AxisPosition.LeftBottom,
+                Foreground = System.Windows.Media.Brushes.Red,
+                LabelFormatter = value => value + " ETB",
+                MinValue = 0,
+                Separator = new Separator { StrokeThickness = 0 }
             }) ;
+            
 
             for(int i = 0; i < statsFile.Length - 1; i += 7)
             {
@@ -120,12 +123,10 @@ namespace Mobile_Service_Distribution.Forms
             summaryChart.Series.Add(cartSeries);
             summaryChart.Series.Add(priceSeries);
             
-
-            summaryPieChart.LegendLocation = LegendLocation.Bottom;
-            summaryPieChart.Size = new Size(154, 200);
-            summaryPieChart.Location = new Point(17, 30);
-            summaryChart.Pan = PanningOptions.X;
-
+            summaryPieChart.LegendLocation = LegendLocation.Right;
+            summaryPieChart.Size = new Size(175, 125);
+            summaryPieChart.Location = new Point(17, 50);
+            
             summaryPieChart.Series.Add(new PieSeries
             {
                 Values = new ChartValues<int> { moviesSent },
@@ -142,103 +143,39 @@ namespace Mobile_Service_Distribution.Forms
                 Title = "Series Sent"
             });
 
+            mediaAmountChart.LegendLocation = LegendLocation.Bottom;
+            mediaAmountChart.AxisX.Add(new Axis
+            {
+                Labels = new[] { " " },
+                Separator = new Separator{ StrokeThickness = 0 }
+            });
+
+            mediaAmountChart.Series.Add(new ColumnSeries
+            {
+                Title = "Movies",
+                Values = new ChartValues<int> { movieCatalogue.Count }
+            });
+
+            mediaAmountChart.Series.Add(new ColumnSeries
+            {
+                Title = "Music",
+                Values = new ChartValues<int> { musicCatalogue.Count }
+            });
+
+            mediaAmountChart.Series.Add(new ColumnSeries {
+                Title = "Series",
+                Values = new ChartValues<int> { seriesCatalogue.Count }
+            });
+
             mediaSentLabel.Text = "Total No of Media Sent  " + (moviesSent + musicSent + seriesSent);
             cartSentLabel.Text = "Carts Sent  " + cartsSent;
             panel1.Refresh();
             GC.Collect();
 
-            while(numYears <= DateTime.Now.Year)
-                comboBox2.Items.Add(numYears++);
-        }
+            while (numYears <= DateTime.Now.Year)
+                yearComboBox.Items.Add(numYears++);
 
-        private void comboBox1_TextChanged(object sender, EventArgs e)
-        {
-            DateTime changedMonth;
-
-            if (comboBox1.Text == "January")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 1, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "February")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 2, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "March")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 3, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "April")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 4, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "May")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 5, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "June")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 6, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "July")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 7, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "August")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 8, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "September")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 9, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "October")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 10, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "November")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 11, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
-            else if (comboBox1.Text == "December")
-            {
-                changedMonth = new DateTime(int.Parse(comboBox2.Text), 12, 1);
-
-                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
-            }
+            yearComboBox.Text = DateTime.Now.Year.ToString();
         }
 
         private void cartesianChart1_DataClick(object sender, ChartPoint chartPoint)
@@ -247,32 +184,163 @@ namespace Mobile_Service_Distribution.Forms
             cartMoviesExt.Text = values.MoSent.ToString();
             cartMusicExt.Text = values.MuSent.ToString();
             cartSeriesExt.Text = values.SeSent.ToString();
-            cartDateExt.Text = values.DateTime.ToString();
+            cartDateExt.Text = values.DateTime.ToString("MMM dd H:mm tt");
             cartPaidExt.Text = $"{values.Price} ETB";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void nxtButton_Click(object sender, EventArgs e)
         {
-            xAxis.MinValue -= TimeSpan.FromDays(4).Ticks / TimeSpan.TicksPerDay;
-            xAxis.MaxValue -= TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
+            DateTime zoomMinDate = new DateTime(minValue);
+            DateTime zoomMaxDate = new DateTime(maxValue);
+
+            if (zoomMaxDate.Day - zoomMinDate.Day < 6)
+            {
+                xAxis.MinValue += TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue += TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
+            }
+            else
+            {
+                xAxis.MinValue += TimeSpan.FromDays(4).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue += TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
+            }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void previousButton_Click(object sender, EventArgs e)
         {
-            xAxis.MinValue += TimeSpan.FromDays(4).Ticks / TimeSpan.TicksPerDay;
-            xAxis.MaxValue += TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
+            DateTime zoomMinDate = new DateTime(minValue);
+            DateTime zoomMaxDate = new DateTime(maxValue);
+
+            if (zoomMaxDate.Day - zoomMinDate.Day < 6)
+            {
+                xAxis.MinValue -= TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue -= TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
+            }
+            else
+            {
+                xAxis.MinValue -= TimeSpan.FromDays(4).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue -= TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
+            }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void resetChartButton_Click(object sender, EventArgs e)
         {
-            xAxis.MinValue += TimeSpan.FromDays(2).Ticks / TimeSpan.TicksPerHour;
-            xAxis.MaxValue -= TimeSpan.FromDays(2).Ticks / TimeSpan.TicksPerHour;
+            xAxis.MinValue = currentDTMinValue;
+            xAxis.MaxValue = currentDTMaxValue;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void zoomInButton1_Click(object sender, EventArgs e)
         {
-            xAxis.MinValue -= TimeSpan.FromDays(2).Ticks / TimeSpan.TicksPerDay;
-            xAxis.MaxValue += TimeSpan.FromDays(2).Ticks / TimeSpan.TicksPerDay;
+            DateTime zoomMinDate = new DateTime(minValue);
+            DateTime zoomMaxDate = new DateTime(maxValue);
+
+
+            if (zoomMaxDate.Day - zoomMinDate.Day > 2)
+            {
+                xAxis.MinValue += TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue -= TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
+
+                minValue += TimeSpan.FromDays(1).Ticks;
+                maxValue -= TimeSpan.FromDays(1).Ticks;
+            }
+        }
+
+        private void zoomOutButton1_Click(object sender, EventArgs e)
+        {
+            xAxis.MinValue -= TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
+            xAxis.MaxValue += TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
+
+            minValue -= TimeSpan.FromDays(1).Ticks;
+            maxValue += TimeSpan.FromDays(1).Ticks;
+        }
+
+        private void monthComboBox_TextChanged(object sender, EventArgs e)
+        {
+            DateTime changedMonth;
+
+            if (monthComboBox.Text == "January")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 1, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "February")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 2, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "March")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 3, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "April")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 4, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "May")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 5, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "June")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 6, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "July")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 7, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "August")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 8, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "September")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 9, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "October")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 10, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "November")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 11, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
+            else if (monthComboBox.Text == "December")
+            {
+                changedMonth = new DateTime(int.Parse(yearComboBox.Text), 12, 1);
+
+                xAxis.MinValue = changedMonth.Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue = changedMonth.AddDays(30).Ticks / TimeSpan.TicksPerDay;
+            }
         }
     }
 }

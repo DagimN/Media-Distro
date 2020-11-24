@@ -30,11 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.aboutButton = new System.Windows.Forms.Button();
-            this.helpButton = new System.Windows.Forms.Button();
-            this.generalSettingsButton = new System.Windows.Forms.Button();
-            this.generalSettingsPanel = new System.Windows.Forms.Panel();
+            this.priceSettingLabel = new System.Windows.Forms.Label();
             this.seriesURLCollectionButton = new System.Windows.Forms.Button();
             this.addURLButton = new System.Windows.Forms.Button();
             this.musicURLCollectionButton = new System.Windows.Forms.Button();
@@ -50,120 +46,40 @@
             this.notificationSettingCheckBox = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.aboutPanel = new System.Windows.Forms.Panel();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.helpPanel = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
             this.themeToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.priceSettingLabel = new System.Windows.Forms.Label();
-            this.priceOption = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.generalSettingsPanel.SuspendLayout();
+            this.accountSettingsButton = new Guna.UI2.WinForms.Guna2Button();
+            this.helpButton = new Guna.UI2.WinForms.Guna2Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.priceSetting = new Guna.UI2.WinForms.Guna2NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.blackColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkBlueColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.redColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.defaultColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.selected)).BeginInit();
-            this.aboutPanel.SuspendLayout();
-            this.helpPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.priceOption)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.priceSetting)).BeginInit();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // priceSettingLabel
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.aboutButton);
-            this.splitContainer1.Panel1.Controls.Add(this.helpButton);
-            this.splitContainer1.Panel1.Controls.Add(this.generalSettingsButton);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.generalSettingsPanel);
-            this.splitContainer1.Panel2.Controls.Add(this.aboutPanel);
-            this.splitContainer1.Panel2.Controls.Add(this.helpPanel);
-            this.splitContainer1.Size = new System.Drawing.Size(567, 452);
-            this.splitContainer1.SplitterDistance = 118;
-            this.splitContainer1.SplitterWidth = 1;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // aboutButton
-            // 
-            this.aboutButton.FlatAppearance.BorderSize = 0;
-            this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aboutButton.Location = new System.Drawing.Point(0, 327);
-            this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(117, 124);
-            this.aboutButton.TabIndex = 2;
-            this.aboutButton.Text = "About";
-            this.aboutButton.UseVisualStyleBackColor = true;
-            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
-            // 
-            // helpButton
-            // 
-            this.helpButton.FlatAppearance.BorderSize = 0;
-            this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.helpButton.Location = new System.Drawing.Point(0, 148);
-            this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(117, 181);
-            this.helpButton.TabIndex = 1;
-            this.helpButton.Text = "Help/Tutorial";
-            this.helpButton.UseVisualStyleBackColor = true;
-            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
-            // 
-            // generalSettingsButton
-            // 
-            this.generalSettingsButton.FlatAppearance.BorderSize = 0;
-            this.generalSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.generalSettingsButton.Location = new System.Drawing.Point(0, 0);
-            this.generalSettingsButton.Name = "generalSettingsButton";
-            this.generalSettingsButton.Size = new System.Drawing.Size(117, 150);
-            this.generalSettingsButton.TabIndex = 0;
-            this.generalSettingsButton.Text = "General Settings";
-            this.generalSettingsButton.UseVisualStyleBackColor = true;
-            this.generalSettingsButton.Click += new System.EventHandler(this.generalSettingsButton_Click);
-            // 
-            // generalSettingsPanel
-            // 
-            this.generalSettingsPanel.Controls.Add(this.priceOption);
-            this.generalSettingsPanel.Controls.Add(this.priceSettingLabel);
-            this.generalSettingsPanel.Controls.Add(this.seriesURLCollectionButton);
-            this.generalSettingsPanel.Controls.Add(this.addURLButton);
-            this.generalSettingsPanel.Controls.Add(this.musicURLCollectionButton);
-            this.generalSettingsPanel.Controls.Add(this.blackColor);
-            this.generalSettingsPanel.Controls.Add(this.darkBlueColor);
-            this.generalSettingsPanel.Controls.Add(this.label2);
-            this.generalSettingsPanel.Controls.Add(this.redColor);
-            this.generalSettingsPanel.Controls.Add(this.movieURLCollectionButton);
-            this.generalSettingsPanel.Controls.Add(this.greenColor);
-            this.generalSettingsPanel.Controls.Add(this.urlPathListBox);
-            this.generalSettingsPanel.Controls.Add(this.defaultColor);
-            this.generalSettingsPanel.Controls.Add(this.selected);
-            this.generalSettingsPanel.Controls.Add(this.notificationSettingCheckBox);
-            this.generalSettingsPanel.Controls.Add(this.label3);
-            this.generalSettingsPanel.Controls.Add(this.label1);
-            this.generalSettingsPanel.Location = new System.Drawing.Point(0, 0);
-            this.generalSettingsPanel.Name = "generalSettingsPanel";
-            this.generalSettingsPanel.Size = new System.Drawing.Size(447, 451);
-            this.generalSettingsPanel.TabIndex = 14;
+            this.priceSettingLabel.AutoSize = true;
+            this.priceSettingLabel.Location = new System.Drawing.Point(297, 312);
+            this.priceSettingLabel.Name = "priceSettingLabel";
+            this.priceSettingLabel.Size = new System.Drawing.Size(81, 13);
+            this.priceSettingLabel.TabIndex = 13;
+            this.priceSettingLabel.Text = "Price per Movie";
             // 
             // seriesURLCollectionButton
             // 
-            this.seriesURLCollectionButton.Location = new System.Drawing.Point(13, 281);
+            this.seriesURLCollectionButton.Location = new System.Drawing.Point(30, 295);
             this.seriesURLCollectionButton.Name = "seriesURLCollectionButton";
-            this.seriesURLCollectionButton.Size = new System.Drawing.Size(75, 48);
+            this.seriesURLCollectionButton.Size = new System.Drawing.Size(108, 48);
             this.seriesURLCollectionButton.TabIndex = 5;
             this.seriesURLCollectionButton.Text = "Series";
             this.seriesURLCollectionButton.UseVisualStyleBackColor = true;
@@ -174,7 +90,7 @@
             this.addURLButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.addURLButton.FlatAppearance.BorderSize = 0;
             this.addURLButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addURLButton.Location = new System.Drawing.Point(383, 172);
+            this.addURLButton.Location = new System.Drawing.Point(433, 183);
             this.addURLButton.Name = "addURLButton";
             this.addURLButton.Size = new System.Drawing.Size(36, 23);
             this.addURLButton.TabIndex = 7;
@@ -184,9 +100,9 @@
             // 
             // musicURLCollectionButton
             // 
-            this.musicURLCollectionButton.Location = new System.Drawing.Point(13, 227);
+            this.musicURLCollectionButton.Location = new System.Drawing.Point(30, 251);
             this.musicURLCollectionButton.Name = "musicURLCollectionButton";
-            this.musicURLCollectionButton.Size = new System.Drawing.Size(75, 48);
+            this.musicURLCollectionButton.Size = new System.Drawing.Size(108, 48);
             this.musicURLCollectionButton.TabIndex = 4;
             this.musicURLCollectionButton.Text = "Music";
             this.musicURLCollectionButton.UseVisualStyleBackColor = true;
@@ -195,7 +111,7 @@
             // blackColor
             // 
             this.blackColor.Image = ((System.Drawing.Image)(resources.GetObject("blackColor.Image")));
-            this.blackColor.Location = new System.Drawing.Point(217, 52);
+            this.blackColor.Location = new System.Drawing.Point(267, 90);
             this.blackColor.Name = "blackColor";
             this.blackColor.Size = new System.Drawing.Size(45, 45);
             this.blackColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -207,7 +123,7 @@
             // darkBlueColor
             // 
             this.darkBlueColor.Image = ((System.Drawing.Image)(resources.GetObject("darkBlueColor.Image")));
-            this.darkBlueColor.Location = new System.Drawing.Point(166, 52);
+            this.darkBlueColor.Location = new System.Drawing.Point(216, 90);
             this.darkBlueColor.Name = "darkBlueColor";
             this.darkBlueColor.Size = new System.Drawing.Size(45, 45);
             this.darkBlueColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -221,7 +137,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft JhengHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(10, 112);
+            this.label2.Location = new System.Drawing.Point(50, 156);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(149, 18);
             this.label2.TabIndex = 0;
@@ -230,7 +146,7 @@
             // redColor
             // 
             this.redColor.Image = global::Media_Distro.Properties.Resources.Red;
-            this.redColor.Location = new System.Drawing.Point(115, 52);
+            this.redColor.Location = new System.Drawing.Point(165, 90);
             this.redColor.Name = "redColor";
             this.redColor.Size = new System.Drawing.Size(45, 45);
             this.redColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -241,9 +157,9 @@
             // 
             // movieURLCollectionButton
             // 
-            this.movieURLCollectionButton.Location = new System.Drawing.Point(13, 172);
+            this.movieURLCollectionButton.Location = new System.Drawing.Point(30, 206);
             this.movieURLCollectionButton.Name = "movieURLCollectionButton";
-            this.movieURLCollectionButton.Size = new System.Drawing.Size(75, 48);
+            this.movieURLCollectionButton.Size = new System.Drawing.Size(108, 48);
             this.movieURLCollectionButton.TabIndex = 3;
             this.movieURLCollectionButton.Text = "Movie";
             this.movieURLCollectionButton.UseVisualStyleBackColor = true;
@@ -252,7 +168,7 @@
             // greenColor
             // 
             this.greenColor.Image = global::Media_Distro.Properties.Resources.Green;
-            this.greenColor.Location = new System.Drawing.Point(64, 52);
+            this.greenColor.Location = new System.Drawing.Point(114, 90);
             this.greenColor.Name = "greenColor";
             this.greenColor.Size = new System.Drawing.Size(45, 45);
             this.greenColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -268,7 +184,7 @@
             this.urlPathListBox.Font = new System.Drawing.Font("Microsoft JhengHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.urlPathListBox.FormattingEnabled = true;
             this.urlPathListBox.ItemHeight = 17;
-            this.urlPathListBox.Location = new System.Drawing.Point(94, 195);
+            this.urlPathListBox.Location = new System.Drawing.Point(144, 206);
             this.urlPathListBox.Name = "urlPathListBox";
             this.urlPathListBox.Size = new System.Drawing.Size(330, 89);
             this.urlPathListBox.TabIndex = 6;
@@ -276,7 +192,7 @@
             // defaultColor
             // 
             this.defaultColor.Image = global::Media_Distro.Properties.Resources.Default;
-            this.defaultColor.Location = new System.Drawing.Point(13, 52);
+            this.defaultColor.Location = new System.Drawing.Point(63, 90);
             this.defaultColor.Name = "defaultColor";
             this.defaultColor.Size = new System.Drawing.Size(45, 45);
             this.defaultColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -288,7 +204,7 @@
             // selected
             // 
             this.selected.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.selected.Location = new System.Drawing.Point(13, 51);
+            this.selected.Location = new System.Drawing.Point(63, 89);
             this.selected.Name = "selected";
             this.selected.Size = new System.Drawing.Size(45, 47);
             this.selected.TabIndex = 12;
@@ -299,7 +215,7 @@
             this.notificationSettingCheckBox.AutoSize = true;
             this.notificationSettingCheckBox.Checked = true;
             this.notificationSettingCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.notificationSettingCheckBox.Location = new System.Drawing.Point(13, 364);
+            this.notificationSettingCheckBox.Location = new System.Drawing.Point(30, 359);
             this.notificationSettingCheckBox.Name = "notificationSettingCheckBox";
             this.notificationSettingCheckBox.Size = new System.Drawing.Size(290, 17);
             this.notificationSettingCheckBox.TabIndex = 5;
@@ -311,7 +227,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft JhengHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(21, 5);
+            this.label3.Location = new System.Drawing.Point(50, 45);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(129, 18);
             this.label3.TabIndex = 6;
@@ -320,70 +236,136 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 33);
+            this.label1.Location = new System.Drawing.Point(27, 67);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(232, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Choose your theme preference for the interface:";
+            this.label1.Text = "Choose your theme preference for the interface.";
             // 
-            // aboutPanel
+            // accountSettingsButton
             // 
-            this.aboutPanel.Controls.Add(this.linkLabel2);
-            this.aboutPanel.Location = new System.Drawing.Point(0, 0);
-            this.aboutPanel.Name = "aboutPanel";
-            this.aboutPanel.Size = new System.Drawing.Size(447, 451);
-            this.aboutPanel.TabIndex = 14;
+            this.accountSettingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.accountSettingsButton.AutoRoundedCorners = true;
+            this.accountSettingsButton.BorderRadius = 11;
+            this.accountSettingsButton.BorderThickness = 3;
+            this.accountSettingsButton.CheckedState.Parent = this.accountSettingsButton;
+            this.accountSettingsButton.CustomImages.Parent = this.accountSettingsButton;
+            this.accountSettingsButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
+            this.accountSettingsButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.accountSettingsButton.ForeColor = System.Drawing.Color.Navy;
+            this.accountSettingsButton.HoverState.Parent = this.accountSettingsButton;
+            this.accountSettingsButton.Location = new System.Drawing.Point(324, 10);
+            this.accountSettingsButton.Name = "accountSettingsButton";
+            this.accountSettingsButton.ShadowDecoration.Parent = this.accountSettingsButton;
+            this.accountSettingsButton.Size = new System.Drawing.Size(145, 25);
+            this.accountSettingsButton.TabIndex = 15;
+            this.accountSettingsButton.Text = "Account Settings";
             // 
-            // linkLabel2
+            // helpButton
             // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(227, 94);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(55, 13);
-            this.linkLabel2.TabIndex = 0;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "linkLabel2";
-            // 
-            // helpPanel
-            // 
-            this.helpPanel.Controls.Add(this.label4);
-            this.helpPanel.Location = new System.Drawing.Point(0, 0);
-            this.helpPanel.Name = "helpPanel";
-            this.helpPanel.Size = new System.Drawing.Size(446, 451);
-            this.helpPanel.TabIndex = 0;
+            this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.helpButton.AutoRoundedCorners = true;
+            this.helpButton.BorderRadius = 11;
+            this.helpButton.BorderThickness = 3;
+            this.helpButton.CheckedState.Parent = this.helpButton;
+            this.helpButton.CustomImages.Parent = this.helpButton;
+            this.helpButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
+            this.helpButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.helpButton.ForeColor = System.Drawing.Color.Navy;
+            this.helpButton.HoverState.Parent = this.helpButton;
+            this.helpButton.Location = new System.Drawing.Point(477, 10);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.ShadowDecoration.Parent = this.helpButton;
+            this.helpButton.Size = new System.Drawing.Size(78, 25);
+            this.helpButton.TabIndex = 16;
+            this.helpButton.Text = "Help";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(223, 117);
+            this.label4.Location = new System.Drawing.Point(27, 178);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Sample";
+            this.label4.Size = new System.Drawing.Size(288, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Manage where all your media files are kept and configured. ";
             // 
-            // priceSettingLabel
+            // panel1
             // 
-            this.priceSettingLabel.AutoSize = true;
-            this.priceSettingLabel.Location = new System.Drawing.Point(293, 311);
-            this.priceSettingLabel.Name = "priceSettingLabel";
-            this.priceSettingLabel.Size = new System.Drawing.Size(84, 13);
-            this.priceSettingLabel.TabIndex = 13;
-            this.priceSettingLabel.Text = "Price per Movie:";
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.linkLabel2);
+            this.panel1.Controls.Add(this.linkLabel1);
+            this.panel1.Location = new System.Drawing.Point(-5, 407);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(577, 53);
+            this.panel1.TabIndex = 18;
             // 
-            // priceOption
+            // linkLabel1
             // 
-            this.priceOption.Location = new System.Drawing.Point(383, 309);
-            this.priceOption.Name = "priceOption";
-            this.priceOption.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.priceOption.Size = new System.Drawing.Size(41, 20);
-            this.priceOption.TabIndex = 14;
-            this.priceOption.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.priceOption.Value = new decimal(new int[] {
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(318, 18);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(109, 13);
+            this.linkLabel1.TabIndex = 0;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Terms and Conditions";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(242, 18);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(73, 13);
+            this.linkLabel2.TabIndex = 1;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Privacy Policy";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(433, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(129, 15);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "© Media Distro by Kitly";
+            // 
+            // priceSetting
+            // 
+            this.priceSetting.BackColor = System.Drawing.Color.Transparent;
+            this.priceSetting.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.priceSetting.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.priceSetting.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.priceSetting.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.priceSetting.DisabledState.Parent = this.priceSetting;
+            this.priceSetting.DisabledState.UpDownButtonFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(177)))), ((int)(((byte)(177)))));
+            this.priceSetting.DisabledState.UpDownButtonForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(203)))), ((int)(((byte)(203)))));
+            this.priceSetting.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.priceSetting.FocusedState.Parent = this.priceSetting;
+            this.priceSetting.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.priceSetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.priceSetting.Location = new System.Drawing.Point(387, 305);
+            this.priceSetting.Name = "priceSetting";
+            this.priceSetting.ShadowDecoration.Parent = this.priceSetting;
+            this.priceSetting.Size = new System.Drawing.Size(88, 30);
+            this.priceSetting.TabIndex = 19;
+            this.priceSetting.Value = new decimal(new int[] {
             3,
             0,
             0,
             0});
-            this.priceOption.ValueChanged += new System.EventHandler(this.priceOption_ValueChanged);
+            this.priceSetting.ValueChanged += new System.EventHandler(this.priceSetting_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.White;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.label6.Location = new System.Drawing.Point(417, 313);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(28, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "ETB";
             // 
             // SettingsForm
             // 
@@ -392,36 +374,47 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(215)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(567, 452);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.priceSetting);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.helpButton);
+            this.Controls.Add(this.accountSettingsButton);
+            this.Controls.Add(this.priceSettingLabel);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.seriesURLCollectionButton);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.addURLButton);
+            this.Controls.Add(this.notificationSettingCheckBox);
+            this.Controls.Add(this.musicURLCollectionButton);
+            this.Controls.Add(this.blackColor);
+            this.Controls.Add(this.defaultColor);
+            this.Controls.Add(this.darkBlueColor);
+            this.Controls.Add(this.urlPathListBox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.greenColor);
+            this.Controls.Add(this.redColor);
+            this.Controls.Add(this.movieURLCollectionButton);
+            this.Controls.Add(this.selected);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SettingsForm";
             this.Text = "settingsForm";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.generalSettingsPanel.ResumeLayout(false);
-            this.generalSettingsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.blackColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkBlueColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.redColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.defaultColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.selected)).EndInit();
-            this.aboutPanel.ResumeLayout(false);
-            this.aboutPanel.PerformLayout();
-            this.helpPanel.ResumeLayout(false);
-            this.helpPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.priceOption)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.priceSetting)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button aboutButton;
-        private System.Windows.Forms.Button helpButton;
-        private System.Windows.Forms.Button generalSettingsButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button addURLButton;
         private System.Windows.Forms.ListBox urlPathListBox;
@@ -429,7 +422,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button musicURLCollectionButton;
         private System.Windows.Forms.Button movieURLCollectionButton;
-        public System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.CheckBox notificationSettingCheckBox;
         private System.Windows.Forms.PictureBox defaultColor;
         private System.Windows.Forms.Label label3;
@@ -439,12 +431,15 @@
         private System.Windows.Forms.PictureBox greenColor;
         private System.Windows.Forms.ToolTip themeToolTip;
         private System.Windows.Forms.PictureBox selected;
-        private System.Windows.Forms.Panel generalSettingsPanel;
-        private System.Windows.Forms.Panel aboutPanel;
-        private System.Windows.Forms.Panel helpPanel;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown priceOption;
         private System.Windows.Forms.Label priceSettingLabel;
+        private Guna.UI2.WinForms.Guna2Button accountSettingsButton;
+        private Guna.UI2.WinForms.Guna2Button helpButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private Guna.UI2.WinForms.Guna2NumericUpDown priceSetting;
+        private System.Windows.Forms.Label label6;
     }
 }
