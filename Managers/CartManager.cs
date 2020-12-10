@@ -109,6 +109,7 @@ namespace Mobile_Service_Distribution.Managers
         public void Clear()
         {
             this.cartList.Clear();
+            this.cartSize = 0;
         }
 
         public void Remove(LibraryManager media)
