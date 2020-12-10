@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShareForm));
-            this.deviceLabel = new System.Windows.Forms.Label();
-            this.deviceList = new System.Windows.Forms.ListView();
             this.shareImageList = new System.Windows.Forms.ImageList(this.components);
             this.cartsListView = new System.Windows.Forms.ListView();
             this.cartNameColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -42,15 +40,12 @@
             this.removeCartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cartsButton = new System.Windows.Forms.Button();
             this.progressButton = new System.Windows.Forms.Button();
-            this.devicePanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.attentionLabel = new System.Windows.Forms.Label();
             this.sharePanel = new System.Windows.Forms.Panel();
             this.noCartLabel = new System.Windows.Forms.Label();
             this.detailPanel = new System.Windows.Forms.Panel();
-            this.removeButton = new System.Windows.Forms.Button();
-            this.detailListView = new System.Windows.Forms.ListView();
-            this.coverArtImageList = new System.Windows.Forms.ImageList(this.components);
+            this.emptyCartLabel = new System.Windows.Forms.Label();
             this.priceExtLabel = new System.Windows.Forms.Label();
             this.priceLabel = new System.Windows.Forms.Label();
             this.cartSizeExtLabel = new System.Windows.Forms.Label();
@@ -61,45 +56,26 @@
             this.musicLabel = new System.Windows.Forms.Label();
             this.movieExtLabel = new System.Windows.Forms.Label();
             this.movieLabel = new System.Windows.Forms.Label();
+            this.detailListView = new System.Windows.Forms.ListView();
+            this.coverArtImageList = new System.Windows.Forms.ImageList(this.components);
+            this.transferCompNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.removeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.progressSelected = new System.Windows.Forms.PictureBox();
             this.cartsSelected = new System.Windows.Forms.PictureBox();
+            this.devicePanel = new System.Windows.Forms.Panel();
+            this.deviceList = new System.Windows.Forms.ListView();
+            this.progressLabel = new System.Windows.Forms.Label();
             this.progressListView = new Media_Distro.ProgressListView();
-            this.transferCompNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.deviceLabel = new System.Windows.Forms.Label();
             this.cartsContextMenuStrip.SuspendLayout();
-            this.devicePanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.sharePanel.SuspendLayout();
             this.detailPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.progressSelected)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartsSelected)).BeginInit();
+            this.devicePanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // deviceLabel
-            // 
-            this.deviceLabel.AutoSize = true;
-            this.deviceLabel.BackColor = System.Drawing.Color.Transparent;
-            this.deviceLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deviceLabel.ForeColor = System.Drawing.Color.Black;
-            this.deviceLabel.Location = new System.Drawing.Point(12, 10);
-            this.deviceLabel.Name = "deviceLabel";
-            this.deviceLabel.Size = new System.Drawing.Size(110, 25);
-            this.deviceLabel.TabIndex = 1;
-            this.deviceLabel.Text = "Device List";
-            // 
-            // deviceList
-            // 
-            this.deviceList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.deviceList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
-            this.deviceList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.deviceList.HideSelection = false;
-            this.deviceList.LargeImageList = this.shareImageList;
-            this.deviceList.Location = new System.Drawing.Point(0, 38);
-            this.deviceList.Name = "deviceList";
-            this.deviceList.Size = new System.Drawing.Size(545, 139);
-            this.deviceList.TabIndex = 2;
-            this.deviceList.UseCompatibleStateImageBehavior = false;
             // 
             // shareImageList
             // 
@@ -212,30 +188,22 @@
             this.progressButton.UseVisualStyleBackColor = true;
             this.progressButton.Click += new System.EventHandler(this.progressButton_Click);
             // 
-            // devicePanel
-            // 
-            this.devicePanel.Controls.Add(this.deviceLabel);
-            this.devicePanel.Controls.Add(this.deviceList);
-            this.devicePanel.Location = new System.Drawing.Point(10, 12);
-            this.devicePanel.Name = "devicePanel";
-            this.devicePanel.Size = new System.Drawing.Size(545, 177);
-            this.devicePanel.TabIndex = 9;
-            // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(32)))), ((int)(((byte)(86)))));
             this.panel1.Controls.Add(this.attentionLabel);
-            this.panel1.Location = new System.Drawing.Point(0, 144);
+            this.panel1.Location = new System.Drawing.Point(232, 176);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(313, 70);
+            this.panel1.Size = new System.Drawing.Size(313, 69);
             this.panel1.TabIndex = 11;
             // 
             // attentionLabel
             // 
             this.attentionLabel.AutoSize = true;
             this.attentionLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.attentionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
-            this.attentionLabel.Location = new System.Drawing.Point(29, 24);
+            this.attentionLabel.ForeColor = System.Drawing.Color.LightGray;
+            this.attentionLabel.Location = new System.Drawing.Point(37, 25);
             this.attentionLabel.Name = "attentionLabel";
             this.attentionLabel.Size = new System.Drawing.Size(251, 25);
             this.attentionLabel.TabIndex = 0;
@@ -243,7 +211,9 @@
             // 
             // sharePanel
             // 
+            this.sharePanel.Controls.Add(this.progressLabel);
             this.sharePanel.Controls.Add(this.noCartLabel);
+            this.sharePanel.Controls.Add(this.panel1);
             this.sharePanel.Controls.Add(this.detailPanel);
             this.sharePanel.Controls.Add(this.cartsListView);
             this.sharePanel.Controls.Add(this.progressButton);
@@ -274,10 +244,9 @@
             // 
             this.detailPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.detailPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(32)))), ((int)(((byte)(86)))));
-            this.detailPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("detailPanel.BackgroundImage")));
-            this.detailPanel.Controls.Add(this.panel1);
+            this.detailPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.detailPanel.Controls.Add(this.emptyCartLabel);
             this.detailPanel.Controls.Add(this.removeButton);
-            this.detailPanel.Controls.Add(this.detailListView);
             this.detailPanel.Controls.Add(this.priceExtLabel);
             this.detailPanel.Controls.Add(this.priceLabel);
             this.detailPanel.Controls.Add(this.cartSizeExtLabel);
@@ -289,48 +258,24 @@
             this.detailPanel.Controls.Add(this.movieExtLabel);
             this.detailPanel.Controls.Add(this.movieLabel);
             this.detailPanel.Controls.Add(this.label1);
+            this.detailPanel.Controls.Add(this.detailListView);
             this.detailPanel.Location = new System.Drawing.Point(232, 31);
             this.detailPanel.Name = "detailPanel";
             this.detailPanel.Size = new System.Drawing.Size(313, 214);
             this.detailPanel.TabIndex = 9;
             // 
-            // removeButton
+            // emptyCartLabel
             // 
-            this.removeButton.Enabled = false;
-            this.removeButton.FlatAppearance.BorderSize = 0;
-            this.removeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeButton.Font = new System.Drawing.Font("Microsoft JhengHei", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.removeButton.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.removeButton.Image = ((System.Drawing.Image)(resources.GetObject("removeButton.Image")));
-            this.removeButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.removeButton.Location = new System.Drawing.Point(255, 150);
-            this.removeButton.Name = "removeButton";
-            this.removeButton.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.removeButton.Size = new System.Drawing.Size(55, 57);
-            this.removeButton.TabIndex = 14;
-            this.removeButton.Text = "Remove";
-            this.removeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.removeButton.UseVisualStyleBackColor = true;
-            this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
-            // 
-            // detailListView
-            // 
-            this.detailListView.BackColor = System.Drawing.Color.White;
-            this.detailListView.HideSelection = false;
-            this.detailListView.LargeImageList = this.coverArtImageList;
-            this.detailListView.Location = new System.Drawing.Point(0, 27);
-            this.detailListView.Name = "detailListView";
-            this.detailListView.ShowItemToolTips = true;
-            this.detailListView.Size = new System.Drawing.Size(313, 117);
-            this.detailListView.TabIndex = 13;
-            this.detailListView.UseCompatibleStateImageBehavior = false;
-            this.detailListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.detailListView_ItemSelectionChanged);
-            // 
-            // coverArtImageList
-            // 
-            this.coverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("coverArtImageList.ImageStream")));
-            this.coverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.coverArtImageList.Images.SetKeyName(0, "20200624_141917.jpg");
+            this.emptyCartLabel.AutoSize = true;
+            this.emptyCartLabel.BackColor = System.Drawing.Color.Transparent;
+            this.emptyCartLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.emptyCartLabel.ForeColor = System.Drawing.Color.Gray;
+            this.emptyCartLabel.Location = new System.Drawing.Point(105, 34);
+            this.emptyCartLabel.Name = "emptyCartLabel";
+            this.emptyCartLabel.Size = new System.Drawing.Size(95, 15);
+            this.emptyCartLabel.TabIndex = 16;
+            this.emptyCartLabel.Text = "The cart is empty";
+            this.emptyCartLabel.Visible = false;
             // 
             // priceExtLabel
             // 
@@ -382,9 +327,8 @@
             this.seriesExtLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
             this.seriesExtLabel.Location = new System.Drawing.Point(262, 4);
             this.seriesExtLabel.Name = "seriesExtLabel";
-            this.seriesExtLabel.Size = new System.Drawing.Size(18, 16);
+            this.seriesExtLabel.Size = new System.Drawing.Size(0, 16);
             this.seriesExtLabel.TabIndex = 6;
-            this.seriesExtLabel.Text = "--";
             // 
             // seriesLabel
             // 
@@ -405,9 +349,8 @@
             this.musicExtLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
             this.musicExtLabel.Location = new System.Drawing.Point(160, 4);
             this.musicExtLabel.Name = "musicExtLabel";
-            this.musicExtLabel.Size = new System.Drawing.Size(18, 16);
+            this.musicExtLabel.Size = new System.Drawing.Size(0, 16);
             this.musicExtLabel.TabIndex = 4;
-            this.musicExtLabel.Text = "--";
             // 
             // musicLabel
             // 
@@ -428,9 +371,8 @@
             this.movieExtLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
             this.movieExtLabel.Location = new System.Drawing.Point(51, 4);
             this.movieExtLabel.Name = "movieExtLabel";
-            this.movieExtLabel.Size = new System.Drawing.Size(18, 16);
+            this.movieExtLabel.Size = new System.Drawing.Size(0, 16);
             this.movieExtLabel.TabIndex = 2;
-            this.movieExtLabel.Text = "--";
             // 
             // movieLabel
             // 
@@ -443,16 +385,61 @@
             this.movieLabel.TabIndex = 1;
             this.movieLabel.Text = "Movie";
             // 
+            // detailListView
+            // 
+            this.detailListView.BackColor = System.Drawing.Color.White;
+            this.detailListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.detailListView.HideSelection = false;
+            this.detailListView.LargeImageList = this.coverArtImageList;
+            this.detailListView.Location = new System.Drawing.Point(2, 22);
+            this.detailListView.Name = "detailListView";
+            this.detailListView.ShowItemToolTips = true;
+            this.detailListView.Size = new System.Drawing.Size(309, 122);
+            this.detailListView.TabIndex = 13;
+            this.detailListView.UseCompatibleStateImageBehavior = false;
+            this.detailListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.detailListView_ItemSelectionChanged);
+            // 
+            // coverArtImageList
+            // 
+            this.coverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("coverArtImageList.ImageStream")));
+            this.coverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.coverArtImageList.Images.SetKeyName(0, "20200624_141917.jpg");
+            // 
+            // transferCompNotifyIcon
+            // 
+            this.transferCompNotifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.transferCompNotifyIcon.BalloonTipTitle = "Transfer Completed";
+            this.transferCompNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("transferCompNotifyIcon.Icon")));
+            // 
+            // removeButton
+            // 
+            this.removeButton.Enabled = false;
+            this.removeButton.FlatAppearance.BorderSize = 0;
+            this.removeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.removeButton.Font = new System.Drawing.Font("Microsoft JhengHei", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removeButton.ForeColor = System.Drawing.Color.Gray;
+            this.removeButton.Image = ((System.Drawing.Image)(resources.GetObject("removeButton.Image")));
+            this.removeButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.removeButton.Location = new System.Drawing.Point(255, 150);
+            this.removeButton.Name = "removeButton";
+            this.removeButton.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.removeButton.Size = new System.Drawing.Size(55, 57);
+            this.removeButton.TabIndex = 14;
+            this.removeButton.Text = "Remove";
+            this.removeButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.removeButton.UseVisualStyleBackColor = true;
+            this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
+            // 
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
             this.label1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.label1.Location = new System.Drawing.Point(0, 144);
+            this.label1.Location = new System.Drawing.Point(0, 149);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(287, 19);
+            this.label1.Size = new System.Drawing.Size(288, 19);
             this.label1.TabIndex = 15;
             this.label1.Text = "To remove unwanted item, select it and click the remove button.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -476,6 +463,42 @@
             this.cartsSelected.TabIndex = 6;
             this.cartsSelected.TabStop = false;
             // 
+            // devicePanel
+            // 
+            this.devicePanel.BackgroundImage = global::Media_Distro.Properties.Resources.deviceList_BackGround_2;
+            this.devicePanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.devicePanel.Controls.Add(this.deviceLabel);
+            this.devicePanel.Controls.Add(this.deviceList);
+            this.devicePanel.Location = new System.Drawing.Point(10, 12);
+            this.devicePanel.Name = "devicePanel";
+            this.devicePanel.Size = new System.Drawing.Size(545, 177);
+            this.devicePanel.TabIndex = 9;
+            // 
+            // deviceList
+            // 
+            this.deviceList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.deviceList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.deviceList.HideSelection = false;
+            this.deviceList.LargeImageList = this.shareImageList;
+            this.deviceList.Location = new System.Drawing.Point(12, 33);
+            this.deviceList.Name = "deviceList";
+            this.deviceList.Size = new System.Drawing.Size(521, 132);
+            this.deviceList.TabIndex = 2;
+            this.deviceList.UseCompatibleStateImageBehavior = false;
+            // 
+            // progressLabel
+            // 
+            this.progressLabel.AutoSize = true;
+            this.progressLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.progressLabel.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.progressLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.progressLabel.Location = new System.Drawing.Point(158, 65);
+            this.progressLabel.Name = "progressLabel";
+            this.progressLabel.Size = new System.Drawing.Size(229, 14);
+            this.progressLabel.TabIndex = 17;
+            this.progressLabel.Text = "There are currently no transfers in the queue.";
+            this.progressLabel.Visible = false;
+            // 
             // progressListView
             // 
             this.progressListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -490,11 +513,17 @@
             this.progressListView.TabIndex = 4;
             this.progressListView.Visible = false;
             // 
-            // transferCompNotifyIcon
+            // deviceLabel
             // 
-            this.transferCompNotifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.transferCompNotifyIcon.BalloonTipTitle = "Transfer Completed";
-            this.transferCompNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("transferCompNotifyIcon.Icon")));
+            this.deviceLabel.AutoSize = true;
+            this.deviceLabel.BackColor = System.Drawing.Color.Transparent;
+            this.deviceLabel.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deviceLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.deviceLabel.Location = new System.Drawing.Point(189, 46);
+            this.deviceLabel.Name = "deviceLabel";
+            this.deviceLabel.Size = new System.Drawing.Size(144, 14);
+            this.deviceLabel.TabIndex = 18;
+            this.deviceLabel.Text = "No USB Devices Connected";
             // 
             // ShareForm
             // 
@@ -512,10 +541,9 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "shareForm";
+            this.Leave += new System.EventHandler(this.ShareForm_Leave);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ShareForm_MouseClick);
             this.cartsContextMenuStrip.ResumeLayout(false);
-            this.devicePanel.ResumeLayout(false);
-            this.devicePanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.sharePanel.ResumeLayout(false);
@@ -524,12 +552,13 @@
             this.detailPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.progressSelected)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartsSelected)).EndInit();
+            this.devicePanel.ResumeLayout(false);
+            this.devicePanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Label deviceLabel;
         private System.Windows.Forms.Button progressButton;
         public System.Windows.Forms.Panel devicePanel;
         public System.Windows.Forms.Panel sharePanel;
@@ -559,11 +588,14 @@
         public System.Windows.Forms.Button cartsButton;
         public System.Windows.Forms.PictureBox progressSelected;
         public System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListView detailListView;
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.ImageList shareImageList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ImageList coverArtImageList;
         public System.Windows.Forms.Panel detailPanel;
+        public System.Windows.Forms.ListView detailListView;
+        private System.Windows.Forms.Label emptyCartLabel;
+        public System.Windows.Forms.Label progressLabel;
+        public System.Windows.Forms.Label deviceLabel;
     }
 }

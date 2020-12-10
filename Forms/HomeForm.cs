@@ -40,12 +40,15 @@ namespace Mobile_Service_Distribution.Forms
             {
                 PictureBox coverArtPictureBox = new PictureBox
                 {
-                    //Image = (media.CoverArtDirectory != "") ? Image.FromFile(media.CoverArtDirectory) : Image.FromFile(Combine(GetFolderPath(SpecialFolder.UserProfile), "Documents", "Euphoria Games", "Form Designs", "Sample Pictures", "20200624_141949.jpg")),
+                    Image = (media.CoverArtDirectory != "") ? Image.FromFile(media.CoverArtDirectory) : Image.FromFile(Combine(GetFolderPath(SpecialFolder.UserProfile), "Documents", "Euphoria Games", "Software", "Form Designs", "coverart sample 2.png")),
                     SizeMode = PictureBoxSizeMode.StretchImage,
                     Size = new Size(116, 140),
                     Location = new Point(initial1, 10),
-                    Tag = media
+                    Tag = media,
+                    BorderStyle = BorderStyle.FixedSingle
                 };
+
+                titleToolTip.SetToolTip(coverArtPictureBox, media.Title);
 
                 coverArtPictureBox.MouseEnter += new EventHandler(PRSItem_MouseEnter);
 
@@ -82,7 +85,8 @@ namespace Mobile_Service_Distribution.Forms
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             float totalSize = 0, availableSize = 0, driveSize, driveFreeSpace, i = 370, initial = 352, iter = 0;
-            Brush[] brushes = new Brush[] { Brushes.DodgerBlue, Brushes.Red };
+            
+            Brush[] brushes = new Brush[] { Brushes.DodgerBlue, Brushes.Firebrick, Brushes.LimeGreen, Brushes.DarkOrchid, Brushes.DarkSlateGray };
             List<DriveInfo> hardDrives = new List<DriveInfo>();
 
             using (Graphics graphics = e.Graphics)
@@ -153,7 +157,7 @@ namespace Mobile_Service_Distribution.Forms
         {
             PictureBox box = (PictureBox)sender;
 
-            addToCartButton.Location = new Point(box.Location.X, 150);
+            addToCartButton.Location = new Point(box.Location.X, 148);
             addToCartButton.Tag = box.Tag;
             popularNowPanel.Controls.Add(addToCartButton);
         }

@@ -211,6 +211,7 @@
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.coverArtPictureBox);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

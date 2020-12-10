@@ -39,6 +39,9 @@ namespace Mobile_Service_Distribution.Forms
                     sendToToolStripMenuItem.DropDownItems.Add(usbStorage.Name).Tag = usbStorage.Name;
                 }       
             }
+
+            if (deviceList.Items.Count > 0)
+                deviceLabel.Visible = false;
         }
 
         private void cartsButton_Click(object sender, EventArgs e)
@@ -53,6 +56,7 @@ namespace Mobile_Service_Distribution.Forms
             if (cartsListView.Items.Count == 0) noCartLabel.Visible = true;
             detailPanel.Visible = true;
             panel1.Visible = true;
+            progressLabel.Visible = false;
             activeList.Focus();
         }
 
@@ -68,6 +72,10 @@ namespace Mobile_Service_Distribution.Forms
             detailPanel.Visible = false;
             panel1.Visible = false;
             noCartLabel.Visible = false;
+            if (progressListView.Items.Count > 0)
+                progressLabel.Visible = false;
+            else
+                progressLabel.Visible = true;
             activeList.Focus();
         }
 
@@ -84,12 +92,13 @@ namespace Mobile_Service_Distribution.Forms
             if (!detailPanel.ContainsFocus)
             {
                 cartSizeExtLabel.Text = "0";
-                movieExtLabel.Text = "--";
-                musicExtLabel.Text = "--";
-                seriesExtLabel.Text = "--";
-                priceExtLabel.Text = "0";
+                movieExtLabel.Text = null;
+                musicExtLabel.Text = null;
+                seriesExtLabel.Text = null;
+                priceExtLabel.Text = null;
                 detailListView.Items.Clear();
                 panel1.Visible = true;
+                emptyCartLabel.Visible = false;
             }
         }
 
@@ -98,10 +107,11 @@ namespace Mobile_Service_Distribution.Forms
             panel1.Visible = true;
             detailListView.Items.Clear();
             cartSizeExtLabel.Text = "0";
-            movieExtLabel.Text = "--";
-            musicExtLabel.Text = "--";
-            seriesExtLabel.Text = "--";
+            movieExtLabel.Text = null;
+            musicExtLabel.Text = null;
+            seriesExtLabel.Text = null;
             priceExtLabel.Text = "0";
+            emptyCartLabel.Visible = false;
         }
 
         private void ShareForm_MouseClick(object sender, MouseEventArgs e)
@@ -109,21 +119,22 @@ namespace Mobile_Service_Distribution.Forms
             panel1.Visible = true;
             detailListView.Items.Clear();
             cartSizeExtLabel.Text = "0";
-            movieExtLabel.Text = "--";
-            musicExtLabel.Text = "--";
-            seriesExtLabel.Text = "--";
+            movieExtLabel.Text = null;
+            musicExtLabel.Text = null;
+            seriesExtLabel.Text = null;
             priceExtLabel.Text = "0";
+            emptyCartLabel.Visible = false;
         }
 
         private void cartsContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
-            if (cartsListView.SelectedItems.Count == 0) e.Cancel = true;
+            if (cartsListView.SelectedItems.Count == 0) 
+                e.Cancel = true;
             else
-            {
                 cartsContextMenuStrip.Tag = cartsListView.FocusedItem.Tag;
-            }
 
-            if (deviceList.Items.Count > 0 && sendToToolStripMenuItem.DropDownItems[0].Text == "0") sendToToolStripMenuItem.DropDownItems.Remove(sendToToolStripMenuItem.DropDownItems[0]);
+            if (deviceList.Items.Count > 0 && sendToToolStripMenuItem.DropDownItems[0].Text == "0") 
+                sendToToolStripMenuItem.DropDownItems.Remove(sendToToolStripMenuItem.DropDownItems[0]);
         }
 
         private void cartsListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -139,11 +150,12 @@ namespace Mobile_Service_Distribution.Forms
                 panel1.Visible = true;
                 detailListView.Items.Clear();
                 cartSizeExtLabel.Text = "0";
-                movieExtLabel.Text = "--";
-                musicExtLabel.Text = "--";
-                seriesExtLabel.Text = "--";
+                movieExtLabel.Text = null;
+                musicExtLabel.Text = null;
+                seriesExtLabel.Text = null;
                 priceExtLabel.Text = "0";
                 cartDetails = null;
+                emptyCartLabel.Visible = false;
             }
             else cartDetails = null;
 
@@ -155,23 +167,33 @@ namespace Mobile_Service_Distribution.Forms
             const int GigaByte = 1000 * 1000 * 1000, MegaByte = 1000 * 1000;
             decimal price = 0.00M;
             int movieNum = 0, musicNum = 0, seriesNum = 0;
+            LibraryManager[] cartList = cartDetails.ShowList();
+
             panel1.Visible = false;
             detailListView.Items.Clear();
 
-            foreach (LibraryManager fileName in cartDetails.ShowList())
+            if (cartList.Length > 0)
             {
-                price += fileName.Price;
+                emptyCartLabel.Visible = false;
 
-                if (fileName.Type == LibraryManager.MediaType.Movie) movieNum++;
-                else if (fileName.Type == LibraryManager.MediaType.Music) musicNum++;
-                else if (fileName.Type == LibraryManager.MediaType.Series) seriesNum++;
-
-                detailListView.Items.Add(new ListViewItem
+                foreach (LibraryManager fileName in cartList)
                 {
-                    Text = fileName.Title,
-                    Tag = fileName
-                });
+                    price += fileName.Price;
+
+                    if (fileName.Type == LibraryManager.MediaType.Movie) movieNum++;
+                    else if (fileName.Type == LibraryManager.MediaType.Music) musicNum++;
+                    else if (fileName.Type == LibraryManager.MediaType.Series) seriesNum++;
+
+                    detailListView.Items.Add(new ListViewItem
+                    {
+                        Text = fileName.Title,
+                        Tag = fileName
+                    });
+                }
             }
+            else
+                emptyCartLabel.Visible = true;
+            
 
             if (cartDetails.cartSize > GigaByte) cartSizeExtLabel.Text = String.Format("{0:F}", cartDetails.cartSize / GigaByte) + " GB";
             else if (cartDetails.cartSize > MegaByte) cartSizeExtLabel.Text = String.Format("{0:F}", cartDetails.cartSize / MegaByte) + " MB";
@@ -188,11 +210,11 @@ namespace Mobile_Service_Distribution.Forms
         {
             CartManager cartDetails = (CartManager)cartsContextMenuStrip.Tag;
             cartDetails.Clear();
-            cartSizeExtLabel.Text = "0";
+            cartSizeExtLabel.Text = null;
             movieExtLabel.Text = "0";
             musicExtLabel.Text = "0";
             seriesExtLabel.Text = "0";
-            priceExtLabel.Text = "$0";
+            priceExtLabel.Text = null;
             detailListView.Items.Clear();
         }
 
@@ -321,6 +343,11 @@ namespace Mobile_Service_Distribution.Forms
                 removeButton.Enabled = true;
             else
                 removeButton.Enabled = false;
+        }
+
+        private void ShareForm_Leave(object sender, EventArgs e)
+        {
+            reference.Focus();
         }
     }
 }

@@ -76,8 +76,6 @@
             this.minimizeButton.AutoSize = true;
             this.minimizeButton.BackColor = System.Drawing.Color.Transparent;
             this.minimizeButton.FlatAppearance.BorderSize = 0;
-            this.minimizeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
-            this.minimizeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
             this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.minimizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minimizeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
@@ -160,14 +158,13 @@
             // 
             this.searchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.searchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(105)))), ((int)(((byte)(175)))));
-            this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.searchTextBox.Font = new System.Drawing.Font("Microsoft JhengHei", 10F);
             this.searchTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.searchTextBox.Location = new System.Drawing.Point(410, 6);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(251, 20);
+            this.searchTextBox.Size = new System.Drawing.Size(251, 18);
             this.searchTextBox.TabIndex = 6;
-            this.searchTextBox.Text = "Search";
             this.searchTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.searchTextBox_MouseClick);
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             this.searchTextBox.Leave += new System.EventHandler(this.searchTextBox_Leave);
@@ -428,6 +425,7 @@
             // 
             // searchPanel
             // 
+            this.searchPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.searchPanel.BackColor = System.Drawing.Color.White;
             this.searchPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.searchPanel.Controls.Add(this.filterLabel);
@@ -542,7 +540,6 @@
         public System.Windows.Forms.ToolStripLabel cartLabel;
         private System.Windows.Forms.TextBox cartLabelEdit;
         public System.Windows.Forms.ToolStripSplitButton cartsToolStripSplitButton;
-        private System.Windows.Forms.Panel searchPanel;
         private System.Windows.Forms.Panel resultPanel;
         private System.Windows.Forms.Button seriesFilter;
         private System.Windows.Forms.Button musicFilter;
@@ -564,6 +561,7 @@
         public System.Windows.Forms.Button homeSubMenu;
         public System.Windows.Forms.Button minimizeButton;
         public System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.Panel searchPanel;
     }
 }
 

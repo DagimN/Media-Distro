@@ -19,7 +19,9 @@ namespace Mobile_Service_Distribution.Forms
         private string appendText;
 
         private Bitmap image;
-        private static ListView activeList;
+        public static ListView activeList;
+        public Button activeListButton;
+        public PictureBox selected;
         private ListViewItem item;
         private LibraryManager libraryManager;
         private mediaDistroFrame reference;
@@ -55,6 +57,8 @@ namespace Mobile_Service_Distribution.Forms
             ascendingChecked = true;
             nameChecked = true;
             addSTCart.Visible = false;
+            activeListButton = moviesTabButton;
+            selected = moviesSelected;
 
             movieGenreCatalogue.Sort();
             foreach (string genre in movieGenreCatalogue)
@@ -63,18 +67,21 @@ namespace Mobile_Service_Distribution.Forms
             foreach(LibraryManager movie in movieCatalogue) this.movieList.Items.Add(new ListViewItem 
             {
                 Text = movie.Title,
-                Tag = movie
+                Tag = movie,
+                ImageIndex = 0
             });
             foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(new ListViewItem
             {
                 Text = music.Title,
-                Tag = music
+                Tag = music,
+                ImageIndex = 0
             });
 
             foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(new ListViewItem
             {
                 Text = series.Title,
-                Tag = series
+                Tag = series,
+                ImageIndex = 0
             });
         }
 
@@ -91,14 +98,15 @@ namespace Mobile_Service_Distribution.Forms
 
             moviesSelected.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
             moviesTabButton.ForeColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
-            musicTabButton.ForeColor = SystemColors.WindowFrame;
+            musicTabButton.ForeColor = Color.DimGray;
             musicSelected.BackColor = Color.Transparent;
-            seriesTabButton.ForeColor = SystemColors.WindowFrame;
+            seriesTabButton.ForeColor = Color.DimGray;
             seriesSelected.BackColor = Color.Transparent;
 
             albumTreeView.Visible = false;
             addSTCart.Visible = false;
             durationLabel.Text = "Duration: ";
+            pictureBox1.Visible = false;
 
             genreToolStripDropDownButton.DropDownItems.Clear();
             genreToolStripDropDownButton.DropDownItems.Add("All").Click += allToolStripMenuItem_Click;
@@ -107,6 +115,8 @@ namespace Mobile_Service_Distribution.Forms
                 genreToolStripDropDownButton.DropDownItems.Add(genre).Click += genreSelected_Click;
 
             activeList = movieList;
+            activeListButton = moviesTabButton;
+            selected = moviesSelected;
             activeList.Visible = true;
             activeList.Focus();
         }
@@ -124,8 +134,8 @@ namespace Mobile_Service_Distribution.Forms
 
 
             moviesSelected.BackColor = Color.Transparent;
-            moviesTabButton.ForeColor = SystemColors.WindowFrame;
-            musicTabButton.ForeColor = SystemColors.WindowFrame;
+            moviesTabButton.ForeColor = Color.DimGray;
+            musicTabButton.ForeColor = Color.DimGray;
             musicSelected.BackColor = Color.Transparent;
             seriesTabButton.ForeColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
             seriesSelected.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
@@ -133,6 +143,7 @@ namespace Mobile_Service_Distribution.Forms
             albumTreeView.Visible = true;
             addSTCart.Visible = true;
             durationLabel.Text = "Seasons: ";
+            pictureBox1.Visible = true;
 
             genreToolStripDropDownButton.DropDownItems.Clear();
             genreToolStripDropDownButton.DropDownItems.Add("All").Click += allToolStripMenuItem_Click;
@@ -141,6 +152,8 @@ namespace Mobile_Service_Distribution.Forms
                 genreToolStripDropDownButton.DropDownItems.Add(genre).Click += genreSelected_Click;
 
             activeList = this.seriesList;
+            activeListButton = seriesTabButton;
+            selected = seriesSelected;
             activeList.Visible = true;
             activeList.Focus();
         }
@@ -157,15 +170,16 @@ namespace Mobile_Service_Distribution.Forms
             }
 
             moviesSelected.BackColor = Color.Transparent;
-            moviesTabButton.ForeColor = SystemColors.WindowFrame;
+            moviesTabButton.ForeColor = Color.DimGray;
             musicTabButton.ForeColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
             musicSelected.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
-            seriesTabButton.ForeColor = SystemColors.WindowFrame;
+            seriesTabButton.ForeColor = Color.DimGray;
             seriesSelected.BackColor = Color.Transparent;
 
             albumTreeView.Visible = true;
             addSTCart.Visible = true;
             durationLabel.Text = "Duration: ";
+            pictureBox1.Visible = true;
 
             genreToolStripDropDownButton.DropDownItems.Clear();
             genreToolStripDropDownButton.DropDownItems.Add("All").Click += allToolStripMenuItem_Click;
@@ -174,6 +188,8 @@ namespace Mobile_Service_Distribution.Forms
                 genreToolStripDropDownButton.DropDownItems.Add(genre).Click += genreSelected_Click;
 
             activeList = this.musicList;
+            activeListButton = musicTabButton;
+            selected = musicSelected;
             activeList.Visible = true;
             activeList.Focus();
         }
@@ -233,6 +249,7 @@ namespace Mobile_Service_Distribution.Forms
             {
                 albumTreeView.Visible = true;
                 addSTCart.Visible = true;
+                pictureBox1.Visible = true;
 
                 foreach (string album in activeItem.AlbumList)
                 {
@@ -244,6 +261,7 @@ namespace Mobile_Service_Distribution.Forms
             {
                 albumTreeView.Visible = false;
                 addSTCart.Visible = false;
+                pictureBox1.Visible = false;
             }
 
             string file = activeItem.CoverArtDirectory;
@@ -306,14 +324,6 @@ namespace Mobile_Service_Distribution.Forms
                 if (libraryPanel.Width != 725) libraryPanel.SetBounds(12, 12, 546, 431);
                 else libraryPanel.SetBounds(12, 12, 725, 431);
             }
-        }
-
-        private void hideInfoPanelButton_Click(object sender, EventArgs e)
-        {
-            infoPanel.Visible = false;
-            item = null;
-            if (libraryPanel.Width != 725) libraryPanel.SetBounds(12, 12, 546, 431);
-            else libraryPanel.SetBounds(12, 12, 725, 431);
         }
 
         private void coverPictureBox_Click(object sender, EventArgs e)
@@ -1547,19 +1557,41 @@ namespace Mobile_Service_Distribution.Forms
             {
                 foreach (LibraryManager movie in movieCatalogue)
                     if (movie.Genre == item.Text)
-                        genreListView.Items.Add(movie.Title).Tag = movie;
+                    {
+                        genreListView.Items.Add(new ListViewItem
+                        {
+                            Text = movie.Title,
+                            Tag = movie,
+                            ImageIndex = 0
+                        });
+                    }
+                        
             }
             else if (musicList.Visible)
             {
                 foreach (LibraryManager music in musicCatalogue)
                     if (music.Genre == item.Text)
-                        genreListView.Items.Add(music.Title).Tag = music;
+                    {
+                        genreListView.Items.Add(new ListViewItem
+                        {
+                            Text = music.Title,
+                            Tag = music,
+                            ImageIndex = 0
+                        });
+                    }
             }
             else if (seriesList.Visible)
             {
                 foreach (LibraryManager series in seriesCatalogue)
                     if (series.Genre == item.Text)
-                        genreListView.Items.Add(series.Title).Tag = series;
+                    {
+                        genreListView.Items.Add(new ListViewItem
+                        {
+                            Text = series.Title,
+                            Tag = series,
+                            ImageIndex = 0
+                        });
+                    }
             }
 
             genreDescriptionLabel.Text = item.Text;
@@ -1656,30 +1688,26 @@ namespace Mobile_Service_Distribution.Forms
         {
             if(currentTextBox == titleTextBox)
             {
-                e.Graphics.DrawLine(Pens.DodgerBlue, new Point(113, 37), new Point(520, 37));
-                titleTextBox.BackColor = Color.DarkGray;
+                titleTextBox.BackColor = infoPanel.BackColor;
             }
             else if(currentTextBox == genreTextBox)
             {
-                e.Graphics.DrawLine(Pens.DodgerBlue, new Point(185, 85), new Point(306, 85));
-                genreTextBox.BackColor = Color.DarkGray;
+                genreTextBox.BackColor = infoPanel.BackColor;
             }
             else if(currentTextBox == yearTextBox)
             {
-                e.Graphics.DrawLine(Pens.DodgerBlue, new Point(210, 100), new Point(240, 100));
-                yearTextBox.BackColor = Color.DarkGray;
+                yearTextBox.BackColor = infoPanel.BackColor;
             }
             else if(currentTextBox == ratingTextBox)
             {
-                e.Graphics.DrawLine(Pens.DodgerBlue, new Point(210, 115), new Point(240, 115));
-                ratingTextBox.BackColor = Color.DarkGray;
+                ratingTextBox.BackColor = infoPanel.BackColor;
             }
             else
             {
-                titleTextBox.BackColor = Color.FromArgb(50, 75, 165);
-                genreTextBox.BackColor = Color.FromArgb(120, 145, 225);
-                yearTextBox.BackColor = Color.FromArgb(120, 145, 225);
-                ratingTextBox.BackColor = Color.FromArgb(120, 145, 225);
+                titleTextBox.BackColor = infoPanel.BackColor;
+                genreTextBox.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_InfoPanel;
+                yearTextBox.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_InfoPanel;
+                ratingTextBox.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_InfoPanel;
             }
         }
 
@@ -1767,6 +1795,14 @@ namespace Mobile_Service_Distribution.Forms
         {
             genreListView.Visible = false;
             genreDescriptionLabel.Text = "All";
+        }
+
+        private void hideInfoButton_Click(object sender, EventArgs e)
+        {
+            infoPanel.Visible = false;
+            item = null;
+            if (libraryPanel.Width != 725) libraryPanel.SetBounds(12, 12, 546, 431);
+            else libraryPanel.SetBounds(12, 12, 725, 431);
         }
     }
 }

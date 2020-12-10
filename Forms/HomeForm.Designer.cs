@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeForm));
             this.taskPieChart = new LiveCharts.WinForms.PieChart();
             this.tempPieChart = new LiveCharts.WinForms.PieChart();
@@ -39,6 +40,7 @@
             this.goLeftButton = new System.Windows.Forms.Button();
             this.goRightButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.titleToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -197,5 +199,6 @@
         public System.Windows.Forms.Label volumeLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Button goLeftButton;
+        private System.Windows.Forms.ToolTip titleToolTip;
     }
 }
