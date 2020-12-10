@@ -294,7 +294,7 @@ namespace Media_Distro.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("39")]
         public int selectedLocation {
             get {
                 return ((int)(this["selectedLocation"]));
@@ -385,6 +385,17 @@ namespace Media_Distro.Properties {
         public global::System.Drawing.Color Twilight_Theme_Selected {
             get {
                 return ((global::System.Drawing.Color)(this["Twilight_Theme_Selected"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color Active_Theme_InfoPanel {
+            get {
+                return ((global::System.Drawing.Color)(this["Active_Theme_InfoPanel"]));
+            }
+            set {
+                this["Active_Theme_InfoPanel"] = value;
             }
         }
     }

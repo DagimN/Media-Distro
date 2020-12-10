@@ -73,16 +73,6 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Black {
-            get {
-                object obj = ResourceManager.GetObject("Black", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap Cart_Icon {
             get {
                 object obj = ResourceManager.GetObject("Cart_Icon", resourceCulture);
@@ -123,9 +113,9 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Dark_Blue {
+        public static System.Drawing.Bitmap configBackground_2 {
             get {
-                object obj = ResourceManager.GetObject("Dark_Blue", resourceCulture);
+                object obj = ResourceManager.GetObject("configBackground 2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +133,59 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Device_List_Indicator {
+        public static System.Drawing.Bitmap detailPanel_Dark_BackGround {
             get {
-                object obj = ResourceManager.GetObject("Device_List_Indicator", resourceCulture);
+                object obj = ResourceManager.GetObject("detailPanel_Dark_BackGround", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap detailPanel_Default_BackGround {
+            get {
+                object obj = ResourceManager.GetObject("detailPanel_Default_BackGround", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap detailPanel_Fire_BackGround {
+            get {
+                object obj = ResourceManager.GetObject("detailPanel_Fire_BackGround", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap detailPanel_Meadow_BackGround {
+            get {
+                object obj = ResourceManager.GetObject("detailPanel_Meadow_BackGround", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap detailPanel_Twilight_BackGround {
+            get {
+                object obj = ResourceManager.GetObject("detailPanel_Twilight_BackGround", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap deviceList_BackGround_2 {
+            get {
+                object obj = ResourceManager.GetObject("deviceList BackGround 2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,6 +233,56 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Hide_Info_Dark_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Hide_Info_Dark_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Hide_Info_Fire_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Hide_Info_Fire_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Hide_Info_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Hide Info Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Hide_Info_Meadow_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Hide_Info_Meadow_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Hide_Info_Twilight_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Hide_Info_Twilight_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Home_Icon {
             get {
                 object obj = ResourceManager.GetObject("Home_Icon", resourceCulture);
@@ -206,6 +296,46 @@ namespace Media_Distro.Properties {
         public static System.Drawing.Bitmap infoPanel_Background {
             get {
                 object obj = ResourceManager.GetObject("infoPanel_Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap infoPanel_DarkBackground {
+            get {
+                object obj = ResourceManager.GetObject("infoPanel_DarkBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap infoPanel_FireBackground {
+            get {
+                object obj = ResourceManager.GetObject("infoPanel_FireBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap infoPanel_MeadowBackground {
+            get {
+                object obj = ResourceManager.GetObject("infoPanel_MeadowBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap infoPanel_TwilightBackground {
+            get {
+                object obj = ResourceManager.GetObject("infoPanel_TwilightBackground", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -253,6 +383,16 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Night {
+            get {
+                object obj = ResourceManager.GetObject("Night", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Pause_Icon {
             get {
                 object obj = ResourceManager.GetObject("Pause_Icon", resourceCulture);
@@ -283,6 +423,16 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap resetIcon {
+            get {
+                object obj = ResourceManager.GetObject("resetIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Search_Icon {
             get {
                 object obj = ResourceManager.GetObject("Search_Icon", resourceCulture);
@@ -296,6 +446,16 @@ namespace Media_Distro.Properties {
         public static System.Drawing.Bitmap Series_FilterB {
             get {
                 object obj = ResourceManager.GetObject("Series_FilterB", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap seriesBackground {
+            get {
+                object obj = ResourceManager.GetObject("seriesBackground", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -323,6 +483,56 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap stats_background_4 {
+            get {
+                object obj = ResourceManager.GetObject("stats background 4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap stats_background_default {
+            get {
+                object obj = ResourceManager.GetObject("stats background default", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap stats_background_fire {
+            get {
+                object obj = ResourceManager.GetObject("stats background fire", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap stats_background_green {
+            get {
+                object obj = ResourceManager.GetObject("stats background green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap stats_background_twilight {
+            get {
+                object obj = ResourceManager.GetObject("stats background twilight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Stats_Icon {
             get {
                 object obj = ResourceManager.GetObject("Stats Icon", resourceCulture);
@@ -336,6 +546,36 @@ namespace Media_Distro.Properties {
         public static System.Drawing.Bitmap Stop_Icon {
             get {
                 object obj = ResourceManager.GetObject("Stop_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap themeBackGround_2 {
+            get {
+                object obj = ResourceManager.GetObject("themeBackGround 2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap trash_4 {
+            get {
+                object obj = ResourceManager.GetObject("trash 4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Twilight {
+            get {
+                object obj = ResourceManager.GetObject("Twilight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

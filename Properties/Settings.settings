@@ -90,7 +90,7 @@
       <Value Profile="(Default)">10, 20, 30</Value>
     </Setting>
     <Setting Name="selectedLocation" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">39</Value>
     </Setting>
     <Setting Name="showNotification" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -115,6 +115,9 @@
     </Setting>
     <Setting Name="Twilight_Theme_Selected" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">90, 170, 235</Value>
+    </Setting>
+    <Setting Name="Active_Theme_InfoPanel" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
