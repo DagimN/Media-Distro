@@ -207,9 +207,6 @@
     <None Include="Resources\Close Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Device List Indicator.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Home Icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -264,12 +261,6 @@
     <None Include="Resources\Green.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Dark Blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Black.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Stats Icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +297,87 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hide Info Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\infoPanel_FireBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\infoPanel_MeadowBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\infoPanel_DarkBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\infoPanel_TwilightBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hide Info Dark Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hide Info Fire Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hide Info Meadow Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hide Info Twilight Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Night.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Twilight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\detailPanel Dark BackGround.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\detailPanel Default BackGround.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\detailPanel Meadow BackGround.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\detailPanel Twilight BackGround.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sample background 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash 4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stats background 4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stats background twilight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stats background fire.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stats background green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stats background default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\deviceList BackGround 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\themeBackGround 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\configBackground 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\seriesBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resetIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
