@@ -73,6 +73,16 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap arrow_symbolic_link_15730 {
+            get {
+                object obj = ResourceManager.GetObject("arrow_symbolic_link_15730", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Cart_Icon {
             get {
                 object obj = ResourceManager.GetObject("Cart_Icon", resourceCulture);
@@ -83,9 +93,19 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap cart_list_view {
+        public static System.Drawing.Bitmap cart_list_view_2 {
             get {
-                object obj = ResourceManager.GetObject("cart_list_view", resourceCulture);
+                object obj = ResourceManager.GetObject("cart_list_view_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap cart_list_view_3 {
+            get {
+                object obj = ResourceManager.GetObject("cart_list_view_3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -293,6 +313,16 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap info_icon_3 {
+            get {
+                object obj = ResourceManager.GetObject("info icon 3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap infoPanel_Background {
             get {
                 object obj = ResourceManager.GetObject("infoPanel_Background", resourceCulture);
@@ -346,6 +376,16 @@ namespace Media_Distro.Properties {
         public static System.Drawing.Bitmap Library_Icon {
             get {
                 object obj = ResourceManager.GetObject("Library Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Material_Icons_e80e_0__48 {
+            get {
+                object obj = ResourceManager.GetObject("Material Icons_e80e(0)_48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -576,6 +616,36 @@ namespace Media_Distro.Properties {
         public static System.Drawing.Bitmap Twilight {
             get {
                 object obj = ResourceManager.GetObject("Twilight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap USB_Icon {
+            get {
+                object obj = ResourceManager.GetObject("USB_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap USB_Icon_2 {
+            get {
+                object obj = ResourceManager.GetObject("USB_Icon_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Warning_Icon_3 {
+            get {
+                object obj = ResourceManager.GetObject("Warning Icon 3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

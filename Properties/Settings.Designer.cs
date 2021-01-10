@@ -398,5 +398,25 @@ namespace Media_Distro.Properties {
                 this["Active_Theme_InfoPanel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string activationKey {
+            get {
+                return ((string)(this["activationKey"]));
+            }
+            set {
+                this["activationKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime expirationDate {
+            get {
+                return ((global::System.DateTime)(this["expirationDate"]));
+            }
+        }
     }
 }
