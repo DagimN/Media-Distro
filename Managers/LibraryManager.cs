@@ -326,7 +326,7 @@ namespace Mobile_Service_Distribution
                     }
                     else
                     {
-                        Delete(dir);
+                        Delete(dir, true);
                         return 0;
                     }
                 }
@@ -420,7 +420,7 @@ namespace Mobile_Service_Distribution
                     }
                     else
                     {
-                        Delete(dir);
+                        Delete(dir, true);
                         return 0;
                     }
                 }
