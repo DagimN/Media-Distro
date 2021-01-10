@@ -29,26 +29,29 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeForm));
             this.taskPieChart = new LiveCharts.WinForms.PieChart();
             this.tempPieChart = new LiveCharts.WinForms.PieChart();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.dashBoardPanel = new System.Windows.Forms.Panel();
             this.volumeLabel = new System.Windows.Forms.Label();
             this.popularNowPanel = new System.Windows.Forms.Panel();
             this.adsPanel = new System.Windows.Forms.Panel();
+            this.locateZipButton = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.popularNowLabel = new System.Windows.Forms.Label();
+            this.titleToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.goLeftButton = new System.Windows.Forms.Button();
             this.goRightButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.titleToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.panel1.SuspendLayout();
+            this.dashBoardPanel.SuspendLayout();
+            this.adsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // taskPieChart
             // 
             this.taskPieChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.taskPieChart.Location = new System.Drawing.Point(360, 3);
+            this.taskPieChart.Location = new System.Drawing.Point(360, 10);
             this.taskPieChart.Name = "taskPieChart";
             this.taskPieChart.Size = new System.Drawing.Size(200, 100);
             this.taskPieChart.TabIndex = 0;
@@ -63,18 +66,18 @@
             this.tempPieChart.TabIndex = 1;
             this.tempPieChart.Text = "pieChart2";
             // 
-            // panel1
+            // dashBoardPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.volumeLabel);
-            this.panel1.Controls.Add(this.tempPieChart);
-            this.panel1.Controls.Add(this.taskPieChart);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(567, 224);
-            this.panel1.TabIndex = 2;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.dashBoardPanel.BackColor = System.Drawing.Color.Transparent;
+            this.dashBoardPanel.Controls.Add(this.volumeLabel);
+            this.dashBoardPanel.Controls.Add(this.tempPieChart);
+            this.dashBoardPanel.Controls.Add(this.taskPieChart);
+            this.dashBoardPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dashBoardPanel.Location = new System.Drawing.Point(0, 0);
+            this.dashBoardPanel.Name = "dashBoardPanel";
+            this.dashBoardPanel.Size = new System.Drawing.Size(567, 224);
+            this.dashBoardPanel.TabIndex = 2;
+            this.dashBoardPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.dashBoardPanel_Paint);
             // 
             // volumeLabel
             // 
@@ -101,11 +104,32 @@
             // adsPanel
             // 
             this.adsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.adsPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.adsPanel.BackColor = System.Drawing.Color.Transparent;
+            this.adsPanel.Controls.Add(this.locateZipButton);
+            this.adsPanel.Controls.Add(this.pictureBox2);
             this.adsPanel.Location = new System.Drawing.Point(412, 230);
             this.adsPanel.Name = "adsPanel";
             this.adsPanel.Size = new System.Drawing.Size(143, 212);
             this.adsPanel.TabIndex = 4;
+            this.adsPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.adsPanel_DragDrop);
+            // 
+            // locateZipButton
+            // 
+            this.locateZipButton.Location = new System.Drawing.Point(0, 115);
+            this.locateZipButton.Name = "locateZipButton";
+            this.locateZipButton.Size = new System.Drawing.Size(143, 23);
+            this.locateZipButton.TabIndex = 1;
+            this.locateZipButton.Text = "Locate File";
+            this.locateZipButton.UseVisualStyleBackColor = true;
+            this.locateZipButton.Click += new System.EventHandler(this.locateZipButton_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(0, 135);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(143, 77);
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
             // 
             // popularNowLabel
             // 
@@ -152,7 +176,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Image = global::Media_Distro.Properties.Resources.Material_Icons_e80e_0__48;
             this.pictureBox1.Location = new System.Drawing.Point(6, 219);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
@@ -172,7 +196,7 @@
             this.Controls.Add(this.adsPanel);
             this.Controls.Add(this.goRightButton);
             this.Controls.Add(this.popularNowPanel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dashBoardPanel);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -180,8 +204,10 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "HomeForm";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.dashBoardPanel.ResumeLayout(false);
+            this.dashBoardPanel.PerformLayout();
+            this.adsPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -190,7 +216,7 @@
 
         #endregion
         public LiveCharts.WinForms.PieChart tempPieChart;
-        public System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Panel dashBoardPanel;
         private System.Windows.Forms.Label popularNowLabel;
         public System.Windows.Forms.Panel popularNowPanel;
         public System.Windows.Forms.Panel adsPanel;
@@ -200,5 +226,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Button goLeftButton;
         private System.Windows.Forms.ToolTip titleToolTip;
+        private System.Windows.Forms.Button locateZipButton;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

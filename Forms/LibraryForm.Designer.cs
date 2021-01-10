@@ -322,11 +322,11 @@
             this.sortToolStripDropDownButton,
             this.sendMultiButton,
             this.selectedItemsLabel});
-            this.arrangementToolStrip.Location = new System.Drawing.Point(360, 0);
+            this.arrangementToolStrip.Location = new System.Drawing.Point(329, 0);
             this.arrangementToolStrip.Name = "arrangementToolStrip";
             this.arrangementToolStrip.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.arrangementToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.arrangementToolStrip.Size = new System.Drawing.Size(184, 34);
+            this.arrangementToolStrip.Size = new System.Drawing.Size(215, 34);
             this.arrangementToolStrip.TabIndex = 9;
             // 
             // genreDescriptionLabel
@@ -456,7 +456,7 @@
             // 
             this.sendMultiButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.sendMultiButton.Enabled = false;
-            this.sendMultiButton.Image = ((System.Drawing.Image)(resources.GetObject("sendMultiButton.Image")));
+            this.sendMultiButton.Image = global::Media_Distro.Properties.Resources.arrow_symbolic_link_15730;
             this.sendMultiButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.sendMultiButton.Name = "sendMultiButton";
             this.sendMultiButton.Size = new System.Drawing.Size(23, 25);
@@ -831,7 +831,6 @@
         private System.Windows.Forms.ToolStripMenuItem orderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ascendingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem descendingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton sendMultiButton;
         public System.Windows.Forms.RichTextBox ratingTextBox;
         public System.Windows.Forms.RichTextBox yearTextBox;
         public System.Windows.Forms.RichTextBox genreTextBox;
@@ -859,5 +858,6 @@
         public Guna.UI2.WinForms.Guna2Button addSTCart;
         public System.Windows.Forms.TreeView albumTreeView;
         public System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripButton sendMultiButton;
     }
 }

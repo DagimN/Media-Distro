@@ -42,6 +42,7 @@ namespace Mobile_Service_Distribution
         private static string musicFolder = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Music");
         private static string seriesFolder = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Series");
         private static string statsFileURL = Combine(mediaFolder, "Stats Record.txt");
+        private static string adFolder = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Ads");
         private static FileStream statsFile;
 
         public ArrayList movieDir = new ArrayList();
@@ -57,8 +58,6 @@ namespace Mobile_Service_Distribution
       
         public mediaDistroFrame()
         {
-            //Media_Distro.Properties.Settings.Default.Reset();
-
             if(Media_Distro.Properties.Settings.Default.Movie_Media_Location == null &
                 Media_Distro.Properties.Settings.Default.Music_Media_Location == null &
                 Media_Distro.Properties.Settings.Default.Series_Media_Location == null)
@@ -71,6 +70,7 @@ namespace Mobile_Service_Distribution
                 if (!Exists(movieFolder)) CreateDirectory(movieFolder);
                 if (!Exists(seriesFolder)) CreateDirectory(seriesFolder);
                 if (!Exists(musicFolder)) CreateDirectory(musicFolder);
+                if (!Exists(adFolder)) CreateDirectory(adFolder);
                 if (!File.Exists(statsFileURL))
                 {
                     statsFile = new FileStream(statsFileURL, FileMode.Create, FileAccess.ReadWrite);
@@ -278,6 +278,7 @@ namespace Mobile_Service_Distribution
             if (!Exists(movieFolder)) CreateDirectory(movieFolder);
             if (!Exists(seriesFolder)) CreateDirectory(seriesFolder);
             if (!Exists(musicFolder)) CreateDirectory(musicFolder);
+
             if(!File.Exists(statsFileURL))
             {
                 statsFile = new FileStream(statsFileURL, FileMode.Create, FileAccess.ReadWrite);
@@ -302,6 +303,15 @@ namespace Mobile_Service_Distribution
             openChildForm(homeForm);
             activeButton = homeSubMenu;
             activeButton.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+
+            if(Media_Distro.Properties.Settings.Default.activationKey.Length < 1 || 
+                Media_Distro.Properties.Settings.Default.expirationDate.ToShortDateString() == DateTime.Now.ToShortDateString())
+            {
+                newCartToolStripButton.Enabled = false;
+                cartsToolStripSplitButton.Enabled = false;
+                activationPanel.Visible = true;
+                sharesubMenu.Enabled = false;
+            }
         }
 
         protected override void WndProc(ref Message m)
@@ -319,13 +329,27 @@ namespace Mobile_Service_Distribution
                             {
                                 if (usbStorage.IsReady && usbStorage.DriveType == DriveType.Removable)
                                 {
-                                    ListViewItem usbDrive = new ListViewItem 
-                                    {
-                                        Text = usbStorage.VolumeLabel + " " + usbStorage.Name,
-                                        Tag = usbStorage.Name,
-                                        ImageIndex = 2
-                                    };
+                                    ListViewItem usbDrive;
 
+                                    if(File.Exists(Combine(usbStorage.Name, "Distro List")))
+                                    {
+                                        usbDrive = new ListViewItem
+                                        {
+                                            Text = usbStorage.VolumeLabel + " " + usbStorage.Name,
+                                            Tag = usbStorage.Name,
+                                            ImageIndex = 3
+                                        };
+                                    }
+                                    else
+                                    {
+                                        usbDrive = new ListViewItem
+                                        {
+                                            Text = usbStorage.VolumeLabel + " " + usbStorage.Name,
+                                            Tag = usbStorage.Name,
+                                            ImageIndex = 2
+                                        };
+                                    }
+                                    
                                     if(shareForm.deviceList.Items.Count == 0)
                                     {
                                         shareForm.sendToToolStripMenuItem.Enabled = true;
@@ -418,6 +442,7 @@ namespace Mobile_Service_Distribution
 
         private void closeButton_Click(object sender, EventArgs e)
         {
+            titleBarPanel.Focus();
             Application.Exit();
         }
 
@@ -441,10 +466,10 @@ namespace Mobile_Service_Distribution
                 this.cartToolStrip.Location = new Point(58, 5);
                 this.pictureBox1.Location = new Point(58, 27);
 
-                this.homeForm.panel1.Refresh();
+                this.homeForm.dashBoardPanel.Refresh();
                 this.homeForm.Size = new Size(751, 452);
                 this.homeForm.popularNowPanel.Width = 531;
-                this.homeForm.goRightButton.Location = new Point(577, 274);
+                this.homeForm.goRightButton.Location = new Point(577, 267);
                 this.homeForm.adsPanel.Location = new Point(611, 230);
                 this.homeForm.taskPieChart.Location = new Point(544, 3);
                 this.homeForm.tempPieChart.Location = new Point(544, 3);
@@ -494,10 +519,10 @@ namespace Mobile_Service_Distribution
                 this.cartToolStrip.Location = new Point(238, 5);
                 this.pictureBox1.Location = new Point(238, 27);
 
-                this.homeForm.panel1.Refresh();
+                this.homeForm.dashBoardPanel.Refresh();
                 this.homeForm.Size = new Size(567, 452);
                 this.homeForm.popularNowPanel.Width = 347;
-                this.homeForm.goRightButton.Location = new Point(393, 274);
+                this.homeForm.goRightButton.Location = new Point(393, 267);
                 this.homeForm.adsPanel.Location = new Point(427, 230);
                 this.homeForm.taskPieChart.Location = new Point(360, 3);
                 this.homeForm.tempPieChart.Location = new Point(360, 3);
@@ -669,8 +694,6 @@ namespace Mobile_Service_Distribution
                 resultPanel.Invoke((MethodInvoker)delegate { resultPanel.Controls.Add(notFoundLabel); });
                 notFoundLabel.Invoke((MethodInvoker)delegate { notFoundLabel.Visible = true; });
             }
-                
-            
         }
 
         private void addToCart_Click(object sender, EventArgs e)
@@ -999,6 +1022,7 @@ namespace Mobile_Service_Distribution
                 libraryForm.albumTreeView.BackColor = Color.FromArgb(130, 200, 255);
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(130, 200, 255);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Default_Theme_TitleBar;
+                libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Default_BackGround;
 
@@ -1039,6 +1063,7 @@ namespace Mobile_Service_Distribution
                 libraryForm.albumTreeView.BackColor = Color.FromArgb(180, 80, 95);
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(180, 80, 95);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Fire_Theme_TitleBar;
+                libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.titleTextBox.ForeColor;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Fire_BackGround;
 
@@ -1079,6 +1104,7 @@ namespace Mobile_Service_Distribution
                 libraryForm.albumTreeView.BackColor = Color.FromArgb(155, 255, 165);
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(155, 255, 165);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Meadow_Theme_Preference;
+                libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Meadow_BackGround;
 
@@ -1119,6 +1145,7 @@ namespace Mobile_Service_Distribution
                 libraryForm.albumTreeView.BackColor = Color.FromArgb(105, 105, 115);
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(105, 105, 115);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Default_Theme_SearchBar;
+                libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Dark_BackGround;
 
@@ -1159,6 +1186,7 @@ namespace Mobile_Service_Distribution
                 libraryForm.albumTreeView.BackColor = Color.FromArgb(60, 70, 100);
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(60, 70, 100);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Twilight_Theme_Preference;
+                libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Twilight_BackGround;
 
@@ -1284,6 +1312,11 @@ namespace Mobile_Service_Distribution
                 e.Graphics.FillEllipse(Brushes.Gray, 33, 25, 15, 15);
                 e.Graphics.DrawString(completedTasks.ToString(), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(36, 26));
             }
+        }
+
+        private void submitActiButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

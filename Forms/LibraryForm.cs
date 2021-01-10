@@ -1514,37 +1514,38 @@ namespace Mobile_Service_Distribution.Forms
             CartManager cart;
             LibraryManager media;
 
-            try
+            if (!reference.activationPanel.Visible)
             {
-                if (reference.customers == 0) throw new Exception();
-                else
+                try
                 {
-                    cart = (CartManager)reference.cartLabel.Tag;
-
-                    if (movieList.Visible) media = (LibraryManager)movieList.FocusedItem.Tag;
-                    else if (musicList.Visible)
+                    if (reference.customers == 0) throw new Exception();
+                    else
                     {
-                        media = (LibraryManager)musicList.FocusedItem.Tag;
+                        cart = (CartManager)reference.cartLabel.Tag;
+
+                        if (movieList.Visible) media = (LibraryManager)movieList.FocusedItem.Tag;
+                        else if (musicList.Visible)
+                        {
+                            media = (LibraryManager)musicList.FocusedItem.Tag;
+                        }
+
+                        else if (seriesList.Visible) media = (LibraryManager)seriesList.FocusedItem.Tag;
+                        else media = null;
+
+                        if (!cart.ContainsMedia(media))
+                            cart.AddMedia(media);
                     }
-                        
-                    else if (seriesList.Visible) media = (LibraryManager)seriesList.FocusedItem.Tag;
-                    else media = null;
-
-                    if(!cart.ContainsMedia(media))
-                        cart.AddMedia(media);
                 }
-            }
-            catch(Exception)
-            {
-                DialogResult result = MessageBox.Show("There are currently no active carts available. Click OK to add to a cart.", "Empty Slot", MessageBoxButtons.OKCancel);
-                if (result == DialogResult.OK)
+                catch (Exception)
                 {
-                    reference.newCartToolStripButton.PerformClick();
-                    cartButton.PerformClick();
+                    DialogResult result = MessageBox.Show("There are currently no active carts available. Click OK to add to a cart.", "Empty Slot", MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.OK)
+                    {
+                        reference.newCartToolStripButton.PerformClick();
+                        cartButton.PerformClick();
+                    }
                 }
             }
-
-            
         }
 
         private void genreSelected_Click(object sender, EventArgs e)
@@ -1602,21 +1603,21 @@ namespace Mobile_Service_Distribution.Forms
             if (e.CurrentValue == CheckState.Checked) movieItemSelected--;
             else movieItemSelected++;
 
-            if (movieItemSelected == 0 && movieList.Visible)
+            if (!reference.activationPanel.Visible)
             {
-                sendMultiButton.Enabled = false;
-                selectedItemsLabel.Visible = false;
+                if (movieItemSelected == 0 && movieList.Visible)
+                {
+                    sendMultiButton.Enabled = false;
+                    selectedItemsLabel.Visible = false;
+                }
+                else
+                {
+                    sendMultiButton.Enabled = true;
+                    selectedItemsLabel.Visible = true;
+
+                    selectedItemsLabel.Text = movieItemSelected.ToString();
+                }
             }
-
-            else
-            {
-                sendMultiButton.Enabled = true;
-                selectedItemsLabel.Visible = true;
-
-                selectedItemsLabel.Text = movieItemSelected.ToString();
-            }
-
-
         }
 
         private void musicList_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -1624,18 +1625,20 @@ namespace Mobile_Service_Distribution.Forms
             if (e.CurrentValue == CheckState.Checked) musicItemSelected--;
             else musicItemSelected++;
 
-            if (musicItemSelected == 0 && musicList.Visible)
+            if (!reference.activationPanel.Visible)
             {
-                sendMultiButton.Enabled = false;
-                selectedItemsLabel.Visible = false;
-            }
+                if (musicItemSelected == 0 && musicList.Visible)
+                {
+                    sendMultiButton.Enabled = false;
+                    selectedItemsLabel.Visible = false;
+                }
+                else
+                {
+                    sendMultiButton.Enabled = true;
+                    selectedItemsLabel.Visible = true;
 
-            else
-            {
-                sendMultiButton.Enabled = true;
-                selectedItemsLabel.Visible = true;
-
-                selectedItemsLabel.Text = musicItemSelected.ToString();
+                    selectedItemsLabel.Text = musicItemSelected.ToString();
+                }
             }
         }
 
@@ -1644,19 +1647,21 @@ namespace Mobile_Service_Distribution.Forms
             if (e.CurrentValue == CheckState.Checked) seriesItemSelected--;
             else seriesItemSelected++;
 
-            if (seriesItemSelected == 0 && seriesList.Visible)
+            if (!reference.activationPanel.Visible)
             {
-                sendMultiButton.Enabled = false;
-                selectedItemsLabel.Visible = false;
-            }
+                if (seriesItemSelected == 0 && seriesList.Visible)
+                {
+                    sendMultiButton.Enabled = false;
+                    selectedItemsLabel.Visible = false;
+                }
+                else
+                {
+                    sendMultiButton.Enabled = true;
+                    selectedItemsLabel.Visible = true;
 
-            else
-            {
-                sendMultiButton.Enabled = true;
-                selectedItemsLabel.Visible = true;
+                    selectedItemsLabel.Text = seriesItemSelected.ToString();
 
-                selectedItemsLabel.Text = seriesItemSelected.ToString();
-               
+                }
             }
         }
 
@@ -1738,55 +1743,58 @@ namespace Mobile_Service_Distribution.Forms
 
         private void addSTCart_Click(object sender, EventArgs e)
         {
-            List<TreeNode> checkedNodes = new List<TreeNode>();
-            foreach (TreeNode node in albumTreeView.Nodes)
+            if (!reference.activationPanel.Visible)
             {
-                if (node.Parent == null && node.Checked)
-                    checkedNodes.Add(node);
-                else 
-                    foreach (TreeNode subNode in node.Nodes)
-                        if (subNode.Checked)
-                            checkedNodes.Add(subNode);
-            }
-
-            try
-            {
-                if (reference.customers == 0) throw new Exception();
-                else
+                List<TreeNode> checkedNodes = new List<TreeNode>();
+                foreach (TreeNode node in albumTreeView.Nodes)
                 {
+                    if (node.Parent == null && node.Checked)
+                        checkedNodes.Add(node);
+                    else
+                        foreach (TreeNode subNode in node.Nodes)
+                            if (subNode.Checked)
+                                checkedNodes.Add(subNode);
+                }
 
-                    CartManager cart = (CartManager)reference.cartLabel.Tag;
-                    LibraryManager aboutMedia;
-
-                    foreach (TreeNode node in checkedNodes)
+                try
+                {
+                    if (reference.customers == 0) throw new Exception();
+                    else
                     {
-                        if (node.Tag is string)
-                        {
-                            aboutMedia = new LibraryManager((string)node.Tag, MediaType.Series, true);
-                            node.Checked = false;
 
-                            foreach (TreeNode subNode in node.Nodes)
-                                subNode.Checked = false;
-                        }
-                        else
-                        {
-                            aboutMedia = (LibraryManager)node.Tag;
-                            node.Checked = false;
-                        }
-                            
+                        CartManager cart = (CartManager)reference.cartLabel.Tag;
+                        LibraryManager aboutMedia;
 
-                        if (!cart.ContainsMedia(aboutMedia))
-                            cart.AddMedia(aboutMedia);
+                        foreach (TreeNode node in checkedNodes)
+                        {
+                            if (node.Tag is string)
+                            {
+                                aboutMedia = new LibraryManager((string)node.Tag, MediaType.Series, true);
+                                node.Checked = false;
+
+                                foreach (TreeNode subNode in node.Nodes)
+                                    subNode.Checked = false;
+                            }
+                            else
+                            {
+                                aboutMedia = (LibraryManager)node.Tag;
+                                node.Checked = false;
+                            }
+
+
+                            if (!cart.ContainsMedia(aboutMedia))
+                                cart.AddMedia(aboutMedia);
+                        }
                     }
                 }
-            }
-            catch (Exception)
-            {
-                DialogResult result = MessageBox.Show("There are currently no active carts available. Click OK to add to a cart.", "Empty Slot", MessageBoxButtons.OKCancel);
-                if (result == DialogResult.OK)
+                catch (Exception)
                 {
-                    reference.newCartToolStripButton.PerformClick();
-                    addSTCart.PerformClick();
+                    DialogResult result = MessageBox.Show("There are currently no active carts available. Click OK to add to a cart.", "Empty Slot", MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.OK)
+                    {
+                        reference.newCartToolStripButton.PerformClick();
+                        addSTCart.PerformClick();
+                    }
                 }
             }
         }

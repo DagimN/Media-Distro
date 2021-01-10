@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using static System.IO.Path;
 using Mobile_Service_Distribution.Managers;
 using static Mobile_Service_Distribution.Managers.CartManager;
 using System.ComponentModel;
@@ -28,12 +29,27 @@ namespace Mobile_Service_Distribution.Forms
             {
                 if (usbStorage.IsReady && usbStorage.DriveType == DriveType.Removable)
                 {
-                    ListViewItem usbDrive = new ListViewItem
+                    ListViewItem usbDrive;
+
+                    if (File.Exists(Combine(usbStorage.Name, "Distro List")))
                     {
-                        Text = usbStorage.VolumeLabel + " " + usbStorage.Name,
-                        Tag = usbStorage.Name,
-                        ImageIndex = 2
-                    };
+                        usbDrive = new ListViewItem
+                        {
+                            Text = usbStorage.VolumeLabel + " " + usbStorage.Name,
+                            Tag = usbStorage.Name,
+                            ImageIndex = 3
+                        };
+                    }
+                    else
+                    {
+                        usbDrive = new ListViewItem
+                        {
+                            Text = usbStorage.VolumeLabel + " " + usbStorage.Name,
+                            Tag = usbStorage.Name,
+                            ImageIndex = 2
+                        };
+                    }
+
                     deviceList.Items.Add(usbDrive);
                     sendToToolStripMenuItem.Enabled = true;
                     sendToToolStripMenuItem.DropDownItems.Add(usbStorage.Name).Tag = usbStorage.Name;
@@ -348,6 +364,54 @@ namespace Mobile_Service_Distribution.Forms
         private void ShareForm_Leave(object sender, EventArgs e)
         {
             reference.Focus();
+        }
+
+        private void deviceList_ItemActivate(object sender, EventArgs e)
+        {
+            ListViewItem availableList = deviceList.SelectedItems[0];
+            string[] listFile;
+            DialogResult result;
+            CartManager newCart;
+
+            if(availableList.ImageIndex == 3)
+            {
+                listFile = File.ReadAllLines(Combine((string)availableList.Tag, "Distro List"));
+
+                result = MessageBox.Show("This device contains the list of the customer's choice. Press YES to start the transaction automatically.", "Distro List Detected",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    if (cartsListView.Items != null)
+                    {
+                        reference.cartsToolStripSplitButton.ToolTipText = null;
+                        noCartLabel.Visible = false;
+                    }
+
+                    reference.cartsToolStripSplitButton.DropDownItems.Add("Customer " + ++reference.customers).Tag = newCart = new CartManager(reference.customers);
+                    reference.cartLabel.Text = $"Customer {reference.customers}";
+                    reference.cartLabel.Tag = newCart;
+
+                    ListViewItem newItem = new ListViewItem
+                    {
+                        Text = reference.cartLabel.Text,
+                        ImageIndex = 1,
+                        Tag = reference.cartLabel.Tag
+                    };
+
+                    if (reference.activeItem == null)
+                    {
+                        cartsListView.Items.Add(newItem);
+                        reference.activeItem = newItem;
+                    }
+                    else
+                    {
+                        reference.activeItem.ImageIndex = 0;
+                        cartsListView.Items.Add(newItem);
+                        reference.activeItem = newItem;
+                    }
+                }
+            }
+                
         }
     }
 }

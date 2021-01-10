@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
+using static System.IO.Directory;
 using static System.IO.Path;
 using static System.Environment;
 using static Mobile_Service_Distribution.LibraryManager;
@@ -18,29 +20,35 @@ namespace Mobile_Service_Distribution.Forms
         public PieSeries onGoingTask;
         public PieSeries pausedTasks;
 
+        private static string adFolder = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Ads");
         private mediaDistroFrame reference;
         private Button addToCartButton = new Button {
             Size = new Size(116, 30),
             FlatStyle = FlatStyle.Flat,
             BackColor = Color.White
         };
+        DateTime checkDate;
 
         public HomeForm(mediaDistroFrame reference)
         {
             InitializeComponent();
+
+            int initial1 = 3;
 
             popularNowPanel.HorizontalScroll.SmallChange = 130;
 
             this.reference = reference;
 
             addToCartButton.Click += new EventHandler(addToCartButton_Click);
+            addToCartButton.MouseLeave += new EventHandler(addToCartButton_MouseLeave);
 
-            int initial1 = 3;
             foreach (LibraryManager media in SortPRS())
             {
                 PictureBox coverArtPictureBox = new PictureBox
                 {
-                    Image = (media.CoverArtDirectory != "") ? Image.FromFile(media.CoverArtDirectory) : Image.FromFile(Combine(GetFolderPath(SpecialFolder.UserProfile), "Documents", "Euphoria Games", "Software", "Form Designs", "coverart sample 2.png")),
+                    Image = (media.CoverArtDirectory != "") ? Image.FromFile(media.CoverArtDirectory) : 
+                            Image.FromFile(Combine(GetFolderPath(SpecialFolder.UserProfile), 
+                            "Documents", "Euphoria Games", "Software", "Form Designs", "coverart sample 2.png")),
                     SizeMode = PictureBoxSizeMode.StretchImage,
                     Size = new Size(116, 140),
                     Location = new Point(initial1, 10),
@@ -79,77 +87,15 @@ namespace Mobile_Service_Distribution.Forms
             taskPieChart.Series.Add(onGoingTask);
             taskPieChart.Series.Add(pausedTasks);
 
-            panel1.Refresh();
-        }
+            dashBoardPanel.Refresh();
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            float totalSize = 0, availableSize = 0, driveSize, driveFreeSpace, i = 370, initial = 352, iter = 0;
-            
-            Brush[] brushes = new Brush[] { Brushes.DodgerBlue, Brushes.Firebrick, Brushes.LimeGreen, Brushes.DarkOrchid, Brushes.DarkSlateGray };
-            List<DriveInfo> hardDrives = new List<DriveInfo>();
-
-            using (Graphics graphics = e.Graphics)
+            foreach (string adDir in GetDirectories(adFolder))
             {
-                foreach(DriveInfo hardDrive in DriveInfo.GetDrives())
-                {
-                    if(hardDrive.DriveType == DriveType.Fixed && hardDrive.IsReady)
-                    {
-                        hardDrives.Add(hardDrive);
+                checkDate = DateTime.Parse(File.ReadAllLines(Combine(adDir, "Date Info.txt"))[0]);
 
-                        totalSize += hardDrive.TotalSize;
-                        availableSize += hardDrive.AvailableFreeSpace;
-                    }
-                }
-
-                if(reference.sideMenuPanel.Width == 235)
-                {
-                    foreach (DriveInfo hardDrive in hardDrives)
-                    {
-                        driveFreeSpace = hardDrive.AvailableFreeSpace;
-                        driveSize = hardDrive.TotalSize;
-
-                        graphics.FillRectangle(brushes[(int)iter], initial, 147, ((driveSize - driveFreeSpace) / driveSize) * ((totalSize - availableSize) / totalSize * 204), 14);
-                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                        graphics.FillEllipse(brushes[(int)iter++], i, 175, 15, 15);
-                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                        graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
-                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 147));
-                        i += 60;
-                        initial = (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
-
-                    }
-
-
-                    graphics.DrawRectangle(Pens.Black, 350, 145, 207, 17);
-                    graphics.DrawString("GB", new Font("Microsoft JhengHei", 7), Brushes.Black, new PointF(540, 148));
-                }
-                else
-                {
-                    initial += 184;
-                    i += 184;
-
-                    foreach (DriveInfo hardDrive in hardDrives)
-                    {
-                        driveFreeSpace = hardDrive.AvailableFreeSpace;
-                        driveSize = hardDrive.TotalSize;
-
-                        graphics.FillRectangle(brushes[(int)iter], initial, 147, ((driveSize - driveFreeSpace) / driveSize) * ((totalSize - availableSize) / totalSize * 204), 14);
-                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                        graphics.FillEllipse(brushes[(int)iter++], i, 175, 15, 15);
-                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                        graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
-                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 148));
-                        i += 60;
-                        initial = (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
-
-                    }
-
-
-                    graphics.DrawRectangle(Pens.Black, 534, 145, 207, 17);
-                    graphics.DrawString("GB", new Font("Microsoft JhengHei", 7), Brushes.Black, new PointF(724, 148));
-                }
-                
+                if (checkDate.Month != DateTime.Now.Month)
+                    if(DateTime.Now.DayOfYear - checkDate.DayOfYear > 30)
+                        Delete(adDir, true);
             }
         }
 
@@ -157,6 +103,7 @@ namespace Mobile_Service_Distribution.Forms
         {
             PictureBox box = (PictureBox)sender;
 
+            addToCartButton.Visible = true;
             addToCartButton.Location = new Point(box.Location.X, 148);
             addToCartButton.Tag = box.Tag;
             popularNowPanel.Controls.Add(addToCartButton);
@@ -196,6 +143,11 @@ namespace Mobile_Service_Distribution.Forms
             }
         }
 
+        private void addToCartButton_MouseLeave(object sender, EventArgs e)
+        {
+            addToCartButton.Visible = false;
+        }
+
         private void goLeftButton_Click(object sender, EventArgs e)
         {
             int value = popularNowPanel.HorizontalScroll.Value;
@@ -218,6 +170,114 @@ namespace Mobile_Service_Distribution.Forms
             }
 
             popularNowPanel.Focus();
+        }
+
+        private void dashBoardPanel_Paint(object sender, PaintEventArgs e)
+        {
+            float totalSize = 0, availableSize = 0, driveSize, driveFreeSpace, i = 370, initial = 352, iter = 0;
+
+            Brush[] brushes = new Brush[] { Brushes.DodgerBlue, Brushes.Firebrick, Brushes.LimeGreen, Brushes.DarkOrchid, Brushes.DarkSlateGray };
+            List<DriveInfo> hardDrives = new List<DriveInfo>();
+
+            using (Graphics graphics = e.Graphics)
+            {
+                foreach (DriveInfo hardDrive in DriveInfo.GetDrives())
+                {
+                    if (hardDrive.DriveType == DriveType.Fixed && hardDrive.IsReady)
+                    {
+                        hardDrives.Add(hardDrive);
+
+                        totalSize += hardDrive.TotalSize;
+                        availableSize += hardDrive.AvailableFreeSpace;
+                    }
+                }
+
+                if (reference.sideMenuPanel.Width == 235)
+                {
+                    foreach (DriveInfo hardDrive in hardDrives)
+                    {
+                        driveFreeSpace = hardDrive.AvailableFreeSpace;
+                        driveSize = hardDrive.TotalSize;
+
+                        graphics.FillRectangle(brushes[(int)iter % 6], initial, 147, ((driveSize - driveFreeSpace) / driveSize) * ((totalSize - availableSize) / totalSize * 204), 14);
+                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                        graphics.FillEllipse(brushes[(int)iter++ % 6], i, 175, 15, 15);
+                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                        graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
+                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 147));
+                        i += 60;
+                        initial = (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
+
+                    }
+
+
+                    graphics.DrawRectangle(Pens.Black, 350, 145, 207, 17);
+                    graphics.DrawString("GB", new Font("Microsoft JhengHei", 7), Brushes.Black, new PointF(540, 148));
+                }
+                else
+                {
+                    initial += 184;
+                    i += 184;
+
+                    foreach (DriveInfo hardDrive in hardDrives)
+                    {
+                        driveFreeSpace = hardDrive.AvailableFreeSpace;
+                        driveSize = hardDrive.TotalSize;
+
+                        graphics.FillRectangle(brushes[(int)iter % 6], initial, 147, ((driveSize - driveFreeSpace) / driveSize) * ((totalSize - availableSize) / totalSize * 204), 14);
+                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                        graphics.FillEllipse(brushes[(int)iter++ % 6], i, 175, 15, 15);
+                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                        graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
+                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 148));
+                        i += 60;
+                        initial = (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
+                    }
+
+
+                    graphics.DrawRectangle(Pens.Black, 534, 145, 207, 17);
+                    graphics.DrawString("GB", new Font("Microsoft JhengHei", 7), Brushes.Black, new PointF(724, 148));
+                }
+            }
+        }
+
+        private void adsPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            
+        }
+
+        private void locateZipButton_Click(object sender, EventArgs e)
+        {
+            string zipPath;
+            StreamWriter dateFile;
+            OpenFileDialog zipFile = new OpenFileDialog
+            {
+                Title = "Locate ZIP File",
+                Filter = "ZIP Files (*.zip)| *.zip | RAR Files(*.rar) | *.rar | All Files (*.*)| *.*"
+            };
+
+            try
+            {
+                if (zipFile.ShowDialog() == DialogResult.OK)
+                {
+                    zipPath = zipFile.FileName;
+                    foreach(string adDir in GetDirectories(adFolder))
+                        Delete(adDir, true);
+
+                    ZipFile.ExtractToDirectory(zipPath, adFolder);
+                    
+                    foreach(string adDir in GetDirectories(adFolder))
+                    {
+                        dateFile = File.CreateText(Combine(adDir, "Date Info.txt"));
+                        dateFile.WriteLine(DateTime.Now.ToString());
+                        dateFile.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong: " + ex.Message);
+            }
         }
     }
 }

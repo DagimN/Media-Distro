@@ -45,6 +45,7 @@ namespace Mobile_Service_Distribution.Forms
                 
             folderBrowser.Dispose();
             Media_Distro.Properties.Settings.Default.Save();
+            urlPathListBox.Focus();
         }
 
         private void movieURLCollectionButton_Click(object sender, EventArgs e)
@@ -59,6 +60,7 @@ namespace Mobile_Service_Distribution.Forms
 
             priceSettingLabel.Text = "Price Per Movie";
             priceSetting.Value = Media_Distro.Properties.Settings.Default.moviePrice;
+            urlPathListBox.Focus();
         }
 
         private void musicURLCollectionButton_Click(object sender, EventArgs e)
@@ -73,6 +75,7 @@ namespace Mobile_Service_Distribution.Forms
 
             priceSettingLabel.Text = "Price Per Music";
             priceSetting.Value = Media_Distro.Properties.Settings.Default.musicPrice;
+            urlPathListBox.Focus();
         }
 
         private void seriesURLCollectionButton_Click(object sender, EventArgs e)
@@ -87,6 +90,7 @@ namespace Mobile_Service_Distribution.Forms
 
             priceSettingLabel.Text = "Price Per Episode";
             priceSetting.Value = Media_Distro.Properties.Settings.Default.seriesPrice;
+            urlPathListBox.Focus();
         }
 
         private void defaultColor_Click(object sender, EventArgs e)
@@ -339,6 +343,7 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.albumTreeView.BackColor = Color.FromArgb(130, 200, 255);
                 libRef.pictureBox1.BackColor = Color.FromArgb(130, 200, 255);
                 libRef.addSTCart.FillColor = themePreference[3];
+                libRef.moreInfoLinkLabel.LinkColor = libRef.infoPanel.BackColor;
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Default_BackGround;
 
@@ -378,6 +383,7 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.albumTreeView.BackColor = Color.FromArgb(180, 80, 95);
                 libRef.pictureBox1.BackColor = Color.FromArgb(180, 80, 95);
                 libRef.addSTCart.FillColor = themePreference[3];
+                libRef.moreInfoLinkLabel.LinkColor = libRef.titleTextBox.ForeColor;
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Fire_BackGround;
 
@@ -417,6 +423,7 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.albumTreeView.BackColor = Color.FromArgb(155, 255, 165);
                 libRef.pictureBox1.BackColor = Color.FromArgb(155, 255, 165);
                 libRef.addSTCart.FillColor = themePreference[0];
+                libRef.moreInfoLinkLabel.LinkColor = libRef.infoPanel.BackColor;
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Meadow_BackGround;
 
@@ -456,6 +463,7 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.albumTreeView.BackColor = Color.FromArgb(105, 105, 115);
                 libRef.pictureBox1.BackColor = Color.FromArgb(105, 105, 115);
                 libRef.addSTCart.FillColor = themePreference[1];
+                libRef.moreInfoLinkLabel.LinkColor = libRef.infoPanel.BackColor;
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Dark_BackGround;
 
@@ -495,6 +503,7 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.albumTreeView.BackColor = Color.FromArgb(60, 70, 100);
                 libRef.pictureBox1.BackColor = Color.FromArgb(60, 70, 100);
                 libRef.addSTCart.FillColor = themePreference[0];
+                libRef.moreInfoLinkLabel.LinkColor = libRef.infoPanel.BackColor;
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Twilight_BackGround;
 
@@ -608,6 +617,9 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.albumTreeView.BackColor = temp2Color;
                 libRef.pictureBox1.BackColor = temp2Color;
                 libRef.addSTCart.FillColor = temp4Color;
+                libRef.moreInfoLinkLabel.LinkColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
+                if(Media_Distro.Properties.Settings.Default.Active_Theme_Preference == Media_Distro.Properties.Settings.Default.Fire_Theme_Preference)
+                    libRef.moreInfoLinkLabel.LinkColor = libRef.titleTextBox.ForeColor;
 
                 Media_Distro.Properties.Settings.Default.Active_Theme_InfoPanel = temp2Color;
 
