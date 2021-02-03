@@ -405,5 +405,8 @@
   <ItemGroup>
     <None Include="Resources\Warning Icon 3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\coverart sample 2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
