@@ -15,6 +15,7 @@ namespace Mobile_Service_Distribution.Forms
         private mediaDistroFrame reference;
         private Control activeList;
         public CartManager cart;
+        private int iter = 1;
 
         public ShareForm(mediaDistroFrame reference, HomeForm homeForm, StatsForm statsForm)
         {
@@ -115,6 +116,11 @@ namespace Mobile_Service_Distribution.Forms
                 detailListView.Items.Clear();
                 panel1.Visible = true;
                 emptyCartLabel.Visible = false;
+
+                int p = iter - 1;
+                for (int i = p; i > 0; i--)
+                    detailListView.LargeImageList.Images.RemoveAt(i);
+                iter = 1;
             }
         }
 
@@ -128,6 +134,11 @@ namespace Mobile_Service_Distribution.Forms
             seriesExtLabel.Text = null;
             priceExtLabel.Text = "0";
             emptyCartLabel.Visible = false;
+
+            int p = iter - 1;
+            for (int i = p; i > 0; i--)
+                detailListView.LargeImageList.Images.RemoveAt(i);
+            iter = 1;
         }
 
         private void ShareForm_MouseClick(object sender, MouseEventArgs e)
@@ -140,6 +151,11 @@ namespace Mobile_Service_Distribution.Forms
             seriesExtLabel.Text = null;
             priceExtLabel.Text = "0";
             emptyCartLabel.Visible = false;
+
+            int p = iter - 1;
+            for (int i = p; i > 0; i--)
+                detailListView.LargeImageList.Images.RemoveAt(i);
+            iter = 1;
         }
 
         private void cartsContextMenuStrip_Opening(object sender, CancelEventArgs e)
@@ -172,6 +188,11 @@ namespace Mobile_Service_Distribution.Forms
                 priceExtLabel.Text = "0";
                 cartDetails = null;
                 emptyCartLabel.Visible = false;
+
+                int p = iter - 1;
+                for (int i = p; i > 0; i--)
+                    detailListView.LargeImageList.Images.RemoveAt(i);
+                iter = 1;
             }
             else cartDetails = null;
 
@@ -200,11 +221,26 @@ namespace Mobile_Service_Distribution.Forms
                     else if (fileName.Type == LibraryManager.MediaType.Music) musicNum++;
                     else if (fileName.Type == LibraryManager.MediaType.Series) seriesNum++;
 
-                    detailListView.Items.Add(new ListViewItem
+                    if (fileName.CoverArtDirectory != null && File.Exists(fileName.CoverArtDirectory))
                     {
-                        Text = fileName.Title,
-                        Tag = fileName
-                    });
+                        detailListView.LargeImageList.Images.Add(Image.FromFile(fileName.CoverArtDirectory));
+
+                        this.detailListView.Items.Add(new ListViewItem
+                        {
+                            Text = fileName.Title,
+                            Tag = fileName,
+                            ImageIndex = iter++
+                        });
+                    }
+                    else
+                    {
+                        this.detailListView.Items.Add(new ListViewItem
+                        {
+                            Text = fileName.Title,
+                            Tag = fileName,
+                            ImageIndex = 0
+                        });
+                    }
                 }
             }
             else
@@ -232,6 +268,11 @@ namespace Mobile_Service_Distribution.Forms
             seriesExtLabel.Text = "0";
             priceExtLabel.Text = null;
             detailListView.Items.Clear();
+
+            int p = iter - 1;
+            for (int i = p; i > 0; i--)
+                detailListView.LargeImageList.Images.RemoveAt(i);
+            iter = 1;
         }
 
         private void removeCartToolStripMenuItem_Click(object sender, EventArgs e)
@@ -257,7 +298,12 @@ namespace Mobile_Service_Distribution.Forms
                 reference.cartsToolStripSplitButton.ToolTipText = "No Carts";
                 noCartLabel.Visible = true;
             }
-              
+
+            int p = iter - 1;
+            for (int i = p; i > 0; i--)
+                detailListView.LargeImageList.Images.RemoveAt(i);
+            iter = 1;
+
         }
 
         private void cartsListView_DoubleClick(object sender, EventArgs e)
@@ -349,6 +395,11 @@ namespace Mobile_Service_Distribution.Forms
                 cart.Remove((LibraryManager)item.Tag);
                 detailListView.Items.Remove(item);
             }
+
+            int p = iter - 1;
+            for (int i = p; i > 0; i--)
+                detailListView.LargeImageList.Images.RemoveAt(i);
+            iter = 1;
 
             FillDetailList(cart);
         }

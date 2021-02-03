@@ -225,8 +225,8 @@
         public System.Windows.Forms.Label volumeLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Button goLeftButton;
-        private System.Windows.Forms.ToolTip titleToolTip;
         private System.Windows.Forms.Button locateZipButton;
         private System.Windows.Forms.PictureBox pictureBox2;
+        public System.Windows.Forms.ToolTip titleToolTip;
     }
 }

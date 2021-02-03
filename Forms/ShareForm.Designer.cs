@@ -450,7 +450,7 @@
             // 
             this.coverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("coverArtImageList.ImageStream")));
             this.coverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.coverArtImageList.Images.SetKeyName(0, "20200624_141917.jpg");
+            this.coverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
             // 
             // progressSelected
             // 

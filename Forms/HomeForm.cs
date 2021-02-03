@@ -22,7 +22,7 @@ namespace Mobile_Service_Distribution.Forms
 
         private static string adFolder = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Ads");
         private mediaDistroFrame reference;
-        private Button addToCartButton = new Button {
+        public Button addToCartButton = new Button {
             Size = new Size(116, 30),
             FlatStyle = FlatStyle.Flat,
             BackColor = Color.White
@@ -33,37 +33,12 @@ namespace Mobile_Service_Distribution.Forms
         {
             InitializeComponent();
 
-            int initial1 = 3;
-
             popularNowPanel.HorizontalScroll.SmallChange = 130;
 
             this.reference = reference;
 
             addToCartButton.Click += new EventHandler(addToCartButton_Click);
             addToCartButton.MouseLeave += new EventHandler(addToCartButton_MouseLeave);
-
-            foreach (LibraryManager media in SortPRS())
-            {
-                PictureBox coverArtPictureBox = new PictureBox
-                {
-                    Image = (media.CoverArtDirectory != "") ? Image.FromFile(media.CoverArtDirectory) : 
-                            Image.FromFile(Combine(GetFolderPath(SpecialFolder.UserProfile), 
-                            "Documents", "Euphoria Games", "Software", "Form Designs", "coverart sample 2.png")),
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Size = new Size(116, 140),
-                    Location = new Point(initial1, 10),
-                    Tag = media,
-                    BorderStyle = BorderStyle.FixedSingle
-                };
-
-                titleToolTip.SetToolTip(coverArtPictureBox, media.Title);
-
-                coverArtPictureBox.MouseEnter += new EventHandler(PRSItem_MouseEnter);
-
-                initial1 += 121;
-
-                popularNowPanel.Controls.Add(coverArtPictureBox);
-            }
 
             taskPieChart.InnerRadius = 20; 
             taskPieChart.LegendLocation = LegendLocation.Right;
@@ -114,7 +89,7 @@ namespace Mobile_Service_Distribution.Forms
             popularNowPanel.Controls.Remove(addToCartButton);
         }
 
-        private void addToCartButton_Click(object sender, EventArgs e)
+        public void addToCartButton_Click(object sender, EventArgs e)
         {
             CartManager cart;
             LibraryManager media;
@@ -143,7 +118,7 @@ namespace Mobile_Service_Distribution.Forms
             }
         }
 
-        private void addToCartButton_MouseLeave(object sender, EventArgs e)
+        public void addToCartButton_MouseLeave(object sender, EventArgs e)
         {
             addToCartButton.Visible = false;
         }

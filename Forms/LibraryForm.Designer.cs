@@ -65,6 +65,8 @@
             this.selectedItemsLabel = new System.Windows.Forms.ToolStripLabel();
             this.titleToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.coverPictureBox = new System.Windows.Forms.PictureBox();
+            this.removeCoverArtContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeCoverArtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoPanel = new System.Windows.Forms.Panel();
             this.addSTCart = new Guna.UI2.WinForms.Guna2Button();
             this.hideInfoButton = new Guna.UI2.WinForms.Guna2Button();
@@ -89,6 +91,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.musicSelected)).BeginInit();
             this.arrangementToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).BeginInit();
+            this.removeCoverArtContextMenuStrip.SuspendLayout();
             this.infoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -121,9 +124,9 @@
             this.genreListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.genreListView.HideSelection = false;
             this.genreListView.LargeImageList = this.coverArtImageList;
-            this.genreListView.Location = new System.Drawing.Point(0, 31);
+            this.genreListView.Location = new System.Drawing.Point(0, 41);
             this.genreListView.Name = "genreListView";
-            this.genreListView.Size = new System.Drawing.Size(546, 394);
+            this.genreListView.Size = new System.Drawing.Size(546, 384);
             this.genreListView.TabIndex = 12;
             this.genreListView.UseCompatibleStateImageBehavior = false;
             this.genreListView.Visible = false;
@@ -131,15 +134,16 @@
             // coverArtImageList
             // 
             this.coverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("coverArtImageList.ImageStream")));
+            this.coverArtImageList.Tag = "No";
             this.coverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.coverArtImageList.Images.SetKeyName(0, "coverart sample 3.png");
+            this.coverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
             // 
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Location = new System.Drawing.Point(290, 27);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(255, 4);
+            this.pictureBox2.Size = new System.Drawing.Size(255, 10);
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
             // 
@@ -228,9 +232,9 @@
             this.movieList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.movieList.HideSelection = false;
             this.movieList.LargeImageList = this.coverArtImageList;
-            this.movieList.Location = new System.Drawing.Point(0, 31);
+            this.movieList.Location = new System.Drawing.Point(0, 41);
             this.movieList.Name = "movieList";
-            this.movieList.Size = new System.Drawing.Size(546, 394);
+            this.movieList.Size = new System.Drawing.Size(546, 384);
             this.movieList.TabIndex = 6;
             this.movieList.Tag = "00";
             this.movieList.UseCompatibleStateImageBehavior = false;
@@ -259,9 +263,9 @@
             this.musicList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.musicList.HideSelection = false;
             this.musicList.LargeImageList = this.coverArtImageList;
-            this.musicList.Location = new System.Drawing.Point(0, 31);
+            this.musicList.Location = new System.Drawing.Point(0, 41);
             this.musicList.Name = "musicList";
-            this.musicList.Size = new System.Drawing.Size(546, 394);
+            this.musicList.Size = new System.Drawing.Size(546, 384);
             this.musicList.TabIndex = 8;
             this.musicList.Tag = "00";
             this.musicList.UseCompatibleStateImageBehavior = false;
@@ -291,9 +295,9 @@
             this.seriesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.seriesList.HideSelection = false;
             this.seriesList.LargeImageList = this.coverArtImageList;
-            this.seriesList.Location = new System.Drawing.Point(0, 31);
+            this.seriesList.Location = new System.Drawing.Point(0, 41);
             this.seriesList.Name = "seriesList";
-            this.seriesList.Size = new System.Drawing.Size(546, 394);
+            this.seriesList.Size = new System.Drawing.Size(546, 384);
             this.seriesList.TabIndex = 7;
             this.seriesList.Tag = "00";
             this.seriesList.UseCompatibleStateImageBehavior = false;
@@ -357,14 +361,14 @@
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(85, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // sortToolStripDropDownButton
             // 
@@ -479,9 +483,10 @@
             // 
             // coverPictureBox
             // 
-            this.coverPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("coverPictureBox.BackgroundImage")));
+            this.coverPictureBox.BackgroundImage = global::Media_Distro.Properties.Resources.coverart_sample_2;
             this.coverPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.coverPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.coverPictureBox.ContextMenuStrip = this.removeCoverArtContextMenuStrip;
             this.coverPictureBox.Location = new System.Drawing.Point(-1, -1);
             this.coverPictureBox.Name = "coverPictureBox";
             this.coverPictureBox.Size = new System.Drawing.Size(110, 146);
@@ -490,6 +495,20 @@
             this.coverPictureBox.TabStop = false;
             this.titleToolTip.SetToolTip(this.coverPictureBox, "Click to change cover art");
             this.coverPictureBox.Click += new System.EventHandler(this.coverPictureBox_Click);
+            // 
+            // removeCoverArtContextMenuStrip
+            // 
+            this.removeCoverArtContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeCoverArtToolStripMenuItem});
+            this.removeCoverArtContextMenuStrip.Name = "removeCoverArtContextMenuStrip";
+            this.removeCoverArtContextMenuStrip.Size = new System.Drawing.Size(171, 26);
+            // 
+            // removeCoverArtToolStripMenuItem
+            // 
+            this.removeCoverArtToolStripMenuItem.Name = "removeCoverArtToolStripMenuItem";
+            this.removeCoverArtToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.removeCoverArtToolStripMenuItem.Text = "Remove Cover Art";
+            this.removeCoverArtToolStripMenuItem.Click += new System.EventHandler(this.removeCoverArtToolStripMenuItem_Click);
             // 
             // infoPanel
             // 
@@ -798,6 +817,7 @@
             this.arrangementToolStrip.ResumeLayout(false);
             this.arrangementToolStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).EndInit();
+            this.removeCoverArtContextMenuStrip.ResumeLayout(false);
             this.infoPanel.ResumeLayout(false);
             this.infoPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -819,8 +839,6 @@
         public System.Windows.Forms.Button cartButton;
         private System.Windows.Forms.ToolTip titleToolTip;
         private System.Windows.Forms.Button saveInfoButton;
-        private System.Windows.Forms.ToolStrip arrangementToolStrip;
-        private System.Windows.Forms.ToolStripDropDownButton genreToolStripDropDownButton;
         private System.Windows.Forms.ToolStripDropDownButton sortToolStripDropDownButton;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem;
@@ -859,5 +877,9 @@
         public System.Windows.Forms.TreeView albumTreeView;
         public System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripButton sendMultiButton;
+        private System.Windows.Forms.ContextMenuStrip removeCoverArtContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem removeCoverArtToolStripMenuItem;
+        public System.Windows.Forms.ToolStripDropDownButton genreToolStripDropDownButton;
+        public System.Windows.Forms.ToolStrip arrangementToolStrip;
     }
 }

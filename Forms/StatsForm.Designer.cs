@@ -48,6 +48,7 @@
             this.cartSentLabel = new System.Windows.Forms.Label();
             this.mediaSentLabel = new System.Windows.Forms.Label();
             this.summaryPieChart = new LiveCharts.WinForms.PieChart();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.formTitle = new System.Windows.Forms.Label();
             this.descriptionLabel = new System.Windows.Forms.Label();
             this.monthComboBox = new System.Windows.Forms.ComboBox();
@@ -57,7 +58,6 @@
             this.resetChartButton = new Guna.UI2.WinForms.Guna2Button();
             this.previousButton = new Guna.UI2.WinForms.Guna2Button();
             this.nxtButton = new Guna.UI2.WinForms.Guna2Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -122,7 +122,7 @@
             this.mediaAmountChart.Name = "mediaAmountChart";
             this.mediaAmountChart.Size = new System.Drawing.Size(193, 117);
             this.mediaAmountChart.TabIndex = 20;
-            this.mediaAmountChart.Text = "cartesianChart1";
+            this.mediaAmountChart.Text = "Media Amount";
             // 
             // cartPaidExt
             // 
@@ -267,6 +267,17 @@
             this.summaryPieChart.Size = new System.Drawing.Size(164, 141);
             this.summaryPieChart.TabIndex = 4;
             this.summaryPieChart.Text = "pieChart1";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Media_Distro.Properties.Resources.stats_background_default;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 291);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(193, 161);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
             // 
             // formTitle
             // 
@@ -414,17 +425,6 @@
             this.nxtButton.Size = new System.Drawing.Size(25, 20);
             this.nxtButton.TabIndex = 14;
             this.nxtButton.Click += new System.EventHandler(this.nxtButton_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Media_Distro.Properties.Resources.stats_background_default;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 291);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(193, 161);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 17;
-            this.pictureBox1.TabStop = false;
             // 
             // StatsForm
             // 

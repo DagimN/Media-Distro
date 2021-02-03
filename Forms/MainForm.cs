@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using static System.IO.Path;
 using static System.IO.Directory;
 using static System.Environment;
@@ -9,10 +10,12 @@ using Media_Distro;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Mobile_Service_Distribution.Forms;
 using System.Reflection;
+
 
 namespace Mobile_Service_Distribution
 {
@@ -21,7 +24,7 @@ namespace Mobile_Service_Distribution
         private readonly FormWindowState state = FormWindowState.Normal;
         private Point startPoint = new Point(0, 0);
         private Task searchTask;
-        private Task manageMediaTask;
+        public Task manageMediaTask;
         private Button activeButton;
         public ListViewItem activeItem = null;
 
@@ -58,9 +61,9 @@ namespace Mobile_Service_Distribution
       
         public mediaDistroFrame()
         {
-            if(Media_Distro.Properties.Settings.Default.Movie_Media_Location == null &
-                Media_Distro.Properties.Settings.Default.Music_Media_Location == null &
-                Media_Distro.Properties.Settings.Default.Series_Media_Location == null)
+            //Media_Distro.Properties.Settings.Default.fInitialize = false;
+
+            if (!Media_Distro.Properties.Settings.Default.fInitialize)
             {
                 Media_Distro.Properties.Settings.Default.Movie_Media_Location = new System.Collections.Specialized.StringCollection();
                 Media_Distro.Properties.Settings.Default.Music_Media_Location = new System.Collections.Specialized.StringCollection();
@@ -265,52 +268,62 @@ namespace Mobile_Service_Distribution
 
                         continueButton.Enabled = false;
                         getLabel.Visible = true;
+                        Media_Distro.Properties.Settings.Default.fInitialize = true;
+                        Media_Distro.Properties.Settings.Default.activationKey = GenerateKeyAlgorithm();
+                        Media_Distro.Properties.Settings.Default.expirationDate = DateTime.Now.AddDays(30);
+                        Media_Distro.Properties.Settings.Default.Save();
 
                         manageMediaTask.Wait();
                         introForm.Close();
                     }
                 }
-            } 
-            
-            InitializeComponent();
-
-            if (!Exists(mediaFolder)) CreateDirectory(mediaFolder).Attributes = FileAttributes.Hidden;
-            if (!Exists(movieFolder)) CreateDirectory(movieFolder);
-            if (!Exists(seriesFolder)) CreateDirectory(seriesFolder);
-            if (!Exists(musicFolder)) CreateDirectory(musicFolder);
-
-            if(!File.Exists(statsFileURL))
-            {
-                statsFile = new FileStream(statsFileURL, FileMode.Create, FileAccess.ReadWrite);
-                statsFile.Close();
             }
 
-            manageMediaTask = new Task(() => ManageMedia());
-            manageMediaTask.Start();
-
-            libraryForm = new LibraryForm(this);
-            statsForm = new StatsForm();
-            homeForm = new HomeForm(this);
-            shareForm = new ShareForm(this, homeForm, statsForm);
-            settingsForm = new SettingsForm(shareForm.progressListView, this, homeForm, libraryForm, shareForm, statsForm);
-
-            PropertyInfo workPanelType = workPanel.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-            workPanelType.SetValue(workPanel, true, null);
-            PropertyInfo sidePanelType = sideMenuPanel.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-            sidePanelType.SetValue(sideMenuPanel, true, null);
-
-            openChildForm(statsForm);
-            openChildForm(homeForm);
-            activeButton = homeSubMenu;
-            activeButton.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
-
-            if(Media_Distro.Properties.Settings.Default.activationKey.Length < 1 || 
-                Media_Distro.Properties.Settings.Default.expirationDate.ToShortDateString() == DateTime.Now.ToShortDateString())
+            if (Media_Distro.Properties.Settings.Default.fInitialize)
             {
-                newCartToolStripButton.Enabled = false;
-                cartsToolStripSplitButton.Enabled = false;
-                activationPanel.Visible = true;
-                sharesubMenu.Enabled = false;
+                InitializeComponent();
+
+                if (!Exists(mediaFolder)) CreateDirectory(mediaFolder).Attributes = FileAttributes.Hidden;
+                if (!Exists(movieFolder)) CreateDirectory(movieFolder);
+                if (!Exists(seriesFolder)) CreateDirectory(seriesFolder);
+                if (!Exists(musicFolder)) CreateDirectory(musicFolder);
+
+                if (!File.Exists(statsFileURL))
+                {
+                    statsFile = new FileStream(statsFileURL, FileMode.Create, FileAccess.ReadWrite);
+                    statsFile.Close();
+                }
+
+                homeForm = new HomeForm(this);
+                libraryForm = new LibraryForm(this);
+                statsForm = new StatsForm();
+                shareForm = new ShareForm(this, homeForm, statsForm);
+                settingsForm = new SettingsForm(shareForm.progressListView, this, homeForm, libraryForm, shareForm, statsForm);
+
+                PropertyInfo workPanelType = workPanel.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                workPanelType.SetValue(workPanel, true, null);
+                PropertyInfo sidePanelType = sideMenuPanel.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                sidePanelType.SetValue(sideMenuPanel, true, null);
+
+                openChildForm(statsForm);
+                openChildForm(libraryForm);
+                openChildForm(homeForm);
+
+                activeButton = homeSubMenu;
+                activeButton.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+
+                if (Media_Distro.Properties.Settings.Default.activationKey.Length < 1 ||
+                    Media_Distro.Properties.Settings.Default.expirationDate.ToShortDateString() == DateTime.Now.ToShortDateString() ||
+                        (Media_Distro.Properties.Settings.Default.expirationDate.AddDays(30) < DateTime.Now))
+                {
+                    newCartToolStripButton.Enabled = false;
+                    cartsToolStripSplitButton.Enabled = false;
+                    activationPanel.Visible = true;
+                    sharesubMenu.Enabled = false;
+                }
+
+                manageMediaTask = new Task(() => ManageMedia());
+                manageMediaTask.Start();
             }
         }
 
@@ -442,7 +455,8 @@ namespace Mobile_Service_Distribution
 
         private void closeButton_Click(object sender, EventArgs e)
         {
-            titleBarPanel.Focus();
+            if(Media_Distro.Properties.Settings.Default.fInitialize)
+                titleBarPanel.Focus();
             Application.Exit();
         }
 
@@ -462,6 +476,8 @@ namespace Mobile_Service_Distribution
                 this.workPanel.SetBounds(52, 30, 750, 452);
                 this.workPanel.BackColor = Color.Black;
                 this.searchPanel.Location = new Point(358, -1);
+                if (this.activationPanel.Visible)
+                    this.activationTextBox.Visible = false;
                 
                 this.cartToolStrip.Location = new Point(58, 5);
                 this.pictureBox1.Location = new Point(58, 27);
@@ -515,6 +531,8 @@ namespace Mobile_Service_Distribution
                 this.activeForm.SetBounds(0, 0, 567, 452);
                 this.workPanel.SetBounds(235, 30, 567, 452);
                 this.searchPanel.Location = new Point(175, -1);
+                if (this.activationPanel.Visible)
+                    this.activationTextBox.Visible = true;
 
                 this.cartToolStrip.Location = new Point(238, 5);
                 this.pictureBox1.Location = new Point(238, 27);
@@ -583,8 +601,10 @@ namespace Mobile_Service_Distribution
             }
         }
 
-        private void ManageMedia()
+        public void ManageMedia()
         {
+            int initial1 = 3;
+
             foreach (string dir in Media_Distro.Properties.Settings.Default.Movie_Media_Location)
             {
                 foreach (string file in GetFiles(dir))
@@ -622,6 +642,137 @@ namespace Mobile_Service_Distribution
                 else if (dir is ArrayList)
                     ManageMediaReference((ArrayList)dir);
             }
+
+            foreach (string file in GetFiles(libraryForm.moviePath)) { libraryForm.libraryManager = new LibraryManager(file, MediaType.Movie); }
+            foreach (string file in GetFiles(libraryForm.musicPath)) { libraryForm.libraryManager = new LibraryManager(file, MediaType.Music); }
+            foreach (string file in GetDirectories(libraryForm.musicPath)) { libraryForm.libraryManager = new LibraryManager(file, MediaType.Music, true); }
+            foreach (string file in GetDirectories(libraryForm.seriesPath)) { libraryForm.libraryManager = new LibraryManager(file, MediaType.Series, true); }
+
+            SortMedia(null, SortType.Name, Order.Ascending);
+
+            movieGenreCatalogue.Sort();
+            foreach (string genre in movieGenreCatalogue)
+                libraryForm.arrangementToolStrip.BeginInvoke((MethodInvoker)delegate { libraryForm.genreToolStripDropDownButton.DropDownItems.Add(genre, null, new EventHandler(libraryForm.genreSelected_Click)); });
+
+            foreach (LibraryManager movie in movieCatalogue)
+            {
+                if (movie.CoverArtDirectory != null && File.Exists(movie.CoverArtDirectory))
+                {
+                    libraryForm.movieList.Invoke((MethodInvoker)delegate { libraryForm.movieList.LargeImageList.Images.Add(Image.FromFile(movie.CoverArtDirectory)); });
+
+                    libraryForm.movieList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.movieList.Items.Add(new ListViewItem
+                        {
+                            Text = movie.Title,
+                            Tag = movie,
+                            ImageIndex = libraryForm.iter++
+                        });
+                    });
+                }
+                else
+                {
+                    libraryForm.movieList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.movieList.Items.Add(new ListViewItem
+                        {
+                            Text = movie.Title,
+                            Tag = movie,
+                            ImageIndex = 0
+                        });
+                    });
+                }
+            }
+            foreach (LibraryManager music in musicCatalogue)
+            {
+                if (music.CoverArtDirectory != null && File.Exists(music.CoverArtDirectory))
+                {
+                    libraryForm.musicList.Invoke((MethodInvoker)delegate { libraryForm.musicList.LargeImageList.Images.Add(Image.FromFile(music.CoverArtDirectory)); });
+
+                    libraryForm.musicList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.musicList.Items.Add(new ListViewItem
+                        {
+                            Text = music.Title,
+                            Tag = music,
+                            ImageIndex = libraryForm.iter++
+                        });
+                    });
+                }
+                else
+                {
+                    libraryForm.musicList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.musicList.Items.Add(new ListViewItem
+                        {
+                            Text = music.Title,
+                            Tag = music,
+                            ImageIndex = 0
+                        });
+                    });
+                }
+            }
+            foreach (LibraryManager series in seriesCatalogue)
+            {
+                if (series.CoverArtDirectory != null && File.Exists(series.CoverArtDirectory))
+                {
+                    libraryForm.seriesList.Invoke((MethodInvoker)delegate { libraryForm.seriesList.LargeImageList.Images.Add(Image.FromFile(series.CoverArtDirectory)); });
+
+                    libraryForm.seriesList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.seriesList.Items.Add(new ListViewItem
+                        {
+                            Text = series.Title,
+                            Tag = series,
+                            ImageIndex = libraryForm.iter++
+                        });
+                    });
+                }
+                else
+                {
+                    libraryForm.seriesList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.seriesList.Items.Add(new ListViewItem
+                        {
+                            Text = series.Title,
+                            Tag = series,
+                            ImageIndex = 0
+                        });
+                    });
+                }
+            }
+
+            foreach (LibraryManager media in SortPRS())
+            {
+                PictureBox coverArtPictureBox = new PictureBox
+                {
+                    Image = (media.CoverArtDirectory != null) ? Image.FromFile(media.CoverArtDirectory) :
+                            Media_Distro.Properties.Resources.coverart_sample_2,
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Size = new Size(116, 140),
+                    Location = new Point(initial1, 10),
+                    Tag = media,
+                    BorderStyle = BorderStyle.FixedSingle
+                };
+
+                homeForm.titleToolTip.SetToolTip(coverArtPictureBox, media.Title);
+
+                coverArtPictureBox.MouseEnter += new EventHandler(PRSItem_MouseEnter);
+
+                initial1 += 121;
+
+                homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Add(coverArtPictureBox); });
+            }
+        }
+
+        private void PRSItem_MouseEnter(object sender, EventArgs e)
+        {
+            PictureBox box = (PictureBox)sender;
+
+            homeForm.addToCartButton.Visible = true;
+            homeForm.addToCartButton.Location = new Point(box.Location.X, 148);
+            homeForm.addToCartButton.Tag = box.Tag;
+            homeForm.popularNowPanel.Controls.Add(homeForm.addToCartButton);
         }
 
         private void searchT()
@@ -1230,6 +1381,8 @@ namespace Mobile_Service_Distribution
             homeForm.goRightButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
 
             statsForm.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
+
+           
         }
 
         private void searchPanel_Leave(object sender, EventArgs e)
@@ -1316,7 +1469,88 @@ namespace Mobile_Service_Distribution
 
         private void submitActiButton_Click(object sender, EventArgs e)
         {
+            OpenFileDialog keyCodeZip = new OpenFileDialog();
+            DialogResult result =  keyCodeZip.ShowDialog();
+            string keyFilePath = Combine(adFolder, "LK");
+            string key;
 
+            keyCodeZip.Filter = "All Files (*.*)| *.*";
+            keyCodeZip.Title = "Setting Activation Code";
+
+            if(result == DialogResult.OK)
+            {
+                ZipFile.ExtractToDirectory(keyCodeZip.FileName, adFolder);
+                activationTextBox.Text = keyCodeZip.FileName;
+                key = File.ReadAllLines(keyFilePath)[0];
+
+                if (key == GenerateKeyAlgorithm(key[0]))
+                {
+                    Media_Distro.Properties.Settings.Default.activationKey = key;
+                    Media_Distro.Properties.Settings.Default.expirationDate = DateTime.Now.AddDays(30);
+
+                    newCartToolStripButton.Enabled = true;
+                    cartsToolStripSplitButton.Enabled = true;
+                    activationPanel.Visible = false;
+                    sharesubMenu.Enabled = true;
+
+                    Media_Distro.Properties.Settings.Default.Save();
+                }
+                else
+                    MessageBox.Show("The activation code is invalid. Retrieve the code from the bot and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                File.Delete(keyFilePath);
+            }
+        }
+
+        private static string GenerateKeyAlgorithm(char arbitChar = ' ')
+        {
+            List<char> letters = new List<char> { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+            List<char> numbers = new List<char> { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            List<char> generatedKey = new List<char>() { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+            string key = "";
+
+            char firstChar;
+            int emptySpaces = 9;
+            Random randNum = new Random();
+
+            if (arbitChar == ' ')
+                generatedKey[0] = firstChar = letters[randNum.Next(letters.Count)];
+            else
+                generatedKey[0] = firstChar = (letters.Contains(arbitChar)) ? arbitChar : ' ';
+
+            if (firstChar == ' ')
+                return "";
+
+            generatedKey[3] = letters[((letters.IndexOf(firstChar) + 4) * 8 % 26) - 1];
+            generatedKey[6] = letters[((letters.IndexOf(firstChar) + 7) * 7 % 26) - 1];
+            emptySpaces -= 3;
+
+            for (int i = 0; i < generatedKey.Count; i++)
+            {
+                char character;
+                int index;
+
+                if (generatedKey[i] != ' ')
+                {
+                    index = (((letters.IndexOf(generatedKey[i]) + 1) * emptySpaces) % 26);
+                    character = (index > 0) ? letters[index - 1] : letters[index];
+                    generatedKey[i + 1] = (!generatedKey.Contains(character)) ? character : char.ToLower(character);
+                    i++;
+                }
+                else
+                {
+                    index = (((letters.IndexOf(generatedKey[i - 1]) + 1) * emptySpaces) % 9);
+                    generatedKey[i] = (index > 0) ? numbers[index - 1] : numbers[index];
+                }
+
+                emptySpaces--;
+            }
+
+            Console.WriteLine();
+            foreach (char c in generatedKey)
+                key += c;
+
+            return key;
         }
     }
 }

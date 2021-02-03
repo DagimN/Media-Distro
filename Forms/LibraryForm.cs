@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using static System.IO.Path;
 using static System.IO.Directory;
 using static System.Environment;
@@ -8,14 +9,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Collections;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace Mobile_Service_Distribution.Forms
 {
     public partial class LibraryForm : Form
     {
-        private string moviePath = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Movies");
-        private string musicPath = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Music");
-        private string seriesPath = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Series");
+        public string moviePath = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Movies");
+        public string musicPath = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Music");
+        public string seriesPath = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Series");
         private string appendText;
 
         private Bitmap image;
@@ -23,9 +25,10 @@ namespace Mobile_Service_Distribution.Forms
         public Button activeListButton;
         public PictureBox selected;
         private ListViewItem item;
-        private LibraryManager libraryManager;
+        public LibraryManager libraryManager;
         private mediaDistroFrame reference;
         private RichTextBox currentTextBox;
+        public int iter = 1;
 
         private bool nameChecked = false;
         private bool ratingChecked = false;
@@ -45,13 +48,7 @@ namespace Mobile_Service_Distribution.Forms
 
             activeList = this.movieList;
             this.reference = reference;
-
-            foreach (string file in GetFiles(moviePath)) { libraryManager = new LibraryManager(file, MediaType.Movie); }
-            foreach(string file in GetFiles(musicPath)) { libraryManager = new LibraryManager(file, MediaType.Music); }
-            foreach(string file in GetDirectories(musicPath)) { libraryManager = new LibraryManager(file, MediaType.Music, true); }
-            foreach(string file in GetDirectories(seriesPath)) { libraryManager = new LibraryManager(file, MediaType.Series, true); }
-
-            SortMedia(null, SortType.Name, Order.Ascending);
+            
             this.ascendingToolStripMenuItem.Checked = true;
             this.nameToolStripMenuItem.Checked = true;
             ascendingChecked = true;
@@ -59,30 +56,6 @@ namespace Mobile_Service_Distribution.Forms
             addSTCart.Visible = false;
             activeListButton = moviesTabButton;
             selected = moviesSelected;
-
-            movieGenreCatalogue.Sort();
-            foreach (string genre in movieGenreCatalogue)
-                this.genreToolStripDropDownButton.DropDownItems.Add(genre).Click += genreSelected_Click;
-
-            foreach(LibraryManager movie in movieCatalogue) this.movieList.Items.Add(new ListViewItem 
-            {
-                Text = movie.Title,
-                Tag = movie,
-                ImageIndex = 0
-            });
-            foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(new ListViewItem
-            {
-                Text = music.Title,
-                Tag = music,
-                ImageIndex = 0
-            });
-
-            foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(new ListViewItem
-            {
-                Text = series.Title,
-                Tag = series,
-                ImageIndex = 0
-            });
         }
 
         private void moviesTabButton_Click(object sender, EventArgs e)
@@ -220,12 +193,15 @@ namespace Mobile_Service_Distribution.Forms
 
             string file = activeItem.CoverArtDirectory;
             coverPictureBox.Image = null;
-            if (file.Length > 10)
+
+            if (file != null)
             {
                 image = new Bitmap(Image.FromFile(file));
                 coverPictureBox.Image = image;
+                coverPictureBox.Tag = this.movieList.FocusedItem.ImageIndex;
             }
-
+            else
+                coverPictureBox.Tag = 0;
         }
 
         private void musicList_ItemActivate(object sender, EventArgs e)
@@ -266,11 +242,14 @@ namespace Mobile_Service_Distribution.Forms
 
             string file = activeItem.CoverArtDirectory;
             coverPictureBox.Image = null;
-            if (file.Length > 10)
+            if (file != null)
             {
                 image = new Bitmap(Image.FromFile(file));
                 coverPictureBox.Image = image;
+                coverPictureBox.Tag = this.musicList.FocusedItem.ImageIndex;
             }
+            else
+                coverPictureBox.Tag = 0;
         }
 
         private void seriesList_ItemActivate(object sender, EventArgs e)
@@ -295,7 +274,7 @@ namespace Mobile_Service_Distribution.Forms
                 TreeNode seasonNode = new TreeNode
                 {
                     Text = GetFileNameWithoutExtension((string)season[0]).Substring(5),
-                    Tag = (string)season[0]
+                    Tag = season[0].ToString()
                 };
                 albumTreeView.Nodes.Add(seasonNode);
 
@@ -307,11 +286,14 @@ namespace Mobile_Service_Distribution.Forms
             }
 
             string file = activeItem.CoverArtDirectory;
-            if (file.Length > 10)
+            if (file != null)
             {
-               image = new Bitmap(Image.FromFile(file));
-               coverPictureBox.Image = image;
+                image = new Bitmap(Image.FromFile(file));
+                coverPictureBox.Image = image;
+                coverPictureBox.Tag = this.seriesList.FocusedItem.ImageIndex;
             }
+            else
+                coverPictureBox.Tag = 0;
         }
 
         private void List_Leave(object sender, EventArgs e)
@@ -331,7 +313,7 @@ namespace Mobile_Service_Distribution.Forms
             OpenFileDialog pictureDialog = new OpenFileDialog
             {
                 Title = "Select Cover Art",
-                Filter = "JPEG Files (*.jpeg)|*.jpeg |JPG Files (*jpg)|*.jpg |PNG Files (*.png)|*.png |All Files (*.*)|*.*"
+                Filter = "JPEG Files (*.jpeg)|*.jpeg |JPG Files (*.jpg)|*.jpg |PNG Files (*.png)|*.png |All Files (*.*)|*.*"
             };
 
             string newImageDir;
@@ -349,19 +331,33 @@ namespace Mobile_Service_Distribution.Forms
                         mediaCover = (LibraryManager)this.movieList.FocusedItem.Tag;
                         AppendMediaInfo(mediaCover.thisDirectory, newImageDir, MediaProperty.Cover_Art_Dir);
                         mediaCover.CoverArtDirectory = newImageDir;
+
+                        this.movieList.LargeImageList.Images.Add(Image.FromFile(newImageDir));
+                        this.movieList.FocusedItem.ImageIndex = iter++;
                     }
                     else if (musicList.Visible)
                     {
                         mediaCover = (LibraryManager)this.musicList.FocusedItem.Tag;
-                        AppendMediaInfo(mediaCover.thisDirectory, newImageDir, MediaProperty.Cover_Art_Dir);
+                        if(Exists(mediaCover.thisDirectory))
+                            AppendMediaInfo(GetFiles(mediaCover.thisDirectory)[0], newImageDir, MediaProperty.Cover_Art_Dir);
+                        else
+                            AppendMediaInfo(mediaCover.thisDirectory, newImageDir, MediaProperty.Cover_Art_Dir);
                         mediaCover.CoverArtDirectory = newImageDir;
+
+                        this.musicList.LargeImageList.Images.Add(Image.FromFile(newImageDir));
+                        this.musicList.FocusedItem.ImageIndex = iter++;
                     }
                     else if (seriesList.Visible)
                     {
                         mediaCover = (LibraryManager)this.seriesList.FocusedItem.Tag;
-                        AppendMediaInfo(mediaCover.thisDirectory, newImageDir, MediaProperty.Cover_Art_Dir);
+                        AppendMediaInfo(GetFiles(mediaCover.thisDirectory)[0], newImageDir, MediaProperty.Cover_Art_Dir);
                         mediaCover.CoverArtDirectory = newImageDir;
+
+                        this.seriesList.LargeImageList.Images.Add(Image.FromFile(newImageDir));
+                        this.seriesList.FocusedItem.ImageIndex = iter++;
                     }
+
+                    coverPictureBox.Tag = iter;
                 }
                 catch(Exception ex)
                 {
@@ -370,8 +366,6 @@ namespace Mobile_Service_Distribution.Forms
             }
 
             pictureDialog.Dispose();
-
-            
         }
 
         private void saveInfoButton_Click(object sender, EventArgs e)
@@ -1548,7 +1542,7 @@ namespace Mobile_Service_Distribution.Forms
             }
         }
 
-        private void genreSelected_Click(object sender, EventArgs e)
+        public void genreSelected_Click(object sender, EventArgs e)
         {
             ToolStripDropDownItem item = (ToolStripDropDownItem)sender;
             genreListView.Visible = true;
@@ -1758,7 +1752,8 @@ namespace Mobile_Service_Distribution.Forms
 
                 try
                 {
-                    if (reference.customers == 0) throw new Exception();
+                    if (reference.customers == 0) 
+                        throw new Exception();
                     else
                     {
 
@@ -1812,5 +1807,41 @@ namespace Mobile_Service_Distribution.Forms
             if (libraryPanel.Width != 725) libraryPanel.SetBounds(12, 12, 546, 431);
             else libraryPanel.SetBounds(12, 12, 725, 431);
         }
+
+        private void removeCoverArtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LibraryManager media;
+
+            if((int)coverPictureBox.Tag != 0)
+            {
+                if (movieList.Visible)
+                {
+                    media = (LibraryManager)movieList.FocusedItem.Tag;
+                    movieList.FocusedItem.ImageIndex = 0;
+                    AppendMediaInfo(media.thisDirectory, "", MediaProperty.Cover_Art_Dir);
+                }
+                else if (musicList.Visible)
+                {
+                    media = (LibraryManager)musicList.FocusedItem.Tag;
+                    musicList.FocusedItem.ImageIndex = 0;
+                    if (Exists(media.thisDirectory))
+                        AppendMediaInfo(GetFiles(media.thisDirectory)[0], "", MediaProperty.Cover_Art_Dir);
+                    else
+                        AppendMediaInfo(media.thisDirectory, "", MediaProperty.Cover_Art_Dir);
+                }
+                else if (seriesList.Visible)
+                {
+                    media = (LibraryManager)seriesList.FocusedItem.Tag;
+                    seriesList.FocusedItem.ImageIndex = 0;
+                    AppendMediaInfo(GetFiles(media.thisDirectory)[0], "", MediaProperty.Cover_Art_Dir);
+                }
+                else
+                    media = null;
+
+                media.CoverArtDirectory = null;
+                coverPictureBox.Image = null;    
+            }
+
+        }   
     }
 }

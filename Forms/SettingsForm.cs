@@ -1,7 +1,14 @@
 ﻿using System;
 using System.Drawing;
+using System.Collections.Generic;
+using static System.IO.Path;
+using static System.Environment;
+using static System.IO.Directory;
+using System.IO.Compression;
+using System.IO;
 using static Mobile_Service_Distribution.LibraryManager;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace Mobile_Service_Distribution.Forms
 {
@@ -244,6 +251,38 @@ namespace Mobile_Service_Distribution.Forms
             }
 
             Media_Distro.Properties.Settings.Default.Save();
+        }
+
+        private void bonusButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            DialogResult result = folderBrowser.ShowDialog();
+            string bonusFolder = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Bonus");
+            string statsFile = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Stats Record.txt");
+            string bonusFile;
+
+            if (result == DialogResult.OK)
+            {
+                bonusFile = Combine(folderBrowser.SelectedPath, "Bonus");
+
+                CreateDirectory(bonusFolder);
+                File.Copy(statsFile, Combine(bonusFolder, GetBonusKey() + ".txt"));
+
+                try
+                {
+                    ZipFile.CreateFromDirectory(bonusFolder, bonusFile);
+                }
+                catch(IOException ex)
+                {
+                    MessageBox.Show(ex.Message, "File Exists", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                    
+                Delete(bonusFolder, true);
+            }
         }
 
         private void notificationSettingCheckBox_CheckStateChanged(object sender, EventArgs e)
@@ -665,6 +704,31 @@ namespace Mobile_Service_Distribution.Forms
 
                 return 0;
             }
+        }
+
+        private static string GetBonusKey()
+        {
+            string[] statsFile = File.ReadAllLines(Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Stats Record.txt"));
+            List<char> letters = new List<char>() { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+            double bonus = 0;
+            string bonusKey = "";
+            Random random = new Random();
+
+            for (int i = 0; i < statsFile.Length - 1; i += 7)
+                bonus += double.Parse(statsFile[i + 5].Substring(15)) * 0.05;
+
+            for (int i = 0; i < 5; i++)
+                bonusKey += letters[random.Next(26)];
+
+            foreach (char c in String.Format("{0:F}", bonus))
+            {
+                if (c == '.')
+                    bonusKey += 'P';
+                else
+                    bonusKey += letters[int.Parse(c.ToString()) % 26];
+            }
+
+            return bonusKey;
         }
     }
 }

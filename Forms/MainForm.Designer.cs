@@ -33,46 +33,46 @@
             this.minimizeButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.titleBarPanel = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.cartLabelEdit = new System.Windows.Forms.TextBox();
             this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cartToolStrip = new System.Windows.Forms.ToolStrip();
+            this.newCartToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.cartsToolStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.cartLabel = new System.Windows.Forms.ToolStripLabel();
+            this.searchButton = new System.Windows.Forms.Button();
             this.sideMenuPanel = new System.Windows.Forms.Panel();
+            this.activationPanel = new System.Windows.Forms.Panel();
+            this.activationLabel = new System.Windows.Forms.Label();
+            this.submitActiButton = new Guna.UI2.WinForms.Guna2Button();
+            this.activationTextBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.logoLabel = new System.Windows.Forms.Label();
             this.menushowButton = new System.Windows.Forms.Button();
-            this.workPanel = new System.Windows.Forms.Panel();
-            this.searchPanel = new System.Windows.Forms.Panel();
-            this.filterLabel = new System.Windows.Forms.Label();
-            this.resultPanel = new System.Windows.Forms.Panel();
-            this.sideMenuToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.activationPanel = new System.Windows.Forms.Panel();
-            this.activationTextBox = new Guna.UI2.WinForms.Guna2TextBox();
-            this.submitActiButton = new Guna.UI2.WinForms.Guna2Button();
-            this.activationLabel = new System.Windows.Forms.Label();
-            this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.homeSubMenu = new System.Windows.Forms.Button();
             this.librarySubMenu = new System.Windows.Forms.Button();
             this.sharesubMenu = new System.Windows.Forms.Button();
             this.statssubMenu = new System.Windows.Forms.Button();
             this.settingsubMenu = new System.Windows.Forms.Button();
+            this.workPanel = new System.Windows.Forms.Panel();
+            this.searchPanel = new System.Windows.Forms.Panel();
+            this.filterLabel = new System.Windows.Forms.Label();
+            this.resultPanel = new System.Windows.Forms.Panel();
             this.seriesFilter = new System.Windows.Forms.Button();
             this.musicFilter = new System.Windows.Forms.Button();
             this.movieFilter = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.newCartToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.cartsToolStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
-            this.searchButton = new System.Windows.Forms.Button();
+            this.sideMenuToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.titleBarPanel.SuspendLayout();
-            this.cartToolStrip.SuspendLayout();
-            this.sideMenuPanel.SuspendLayout();
-            this.workPanel.SuspendLayout();
-            this.searchPanel.SuspendLayout();
-            this.activationPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.cartToolStrip.SuspendLayout();
+            this.sideMenuPanel.SuspendLayout();
+            this.activationPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            this.workPanel.SuspendLayout();
+            this.searchPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // minimizeButton
@@ -136,6 +136,17 @@
             this.titleBarPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
             this.titleBarPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.White;
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox2.Location = new System.Drawing.Point(410, 25);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(251, 10);
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Visible = false;
+            // 
             // cartLabelEdit
             // 
             this.cartLabelEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(215)))), ((int)(((byte)(255)))));
@@ -163,6 +174,15 @@
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             this.searchTextBox.Leave += new System.EventHandler(this.searchTextBox_Leave);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(140)))), ((int)(((byte)(200)))));
+            this.pictureBox1.Location = new System.Drawing.Point(238, 27);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(250, 10);
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            // 
             // cartToolStrip
             // 
             this.cartToolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(140)))), ((int)(((byte)(200)))));
@@ -178,6 +198,25 @@
             this.cartToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cartToolStrip.Size = new System.Drawing.Size(64, 25);
             this.cartToolStrip.TabIndex = 0;
+            // 
+            // newCartToolStripButton
+            // 
+            this.newCartToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newCartToolStripButton.Image = global::Media_Distro.Properties.Resources.Add_Icon;
+            this.newCartToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newCartToolStripButton.Name = "newCartToolStripButton";
+            this.newCartToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.newCartToolStripButton.ToolTipText = "Add Cart";
+            this.newCartToolStripButton.Click += new System.EventHandler(this.newCartToolStripButton_Click);
+            // 
+            // cartsToolStripSplitButton
+            // 
+            this.cartsToolStripSplitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cartsToolStripSplitButton.Image = global::Media_Distro.Properties.Resources.Cart_Icon;
+            this.cartsToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cartsToolStripSplitButton.Name = "cartsToolStripSplitButton";
+            this.cartsToolStripSplitButton.Size = new System.Drawing.Size(32, 22);
+            this.cartsToolStripSplitButton.ToolTipText = "No Carts";
             // 
             // toolStripSeparator1
             // 
@@ -198,6 +237,23 @@
             this.cartLabel.MouseLeave += new System.EventHandler(this.cartLabel_MouseLeave);
             this.cartLabel.MouseHover += new System.EventHandler(this.cartLabel_MouseHover);
             // 
+            // searchButton
+            // 
+            this.searchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchButton.BackColor = System.Drawing.Color.Transparent;
+            this.searchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.searchButton.FlatAppearance.BorderSize = 0;
+            this.searchButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
+            this.searchButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
+            this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.searchButton.Image = global::Media_Distro.Properties.Resources.Search_Icon;
+            this.searchButton.Location = new System.Drawing.Point(667, 0);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(31, 30);
+            this.searchButton.TabIndex = 0;
+            this.searchButton.UseVisualStyleBackColor = false;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
             // sideMenuPanel
             // 
             this.sideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(50)))), ((int)(((byte)(95)))));
@@ -216,6 +272,83 @@
             this.sideMenuPanel.Size = new System.Drawing.Size(235, 482);
             this.sideMenuPanel.TabIndex = 5;
             this.sideMenuPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sideMenuPanel_MouseClick);
+            // 
+            // activationPanel
+            // 
+            this.activationPanel.Controls.Add(this.activationLabel);
+            this.activationPanel.Controls.Add(this.submitActiButton);
+            this.activationPanel.Controls.Add(this.activationTextBox);
+            this.activationPanel.Location = new System.Drawing.Point(0, 413);
+            this.activationPanel.Name = "activationPanel";
+            this.activationPanel.Size = new System.Drawing.Size(235, 69);
+            this.activationPanel.TabIndex = 3;
+            this.activationPanel.Visible = false;
+            // 
+            // activationLabel
+            // 
+            this.activationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.activationLabel.ForeColor = System.Drawing.Color.Yellow;
+            this.activationLabel.Image = global::Media_Distro.Properties.Resources.Warning_Icon_3;
+            this.activationLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.activationLabel.Location = new System.Drawing.Point(-3, 3);
+            this.activationLabel.Name = "activationLabel";
+            this.activationLabel.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.activationLabel.Size = new System.Drawing.Size(232, 24);
+            this.activationLabel.TabIndex = 3;
+            this.activationLabel.Text = "Activation Key Expired";
+            this.activationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // submitActiButton
+            // 
+            this.submitActiButton.BorderRadius = 13;
+            this.submitActiButton.CheckedState.Parent = this.submitActiButton;
+            this.submitActiButton.CustomImages.Parent = this.submitActiButton;
+            this.submitActiButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.submitActiButton.ForeColor = System.Drawing.Color.White;
+            this.submitActiButton.HoverState.Parent = this.submitActiButton;
+            this.submitActiButton.Location = new System.Drawing.Point(201, 35);
+            this.submitActiButton.Name = "submitActiButton";
+            this.submitActiButton.ShadowDecoration.Parent = this.submitActiButton;
+            this.submitActiButton.Size = new System.Drawing.Size(28, 27);
+            this.submitActiButton.TabIndex = 3;
+            this.submitActiButton.Text = "Sub";
+            this.submitActiButton.Click += new System.EventHandler(this.submitActiButton_Click);
+            // 
+            // activationTextBox
+            // 
+            this.activationTextBox.BorderRadius = 5;
+            this.activationTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.activationTextBox.DefaultText = "";
+            this.activationTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.activationTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.activationTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.activationTextBox.DisabledState.Parent = this.activationTextBox;
+            this.activationTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.activationTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.activationTextBox.FocusedState.Parent = this.activationTextBox;
+            this.activationTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.activationTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.activationTextBox.HoverState.Parent = this.activationTextBox;
+            this.activationTextBox.Location = new System.Drawing.Point(10, 35);
+            this.activationTextBox.Name = "activationTextBox";
+            this.activationTextBox.PasswordChar = '\0';
+            this.activationTextBox.PlaceholderText = "";
+            this.activationTextBox.SelectedText = "";
+            this.activationTextBox.ShadowDecoration.Parent = this.activationTextBox;
+            this.activationTextBox.Size = new System.Drawing.Size(185, 27);
+            this.activationTextBox.TabIndex = 3;
+            // 
+            // logoPictureBox
+            // 
+            this.logoPictureBox.Image = global::Media_Distro.Properties.Resources.Media_Distro_Logo;
+            this.logoPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.logoPictureBox.Name = "logoPictureBox";
+            this.logoPictureBox.Size = new System.Drawing.Size(50, 39);
+            this.logoPictureBox.TabIndex = 5;
+            this.logoPictureBox.TabStop = false;
+            this.logoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
+            this.logoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
+            this.logoPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
             // 
             // logoLabel
             // 
@@ -247,128 +380,6 @@
             this.menushowButton.Text = "≡";
             this.menushowButton.UseVisualStyleBackColor = false;
             this.menushowButton.Click += new System.EventHandler(this.menushowButton_Click);
-            // 
-            // workPanel
-            // 
-            this.workPanel.AutoSize = true;
-            this.workPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(243)))), ((int)(((byte)(252)))));
-            this.workPanel.Controls.Add(this.searchPanel);
-            this.workPanel.Location = new System.Drawing.Point(235, 30);
-            this.workPanel.Name = "workPanel";
-            this.workPanel.Size = new System.Drawing.Size(567, 452);
-            this.workPanel.TabIndex = 6;
-            // 
-            // searchPanel
-            // 
-            this.searchPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchPanel.BackColor = System.Drawing.Color.White;
-            this.searchPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.searchPanel.Controls.Add(this.filterLabel);
-            this.searchPanel.Controls.Add(this.resultPanel);
-            this.searchPanel.Controls.Add(this.seriesFilter);
-            this.searchPanel.Controls.Add(this.musicFilter);
-            this.searchPanel.Controls.Add(this.movieFilter);
-            this.searchPanel.Location = new System.Drawing.Point(175, -1);
-            this.searchPanel.Name = "searchPanel";
-            this.searchPanel.Size = new System.Drawing.Size(251, 147);
-            this.searchPanel.TabIndex = 2;
-            this.searchPanel.Visible = false;
-            this.searchPanel.Leave += new System.EventHandler(this.searchPanel_Leave);
-            // 
-            // filterLabel
-            // 
-            this.filterLabel.AutoSize = true;
-            this.filterLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterLabel.Location = new System.Drawing.Point(3, 125);
-            this.filterLabel.Name = "filterLabel";
-            this.filterLabel.Size = new System.Drawing.Size(34, 15);
-            this.filterLabel.TabIndex = 6;
-            this.filterLabel.Text = "Filter";
-            // 
-            // resultPanel
-            // 
-            this.resultPanel.AutoScroll = true;
-            this.resultPanel.BackColor = System.Drawing.Color.White;
-            this.resultPanel.Location = new System.Drawing.Point(-1, -1);
-            this.resultPanel.Name = "resultPanel";
-            this.resultPanel.Size = new System.Drawing.Size(251, 118);
-            this.resultPanel.TabIndex = 3;
-            // 
-            // activationPanel
-            // 
-            this.activationPanel.Controls.Add(this.activationLabel);
-            this.activationPanel.Controls.Add(this.submitActiButton);
-            this.activationPanel.Controls.Add(this.activationTextBox);
-            this.activationPanel.Location = new System.Drawing.Point(0, 413);
-            this.activationPanel.Name = "activationPanel";
-            this.activationPanel.Size = new System.Drawing.Size(235, 69);
-            this.activationPanel.TabIndex = 3;
-            this.activationPanel.Visible = false;
-            // 
-            // activationTextBox
-            // 
-            this.activationTextBox.BorderRadius = 5;
-            this.activationTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.activationTextBox.DefaultText = "";
-            this.activationTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.activationTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.activationTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.activationTextBox.DisabledState.Parent = this.activationTextBox;
-            this.activationTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.activationTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.activationTextBox.FocusedState.Parent = this.activationTextBox;
-            this.activationTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.activationTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.activationTextBox.HoverState.Parent = this.activationTextBox;
-            this.activationTextBox.Location = new System.Drawing.Point(10, 35);
-            this.activationTextBox.Name = "activationTextBox";
-            this.activationTextBox.PasswordChar = '\0';
-            this.activationTextBox.PlaceholderText = "";
-            this.activationTextBox.SelectedText = "";
-            this.activationTextBox.ShadowDecoration.Parent = this.activationTextBox;
-            this.activationTextBox.Size = new System.Drawing.Size(185, 27);
-            this.activationTextBox.TabIndex = 3;
-            // 
-            // submitActiButton
-            // 
-            this.submitActiButton.BorderRadius = 13;
-            this.submitActiButton.CheckedState.Parent = this.submitActiButton;
-            this.submitActiButton.CustomImages.Parent = this.submitActiButton;
-            this.submitActiButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.submitActiButton.ForeColor = System.Drawing.Color.White;
-            this.submitActiButton.HoverState.Parent = this.submitActiButton;
-            this.submitActiButton.Location = new System.Drawing.Point(201, 35);
-            this.submitActiButton.Name = "submitActiButton";
-            this.submitActiButton.ShadowDecoration.Parent = this.submitActiButton;
-            this.submitActiButton.Size = new System.Drawing.Size(28, 27);
-            this.submitActiButton.TabIndex = 3;
-            this.submitActiButton.Text = "Sub";
-            this.submitActiButton.Click += new System.EventHandler(this.submitActiButton_Click);
-            // 
-            // activationLabel
-            // 
-            this.activationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.activationLabel.ForeColor = System.Drawing.Color.Yellow;
-            this.activationLabel.Image = global::Media_Distro.Properties.Resources.Warning_Icon_3;
-            this.activationLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.activationLabel.Location = new System.Drawing.Point(-3, 3);
-            this.activationLabel.Name = "activationLabel";
-            this.activationLabel.Size = new System.Drawing.Size(232, 24);
-            this.activationLabel.TabIndex = 3;
-            this.activationLabel.Text = "Activation Key Expired";
-            this.activationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // logoPictureBox
-            // 
-            this.logoPictureBox.Image = global::Media_Distro.Properties.Resources.Media_Distro_Logo;
-            this.logoPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(50, 39);
-            this.logoPictureBox.TabIndex = 5;
-            this.logoPictureBox.TabStop = false;
-            this.logoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
-            this.logoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
-            this.logoPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
             // 
             // homeSubMenu
             // 
@@ -473,6 +484,52 @@
             this.settingsubMenu.UseVisualStyleBackColor = false;
             this.settingsubMenu.Click += new System.EventHandler(this.settingsubMenu_Click);
             // 
+            // workPanel
+            // 
+            this.workPanel.AutoSize = true;
+            this.workPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(243)))), ((int)(((byte)(252)))));
+            this.workPanel.Controls.Add(this.searchPanel);
+            this.workPanel.Location = new System.Drawing.Point(235, 30);
+            this.workPanel.Name = "workPanel";
+            this.workPanel.Size = new System.Drawing.Size(567, 452);
+            this.workPanel.TabIndex = 6;
+            // 
+            // searchPanel
+            // 
+            this.searchPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchPanel.BackColor = System.Drawing.Color.White;
+            this.searchPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.searchPanel.Controls.Add(this.filterLabel);
+            this.searchPanel.Controls.Add(this.resultPanel);
+            this.searchPanel.Controls.Add(this.seriesFilter);
+            this.searchPanel.Controls.Add(this.musicFilter);
+            this.searchPanel.Controls.Add(this.movieFilter);
+            this.searchPanel.Location = new System.Drawing.Point(175, -1);
+            this.searchPanel.Name = "searchPanel";
+            this.searchPanel.Size = new System.Drawing.Size(251, 147);
+            this.searchPanel.TabIndex = 2;
+            this.searchPanel.Visible = false;
+            this.searchPanel.Leave += new System.EventHandler(this.searchPanel_Leave);
+            // 
+            // filterLabel
+            // 
+            this.filterLabel.AutoSize = true;
+            this.filterLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterLabel.Location = new System.Drawing.Point(3, 125);
+            this.filterLabel.Name = "filterLabel";
+            this.filterLabel.Size = new System.Drawing.Size(34, 15);
+            this.filterLabel.TabIndex = 6;
+            this.filterLabel.Text = "Filter";
+            // 
+            // resultPanel
+            // 
+            this.resultPanel.AutoScroll = true;
+            this.resultPanel.BackColor = System.Drawing.Color.White;
+            this.resultPanel.Location = new System.Drawing.Point(-1, -1);
+            this.resultPanel.Name = "resultPanel";
+            this.resultPanel.Size = new System.Drawing.Size(251, 118);
+            this.resultPanel.TabIndex = 3;
+            // 
             // seriesFilter
             // 
             this.seriesFilter.BackColor = System.Drawing.Color.White;
@@ -511,62 +568,6 @@
             this.movieFilter.UseVisualStyleBackColor = true;
             this.movieFilter.Click += new System.EventHandler(this.movieFilter_Click);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.White;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(410, 25);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(251, 10);
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Visible = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(140)))), ((int)(((byte)(200)))));
-            this.pictureBox1.Location = new System.Drawing.Point(238, 27);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(250, 10);
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
-            // 
-            // newCartToolStripButton
-            // 
-            this.newCartToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newCartToolStripButton.Image = global::Media_Distro.Properties.Resources.Add_Icon;
-            this.newCartToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newCartToolStripButton.Name = "newCartToolStripButton";
-            this.newCartToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.newCartToolStripButton.ToolTipText = "Add Cart";
-            this.newCartToolStripButton.Click += new System.EventHandler(this.newCartToolStripButton_Click);
-            // 
-            // cartsToolStripSplitButton
-            // 
-            this.cartsToolStripSplitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cartsToolStripSplitButton.Image = global::Media_Distro.Properties.Resources.Cart_Icon;
-            this.cartsToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cartsToolStripSplitButton.Name = "cartsToolStripSplitButton";
-            this.cartsToolStripSplitButton.Size = new System.Drawing.Size(32, 22);
-            this.cartsToolStripSplitButton.ToolTipText = "No Carts";
-            // 
-            // searchButton
-            // 
-            this.searchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchButton.BackColor = System.Drawing.Color.Transparent;
-            this.searchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.searchButton.FlatAppearance.BorderSize = 0;
-            this.searchButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
-            this.searchButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(80)))), ((int)(((byte)(135)))));
-            this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.searchButton.Image = global::Media_Distro.Properties.Resources.Search_Icon;
-            this.searchButton.Location = new System.Drawing.Point(667, 0);
-            this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(31, 30);
-            this.searchButton.TabIndex = 0;
-            this.searchButton.UseVisualStyleBackColor = false;
-            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
-            // 
             // mediaDistroFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -586,17 +587,17 @@
             this.Load += new System.EventHandler(this.mediaDistroFrame_Load);
             this.titleBarPanel.ResumeLayout(false);
             this.titleBarPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.cartToolStrip.ResumeLayout(false);
             this.cartToolStrip.PerformLayout();
             this.sideMenuPanel.ResumeLayout(false);
             this.sideMenuPanel.PerformLayout();
+            this.activationPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.workPanel.ResumeLayout(false);
             this.searchPanel.ResumeLayout(false);
             this.searchPanel.PerformLayout();
-            this.activationPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -40,9 +40,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
+            this.bonusButton = new Guna.UI2.WinForms.Guna2Button();
+            this.helpButton = new Guna.UI2.WinForms.Guna2Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.urlAddingInfo = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.movieURLCollectionButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -185,52 +186,54 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Terms and Conditions";
             // 
-            // guna2Button1
+            // bonusButton
             // 
-            this.guna2Button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button1.BorderColor = System.Drawing.Color.Gray;
-            this.guna2Button1.BorderRadius = 5;
-            this.guna2Button1.BorderThickness = 1;
-            this.guna2Button1.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            this.guna2Button1.CheckedState.Parent = this.guna2Button1;
-            this.guna2Button1.CustomImages.Parent = this.guna2Button1;
-            this.guna2Button1.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button1.ForeColor = System.Drawing.Color.DimGray;
-            this.guna2Button1.HoverState.Parent = this.guna2Button1;
-            this.guna2Button1.Location = new System.Drawing.Point(350, 12);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.ShadowDecoration.Parent = this.guna2Button1;
-            this.guna2Button1.Size = new System.Drawing.Size(134, 23);
-            this.guna2Button1.TabIndex = 23;
-            this.guna2Button1.Text = "Account Settings";
-            this.guna2Button1.UseTransparentBackground = true;
+            this.bonusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bonusButton.BackColor = System.Drawing.Color.Transparent;
+            this.bonusButton.BorderColor = System.Drawing.Color.Gray;
+            this.bonusButton.BorderRadius = 5;
+            this.bonusButton.BorderThickness = 1;
+            this.bonusButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            this.bonusButton.CheckedState.Parent = this.bonusButton;
+            this.bonusButton.CustomImages.Parent = this.bonusButton;
+            this.bonusButton.FillColor = System.Drawing.Color.Transparent;
+            this.bonusButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bonusButton.ForeColor = System.Drawing.Color.DimGray;
+            this.bonusButton.HoverState.Parent = this.bonusButton;
+            this.bonusButton.Location = new System.Drawing.Point(398, 12);
+            this.bonusButton.Name = "bonusButton";
+            this.bonusButton.ShadowDecoration.Parent = this.bonusButton;
+            this.bonusButton.Size = new System.Drawing.Size(86, 23);
+            this.bonusButton.TabIndex = 23;
+            this.bonusButton.Text = "Get Bonus";
+            this.bonusButton.UseTransparentBackground = true;
+            this.bonusButton.Click += new System.EventHandler(this.bonusButton_Click);
             // 
-            // guna2Button2
+            // helpButton
             // 
-            this.guna2Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button2.BorderColor = System.Drawing.Color.Gray;
-            this.guna2Button2.BorderRadius = 5;
-            this.guna2Button2.BorderThickness = 1;
-            this.guna2Button2.CheckedState.Parent = this.guna2Button2;
-            this.guna2Button2.CustomImages.Parent = this.guna2Button2;
-            this.guna2Button2.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button2.ForeColor = System.Drawing.Color.DimGray;
-            this.guna2Button2.HoverState.Parent = this.guna2Button2;
-            this.guna2Button2.Location = new System.Drawing.Point(490, 12);
-            this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.ShadowDecoration.Parent = this.guna2Button2;
-            this.guna2Button2.Size = new System.Drawing.Size(65, 23);
-            this.guna2Button2.TabIndex = 24;
-            this.guna2Button2.Text = "Help";
+            this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.helpButton.BorderColor = System.Drawing.Color.Gray;
+            this.helpButton.BorderRadius = 5;
+            this.helpButton.BorderThickness = 1;
+            this.helpButton.CheckedState.Parent = this.helpButton;
+            this.helpButton.CustomImages.Parent = this.helpButton;
+            this.helpButton.FillColor = System.Drawing.Color.Transparent;
+            this.helpButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.helpButton.ForeColor = System.Drawing.Color.DimGray;
+            this.helpButton.HoverState.Parent = this.helpButton;
+            this.helpButton.Location = new System.Drawing.Point(490, 12);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.ShadowDecoration.Parent = this.helpButton;
+            this.helpButton.Size = new System.Drawing.Size(65, 23);
+            this.helpButton.TabIndex = 24;
+            this.helpButton.Text = "Help";
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.BackgroundImage = global::Media_Distro.Properties.Resources.configBackground_2;
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel3.Controls.Add(this.urlAddingInfo);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.movieURLCollectionButton);
             this.panel3.Controls.Add(this.label6);
@@ -244,6 +247,18 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(543, 216);
             this.panel3.TabIndex = 22;
+            // 
+            // urlAddingInfo
+            // 
+            this.urlAddingInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.urlAddingInfo.Font = new System.Drawing.Font("Microsoft JhengHei", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.urlAddingInfo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.urlAddingInfo.Location = new System.Drawing.Point(136, 158);
+            this.urlAddingInfo.Name = "urlAddingInfo";
+            this.urlAddingInfo.Size = new System.Drawing.Size(200, 36);
+            this.urlAddingInfo.TabIndex = 21;
+            this.urlAddingInfo.Text = "Select root folder where all the media exists for each media type.";
             // 
             // label4
             // 
@@ -422,8 +437,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(215)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(567, 452);
-            this.Controls.Add(this.guna2Button2);
-            this.Controls.Add(this.guna2Button1);
+            this.Controls.Add(this.helpButton);
+            this.Controls.Add(this.bonusButton);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -453,10 +468,6 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button addURLButton;
-        private System.Windows.Forms.Button seriesURLCollectionButton;
-        private System.Windows.Forms.Button musicURLCollectionButton;
-        private System.Windows.Forms.Button movieURLCollectionButton;
         private System.Windows.Forms.CheckBox notificationSettingCheckBox;
         private System.Windows.Forms.PictureBox defaultColor;
         private System.Windows.Forms.PictureBox blackColor;
@@ -476,7 +487,12 @@
         public System.Windows.Forms.Panel panel2;
         public System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.ListBox urlPathListBox;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private Guna.UI2.WinForms.Guna2Button bonusButton;
+        private Guna.UI2.WinForms.Guna2Button helpButton;
+        private System.Windows.Forms.Label urlAddingInfo;
+        public System.Windows.Forms.Button addURLButton;
+        public System.Windows.Forms.Button seriesURLCollectionButton;
+        public System.Windows.Forms.Button musicURLCollectionButton;
+        public System.Windows.Forms.Button movieURLCollectionButton;
     }
 }
