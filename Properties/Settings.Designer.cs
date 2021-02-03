@@ -411,11 +411,26 @@ namespace Media_Distro.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public global::System.DateTime expirationDate {
             get {
                 return ((global::System.DateTime)(this["expirationDate"]));
+            }
+            set {
+                this["expirationDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool fInitialize {
+            get {
+                return ((bool)(this["fInitialize"]));
+            }
+            set {
+                this["fInitialize"] = value;
             }
         }
     }
