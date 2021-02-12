@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -55,6 +55,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo_ico.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Guna.UI2, Version=2.0.1.2, Culture=neutral, processorArchitecture=MSIL">
@@ -212,9 +215,6 @@
     <None Include="Resources\Home Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Media Distro Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Search Icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -267,15 +267,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Library Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\music.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Movie_FilterB.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Series_FilterB.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\infoPanel_Background.png" />
@@ -407,6 +398,34 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\coverart sample 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\introBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_2713%280%29_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add Media Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_ico.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo_ico.ico" />
+    <None Include="Resources\Movie Icon.png" />
+    <None Include="Resources\Music Icon.png" />
+    <None Include="Resources\Series Icon.png" />
+    <None Include="Resources\Download Folder Small Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
