@@ -2,7 +2,9 @@
 using System.IO;
 using static System.IO.Path;
 using Mobile_Service_Distribution.Managers;
+using static Mobile_Service_Distribution.LibraryManager;
 using static Mobile_Service_Distribution.Managers.CartManager;
+using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -423,8 +425,9 @@ namespace Mobile_Service_Distribution.Forms
             string[] listFile;
             DialogResult result;
             CartManager newCart;
+            DriveInfo usbStorage;
 
-            if(availableList.ImageIndex == 3)
+            if (availableList.ImageIndex == 3)
             {
                 listFile = File.ReadAllLines(Combine((string)availableList.Tag, "Distro List"));
 
@@ -460,9 +463,109 @@ namespace Mobile_Service_Distribution.Forms
                         cartsListView.Items.Add(newItem);
                         reference.activeItem = newItem;
                     }
+
+                    foreach(string item in listFile)
+                    {
+                        if (item.Contains("-M ") || item.Contains("-A "))
+                        {
+                            string musicItem = item.Substring(3);
+                            foreach(LibraryManager music in musicCatalogue)
+                            {
+                                if (item.Contains("-A ") && music.Title.ToLower().Contains(musicItem.ToLower()))
+                                    newCart.AddMedia(music);
+                                else if (item.Contains("=>") && music.Title.ToLower().Contains(musicItem.Substring(musicItem.IndexOf('>') + 1).Trim().ToLower()))
+                                {
+                                    foreach (string dir in music.AlbumList)
+                                    {
+                                        if (GetFileNameWithoutExtension(dir).ToLower().Contains(musicItem.Substring(0, musicItem.IndexOf('=') - 1).Trim().ToLower()))
+                                        {
+                                            LibraryManager singleMusic = new LibraryManager(dir, MediaType.Music, false, true);
+                                            newCart.AddMedia(singleMusic);
+                                            break;
+                                        }
+                                    }
+                                }
+                                else if (item.Contains("-M ") && music.Title.ToLower().Contains(musicItem.ToLower().Trim()))
+                                    newCart.AddMedia(music);
+                            }
+                        }
+                        else if (item.Contains("#"))
+                        {
+                            char[] id = item.Substring(1, 4).ToCharArray();
+                            string series = item.Substring(6);
+                            int index;
+
+                            if(id[0] == 'A')
+                            {
+                                index = 0;
+                                series = item.Substring(3);
+                            }
+                            else if (id[0] != '0')
+                                index = int.Parse((id[0] + id[1]).ToString());
+                            else
+                                index = int.Parse(id[1].ToString());
+                            
+                            foreach(LibraryManager Series in seriesCatalogue)
+                            {
+                                if (Series.Title.ToLower().Contains(series.ToLower().Trim()))
+                                {
+                                    ArrayList season = new ArrayList();
+                                    LibraryManager seriesItem;
+
+                                    if (index == 0)
+                                        newCart.AddMedia(Series);
+                                    else
+                                    {
+                                        foreach (ArrayList s in Series.SeriesList)
+                                            if (GetFileNameWithoutExtension((string)s[0]).Contains(index.ToString()))
+                                                season = s;
+
+                                        if (id[2] != 'A' && id[3] != 'E')
+                                        {
+                                            foreach (string episode in season)
+                                            {
+                                                if (GetFileNameWithoutExtension(episode).ToLower().Contains("s" + id[0] + id[1]) &&
+                                                    GetFileNameWithoutExtension(episode).ToLower().Contains("e" + id[2] + id[3]))
+                                                {
+                                                    seriesItem = new LibraryManager(episode, MediaType.Series);
+                                                    newCart.AddMedia(seriesItem);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            seriesItem = new LibraryManager((string)season[0], MediaType.Series, true, true);
+                                            seriesItem.Title = Series.Title;
+                                            newCart.AddMedia(seriesItem);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                            foreach(LibraryManager movie in movieCatalogue)
+                                if (movie.Title.ToLower().Contains(item.ToLower()))
+                                    newCart.AddMedia(movie);
+                    }
+
+                    usbStorage = new DriveInfo(deviceList.FocusedItem.Tag.ToString());
+
+                    try
+                    {
+                        if (!newCart.IsEmpty() && usbStorage.AvailableFreeSpace > newCart.cartSize)
+                            progressListView.Add(newCart, usbStorage.VolumeLabel + " " + usbStorage.Name, usbStorage);
+                        else throw new Exception();
+                    }
+                    catch (Exception)
+                    {
+                        if (newCart.IsEmpty())
+                            MessageBox.Show("Cart is currently empty. Go to the library and pick some stuff up.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else if (usbStorage.AvailableFreeSpace < newCart.cartSize)
+                            MessageBox.Show("There is no available space in the storage device.", "Low Available Storage", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-                
         }
     }
 }

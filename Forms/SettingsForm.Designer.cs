@@ -37,11 +37,8 @@
             this.defaultColor = new System.Windows.Forms.PictureBox();
             this.blackColor = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.mediaDistroLabel = new System.Windows.Forms.Label();
             this.bonusButton = new Guna.UI2.WinForms.Guna2Button();
-            this.helpButton = new Guna.UI2.WinForms.Guna2Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.urlAddingInfo = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -144,47 +141,23 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.linkLabel2);
-            this.panel1.Controls.Add(this.linkLabel1);
+            this.panel1.Controls.Add(this.mediaDistroLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 417);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(567, 35);
             this.panel1.TabIndex = 18;
             // 
-            // label5
+            // mediaDistroLabel
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(471, 10);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 15);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "© Media Distro";
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(280, 12);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(73, 13);
-            this.linkLabel2.TabIndex = 1;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Privacy Policy";
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(359, 12);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(109, 13);
-            this.linkLabel1.TabIndex = 0;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Terms and Conditions";
+            this.mediaDistroLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediaDistroLabel.AutoSize = true;
+            this.mediaDistroLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mediaDistroLabel.Location = new System.Drawing.Point(471, 10);
+            this.mediaDistroLabel.Name = "mediaDistroLabel";
+            this.mediaDistroLabel.Size = new System.Drawing.Size(77, 15);
+            this.mediaDistroLabel.TabIndex = 19;
+            this.mediaDistroLabel.Text = "Media Distro";
             // 
             // bonusButton
             // 
@@ -200,7 +173,7 @@
             this.bonusButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bonusButton.ForeColor = System.Drawing.Color.DimGray;
             this.bonusButton.HoverState.Parent = this.bonusButton;
-            this.bonusButton.Location = new System.Drawing.Point(398, 12);
+            this.bonusButton.Location = new System.Drawing.Point(469, 12);
             this.bonusButton.Name = "bonusButton";
             this.bonusButton.ShadowDecoration.Parent = this.bonusButton;
             this.bonusButton.Size = new System.Drawing.Size(86, 23);
@@ -208,25 +181,6 @@
             this.bonusButton.Text = "Get Bonus";
             this.bonusButton.UseTransparentBackground = true;
             this.bonusButton.Click += new System.EventHandler(this.bonusButton_Click);
-            // 
-            // helpButton
-            // 
-            this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.helpButton.BorderColor = System.Drawing.Color.Gray;
-            this.helpButton.BorderRadius = 5;
-            this.helpButton.BorderThickness = 1;
-            this.helpButton.CheckedState.Parent = this.helpButton;
-            this.helpButton.CustomImages.Parent = this.helpButton;
-            this.helpButton.FillColor = System.Drawing.Color.Transparent;
-            this.helpButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.helpButton.ForeColor = System.Drawing.Color.DimGray;
-            this.helpButton.HoverState.Parent = this.helpButton;
-            this.helpButton.Location = new System.Drawing.Point(490, 12);
-            this.helpButton.Name = "helpButton";
-            this.helpButton.ShadowDecoration.Parent = this.helpButton;
-            this.helpButton.Size = new System.Drawing.Size(65, 23);
-            this.helpButton.TabIndex = 24;
-            this.helpButton.Text = "Help";
             // 
             // panel3
             // 
@@ -254,11 +208,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.urlAddingInfo.Font = new System.Drawing.Font("Microsoft JhengHei", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.urlAddingInfo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.urlAddingInfo.Location = new System.Drawing.Point(136, 158);
+            this.urlAddingInfo.Image = global::Media_Distro.Properties.Resources.info_icon_3;
+            this.urlAddingInfo.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.urlAddingInfo.Location = new System.Drawing.Point(125, 164);
             this.urlAddingInfo.Name = "urlAddingInfo";
-            this.urlAddingInfo.Size = new System.Drawing.Size(200, 36);
+            this.urlAddingInfo.Padding = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.urlAddingInfo.Size = new System.Drawing.Size(211, 36);
             this.urlAddingInfo.TabIndex = 21;
             this.urlAddingInfo.Text = "Select root folder where all the media exists for each media type.";
+            this.urlAddingInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
             // 
@@ -277,6 +235,8 @@
             this.movieURLCollectionButton.FlatAppearance.BorderSize = 0;
             this.movieURLCollectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.movieURLCollectionButton.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.movieURLCollectionButton.Image = global::Media_Distro.Properties.Resources.Movie_Icon;
+            this.movieURLCollectionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.movieURLCollectionButton.Location = new System.Drawing.Point(11, 60);
             this.movieURLCollectionButton.Name = "movieURLCollectionButton";
             this.movieURLCollectionButton.Size = new System.Drawing.Size(108, 48);
@@ -346,6 +306,8 @@
             this.musicURLCollectionButton.FlatAppearance.BorderSize = 0;
             this.musicURLCollectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.musicURLCollectionButton.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.musicURLCollectionButton.Image = global::Media_Distro.Properties.Resources.Music_Icon;
+            this.musicURLCollectionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.musicURLCollectionButton.Location = new System.Drawing.Point(11, 107);
             this.musicURLCollectionButton.Name = "musicURLCollectionButton";
             this.musicURLCollectionButton.Size = new System.Drawing.Size(108, 48);
@@ -360,6 +322,8 @@
             this.seriesURLCollectionButton.FlatAppearance.BorderSize = 0;
             this.seriesURLCollectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.seriesURLCollectionButton.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.seriesURLCollectionButton.Image = global::Media_Distro.Properties.Resources.Series_Icon;
+            this.seriesURLCollectionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.seriesURLCollectionButton.Location = new System.Drawing.Point(11, 154);
             this.seriesURLCollectionButton.Name = "seriesURLCollectionButton";
             this.seriesURLCollectionButton.Size = new System.Drawing.Size(108, 48);
@@ -437,7 +401,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(215)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(567, 452);
-            this.Controls.Add(this.helpButton);
             this.Controls.Add(this.bonusButton);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -479,20 +442,17 @@
         private System.Windows.Forms.Label priceSettingLabel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label mediaDistroLabel;
         private System.Windows.Forms.Label label6;
         public Guna.UI2.WinForms.Guna2NumericUpDown priceSetting;
         public System.Windows.Forms.Panel panel2;
         public System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.ListBox urlPathListBox;
         private Guna.UI2.WinForms.Guna2Button bonusButton;
-        private Guna.UI2.WinForms.Guna2Button helpButton;
-        private System.Windows.Forms.Label urlAddingInfo;
         public System.Windows.Forms.Button addURLButton;
         public System.Windows.Forms.Button seriesURLCollectionButton;
         public System.Windows.Forms.Button musicURLCollectionButton;
         public System.Windows.Forms.Button movieURLCollectionButton;
+        public System.Windows.Forms.Label urlAddingInfo;
     }
 }

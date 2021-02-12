@@ -33,10 +33,12 @@
             this.tempPieChart = new LiveCharts.WinForms.PieChart();
             this.dashBoardPanel = new System.Windows.Forms.Panel();
             this.volumeLabel = new System.Windows.Forms.Label();
-            this.popularNowPanel = new System.Windows.Forms.Panel();
             this.adsPanel = new System.Windows.Forms.Panel();
-            this.locateZipButton = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.subGetLabel = new System.Windows.Forms.Label();
+            this.mainGetLabel = new System.Windows.Forms.Label();
+            this.locateZipButton = new Guna.UI2.WinForms.Guna2Button();
+            this.popularNowPanel = new System.Windows.Forms.Panel();
+            this.loadingLabel = new System.Windows.Forms.Label();
             this.popularNowLabel = new System.Windows.Forms.Label();
             this.titleToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.goLeftButton = new System.Windows.Forms.Button();
@@ -44,7 +46,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dashBoardPanel.SuspendLayout();
             this.adsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.popularNowPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,6 +73,7 @@
             this.dashBoardPanel.BackColor = System.Drawing.Color.Transparent;
             this.dashBoardPanel.Controls.Add(this.volumeLabel);
             this.dashBoardPanel.Controls.Add(this.tempPieChart);
+            this.dashBoardPanel.Controls.Add(this.adsPanel);
             this.dashBoardPanel.Controls.Add(this.taskPieChart);
             this.dashBoardPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.dashBoardPanel.Location = new System.Drawing.Point(0, 0);
@@ -90,46 +93,83 @@
             this.volumeLabel.TabIndex = 3;
             this.volumeLabel.Text = "Volume Labels";
             // 
+            // adsPanel
+            // 
+            this.adsPanel.AllowDrop = true;
+            this.adsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.adsPanel.BackColor = System.Drawing.Color.Transparent;
+            this.adsPanel.BackgroundImage = global::Media_Distro.Properties.Resources.Download_Folder_Small_Icon;
+            this.adsPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.adsPanel.Controls.Add(this.subGetLabel);
+            this.adsPanel.Controls.Add(this.mainGetLabel);
+            this.adsPanel.Controls.Add(this.locateZipButton);
+            this.adsPanel.Location = new System.Drawing.Point(6, 3);
+            this.adsPanel.Name = "adsPanel";
+            this.adsPanel.Size = new System.Drawing.Size(338, 212);
+            this.adsPanel.TabIndex = 4;
+            // 
+            // subGetLabel
+            // 
+            this.subGetLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.subGetLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subGetLabel.Location = new System.Drawing.Point(175, 55);
+            this.subGetLabel.Name = "subGetLabel";
+            this.subGetLabel.Size = new System.Drawing.Size(152, 52);
+            this.subGetLabel.TabIndex = 4;
+            this.subGetLabel.Text = "• Locate the package that was sent to you via telegram bot.";
+            // 
+            // mainGetLabel
+            // 
+            this.mainGetLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainGetLabel.AutoSize = true;
+            this.mainGetLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainGetLabel.ForeColor = System.Drawing.Color.DimGray;
+            this.mainGetLabel.Location = new System.Drawing.Point(139, 20);
+            this.mainGetLabel.Name = "mainGetLabel";
+            this.mainGetLabel.Size = new System.Drawing.Size(195, 25);
+            this.mainGetLabel.TabIndex = 3;
+            this.mainGetLabel.Text = "Get Distro Package";
+            // 
+            // locateZipButton
+            // 
+            this.locateZipButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.locateZipButton.BorderRadius = 13;
+            this.locateZipButton.CheckedState.Parent = this.locateZipButton;
+            this.locateZipButton.CustomImages.Parent = this.locateZipButton;
+            this.locateZipButton.CustomizableEdges.BottomLeft = false;
+            this.locateZipButton.CustomizableEdges.TopRight = false;
+            this.locateZipButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.locateZipButton.ForeColor = System.Drawing.Color.White;
+            this.locateZipButton.HoverState.Parent = this.locateZipButton;
+            this.locateZipButton.Location = new System.Drawing.Point(230, 178);
+            this.locateZipButton.Name = "locateZipButton";
+            this.locateZipButton.ShadowDecoration.Parent = this.locateZipButton;
+            this.locateZipButton.Size = new System.Drawing.Size(108, 33);
+            this.locateZipButton.TabIndex = 2;
+            this.locateZipButton.Text = "Locate File";
+            this.locateZipButton.Click += new System.EventHandler(this.locateZipButton_Click);
+            // 
             // popularNowPanel
             // 
             this.popularNowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.popularNowPanel.AutoScroll = true;
+            this.popularNowPanel.Controls.Add(this.loadingLabel);
             this.popularNowPanel.Location = new System.Drawing.Point(40, 257);
             this.popularNowPanel.Name = "popularNowPanel";
-            this.popularNowPanel.Size = new System.Drawing.Size(347, 212);
+            this.popularNowPanel.Size = new System.Drawing.Size(501, 212);
             this.popularNowPanel.TabIndex = 3;
             this.popularNowPanel.MouseLeave += new System.EventHandler(this.popularNowPanel_MouseLeave);
             // 
-            // adsPanel
+            // loadingLabel
             // 
-            this.adsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.adsPanel.BackColor = System.Drawing.Color.Transparent;
-            this.adsPanel.Controls.Add(this.locateZipButton);
-            this.adsPanel.Controls.Add(this.pictureBox2);
-            this.adsPanel.Location = new System.Drawing.Point(412, 230);
-            this.adsPanel.Name = "adsPanel";
-            this.adsPanel.Size = new System.Drawing.Size(143, 212);
-            this.adsPanel.TabIndex = 4;
-            this.adsPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.adsPanel_DragDrop);
-            // 
-            // locateZipButton
-            // 
-            this.locateZipButton.Location = new System.Drawing.Point(0, 115);
-            this.locateZipButton.Name = "locateZipButton";
-            this.locateZipButton.Size = new System.Drawing.Size(143, 23);
-            this.locateZipButton.TabIndex = 1;
-            this.locateZipButton.Text = "Locate File";
-            this.locateZipButton.UseVisualStyleBackColor = true;
-            this.locateZipButton.Click += new System.EventHandler(this.locateZipButton_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(0, 135);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(143, 77);
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
+            this.loadingLabel.AutoSize = true;
+            this.loadingLabel.Location = new System.Drawing.Point(210, 35);
+            this.loadingLabel.Name = "loadingLabel";
+            this.loadingLabel.Size = new System.Drawing.Size(54, 13);
+            this.loadingLabel.TabIndex = 0;
+            this.loadingLabel.Text = "Loading...";
             // 
             // popularNowLabel
             // 
@@ -166,7 +206,7 @@
             this.goRightButton.FlatAppearance.BorderSize = 0;
             this.goRightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.goRightButton.Image = global::Media_Distro.Properties.Resources.Entypo_25b8_0__24;
-            this.goRightButton.Location = new System.Drawing.Point(393, 267);
+            this.goRightButton.Location = new System.Drawing.Point(547, 267);
             this.goRightButton.Name = "goRightButton";
             this.goRightButton.Size = new System.Drawing.Size(13, 140);
             this.goRightButton.TabIndex = 1;
@@ -193,7 +233,6 @@
             this.ClientSize = new System.Drawing.Size(567, 452);
             this.Controls.Add(this.popularNowLabel);
             this.Controls.Add(this.goLeftButton);
-            this.Controls.Add(this.adsPanel);
             this.Controls.Add(this.goRightButton);
             this.Controls.Add(this.popularNowPanel);
             this.Controls.Add(this.dashBoardPanel);
@@ -207,7 +246,9 @@
             this.dashBoardPanel.ResumeLayout(false);
             this.dashBoardPanel.PerformLayout();
             this.adsPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.adsPanel.PerformLayout();
+            this.popularNowPanel.ResumeLayout(false);
+            this.popularNowPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -225,8 +266,10 @@
         public System.Windows.Forms.Label volumeLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Button goLeftButton;
-        private System.Windows.Forms.Button locateZipButton;
-        private System.Windows.Forms.PictureBox pictureBox2;
         public System.Windows.Forms.ToolTip titleToolTip;
+        public System.Windows.Forms.Label loadingLabel;
+        public Guna.UI2.WinForms.Guna2Button locateZipButton;
+        public System.Windows.Forms.Label subGetLabel;
+        public System.Windows.Forms.Label mainGetLabel;
     }
 }

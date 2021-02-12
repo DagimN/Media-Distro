@@ -77,7 +77,7 @@ namespace Mobile_Service_Distribution
             Descending
         }
 
-        public LibraryManager(string dir, MediaType media, bool onTop = false)
+        public LibraryManager(string dir, MediaType media, bool onTop = false, bool temp = false)
         { 
             if(RetrieveMediaInfo(dir, media, onTop) == 1)
             {
@@ -88,15 +88,18 @@ namespace Mobile_Service_Distribution
                     if (this.Genre != null && !movieGenreCatalogue.Contains(this.Genre)) movieGenreCatalogue.Add(this.Genre);
                 }
 
-                else if (media == MediaType.Music)
+                if (media == MediaType.Music)
                 {
-                    musicCatalogue.Add(this);
-                    if (this.Genre != null && !musicGenreCatalogue.Contains(this.Genre)) musicGenreCatalogue.Add(this.Genre);
+                    if (!temp)
+                    {
+                        musicCatalogue.Add(this);
+                        if (this.Genre != null && !musicGenreCatalogue.Contains(this.Genre)) musicGenreCatalogue.Add(this.Genre);
+                    }
                 }
 
-                else if (media == MediaType.Series)
+                if (media == MediaType.Series)
                 {
-                    if (onTop)
+                    if (onTop && !temp)
                         seriesCatalogue.Add(this);
 
                     if (this.Genre != null && !seriesGenreCatalogue.Contains(this.Genre)) seriesGenreCatalogue.Add(this.Genre);
@@ -412,7 +415,7 @@ namespace Mobile_Service_Distribution
                     if (Exists(this.OriginalDirectory))
                     {
                         this.Name = info[0].Substring(13);
-                        this.Title = info[1].Substring(7);
+                        this.Title = info[1].Substring(7).Replace(" -", ":");
                         this.Duration = info[2].Substring(10);
                         this.Genre = (info[4].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
                         this.Year = (info[3].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;

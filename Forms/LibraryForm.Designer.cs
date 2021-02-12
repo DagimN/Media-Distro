@@ -31,15 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LibraryForm));
             this.libraryPanel = new System.Windows.Forms.Panel();
+            this.loadingLabel = new System.Windows.Forms.Label();
             this.genreListView = new System.Windows.Forms.ListView();
             this.coverArtImageList = new System.Windows.Forms.ImageList(this.components);
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.musicTabButton = new System.Windows.Forms.Button();
             this.seriesTabButton = new System.Windows.Forms.Button();
             this.moviesTabButton = new System.Windows.Forms.Button();
-            this.moviesSelected = new System.Windows.Forms.PictureBox();
-            this.seriesSelected = new System.Windows.Forms.PictureBox();
-            this.musicSelected = new System.Windows.Forms.PictureBox();
             this.movieList = new System.Windows.Forms.ListView();
             this.movieTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.musicList = new System.Windows.Forms.ListView();
@@ -49,22 +46,8 @@
             this.arrangementToolStrip = new System.Windows.Forms.ToolStrip();
             this.genreDescriptionLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.genreToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.sortToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.durationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ratingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.orderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.descendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sendMultiButton = new System.Windows.Forms.ToolStripButton();
             this.selectedItemsLabel = new System.Windows.Forms.ToolStripLabel();
             this.titleToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.coverPictureBox = new System.Windows.Forms.PictureBox();
             this.removeCoverArtContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeCoverArtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoPanel = new System.Windows.Forms.Panel();
@@ -83,21 +66,40 @@
             this.ratingLabel = new System.Windows.Forms.Label();
             this.genreLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
+            this.coverPictureBox = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.moviesSelected = new System.Windows.Forms.PictureBox();
+            this.seriesSelected = new System.Windows.Forms.PictureBox();
+            this.musicSelected = new System.Windows.Forms.PictureBox();
+            this.genreToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.sortToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.durationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ratingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.orderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.descendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendMultiButton = new System.Windows.Forms.ToolStripButton();
             this.libraryPanel.SuspendLayout();
+            this.arrangementToolStrip.SuspendLayout();
+            this.removeCoverArtContextMenuStrip.SuspendLayout();
+            this.infoPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.moviesSelected)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seriesSelected)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.musicSelected)).BeginInit();
-            this.arrangementToolStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).BeginInit();
-            this.removeCoverArtContextMenuStrip.SuspendLayout();
-            this.infoPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // libraryPanel
             // 
+            this.libraryPanel.Controls.Add(this.loadingLabel);
             this.libraryPanel.Controls.Add(this.genreListView);
             this.libraryPanel.Controls.Add(this.pictureBox2);
             this.libraryPanel.Controls.Add(this.musicTabButton);
@@ -115,6 +117,15 @@
             this.libraryPanel.Size = new System.Drawing.Size(546, 428);
             this.libraryPanel.TabIndex = 0;
             this.libraryPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LibraryForm_MouseClick);
+            // 
+            // loadingLabel
+            // 
+            this.loadingLabel.AutoSize = true;
+            this.loadingLabel.Location = new System.Drawing.Point(209, 73);
+            this.loadingLabel.Name = "loadingLabel";
+            this.loadingLabel.Size = new System.Drawing.Size(110, 13);
+            this.loadingLabel.TabIndex = 13;
+            this.loadingLabel.Text = "Loading Media Files...";
             // 
             // genreListView
             // 
@@ -137,15 +148,6 @@
             this.coverArtImageList.Tag = "No";
             this.coverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.coverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Location = new System.Drawing.Point(290, 27);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(255, 10);
-            this.pictureBox2.TabIndex = 11;
-            this.pictureBox2.TabStop = false;
             // 
             // musicTabButton
             // 
@@ -188,33 +190,6 @@
             this.moviesTabButton.Text = "Movies";
             this.moviesTabButton.UseVisualStyleBackColor = true;
             this.moviesTabButton.Click += new System.EventHandler(this.moviesTabButton_Click);
-            // 
-            // moviesSelected
-            // 
-            this.moviesSelected.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(32)))), ((int)(((byte)(86)))));
-            this.moviesSelected.Location = new System.Drawing.Point(0, 0);
-            this.moviesSelected.Name = "moviesSelected";
-            this.moviesSelected.Size = new System.Drawing.Size(90, 31);
-            this.moviesSelected.TabIndex = 3;
-            this.moviesSelected.TabStop = false;
-            // 
-            // seriesSelected
-            // 
-            this.seriesSelected.BackColor = System.Drawing.Color.Transparent;
-            this.seriesSelected.Location = new System.Drawing.Point(96, 0);
-            this.seriesSelected.Name = "seriesSelected";
-            this.seriesSelected.Size = new System.Drawing.Size(90, 31);
-            this.seriesSelected.TabIndex = 5;
-            this.seriesSelected.TabStop = false;
-            // 
-            // musicSelected
-            // 
-            this.musicSelected.BackColor = System.Drawing.Color.Transparent;
-            this.musicSelected.Location = new System.Drawing.Point(192, 0);
-            this.musicSelected.Name = "musicSelected";
-            this.musicSelected.Size = new System.Drawing.Size(90, 31);
-            this.musicSelected.TabIndex = 4;
-            this.musicSelected.TabStop = false;
             // 
             // movieList
             // 
@@ -326,11 +301,11 @@
             this.sortToolStripDropDownButton,
             this.sendMultiButton,
             this.selectedItemsLabel});
-            this.arrangementToolStrip.Location = new System.Drawing.Point(329, 0);
+            this.arrangementToolStrip.Location = new System.Drawing.Point(360, 0);
             this.arrangementToolStrip.Name = "arrangementToolStrip";
             this.arrangementToolStrip.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.arrangementToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.arrangementToolStrip.Size = new System.Drawing.Size(215, 34);
+            this.arrangementToolStrip.Size = new System.Drawing.Size(184, 34);
             this.arrangementToolStrip.TabIndex = 9;
             // 
             // genreDescriptionLabel
@@ -344,127 +319,6 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
-            // 
-            // genreToolStripDropDownButton
-            // 
-            this.genreToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.genreToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.allToolStripMenuItem,
-            this.toolStripMenuItem2});
-            this.genreToolStripDropDownButton.Font = new System.Drawing.Font("Nirmala UI Semilight", 9F);
-            this.genreToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("genreToolStripDropDownButton.Image")));
-            this.genreToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.genreToolStripDropDownButton.Name = "genreToolStripDropDownButton";
-            this.genreToolStripDropDownButton.Size = new System.Drawing.Size(51, 25);
-            this.genreToolStripDropDownButton.Text = "Genre";
-            // 
-            // allToolStripMenuItem
-            // 
-            this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.allToolStripMenuItem.Text = "All";
-            this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // sortToolStripDropDownButton
-            // 
-            this.sortToolStripDropDownButton.BackColor = System.Drawing.Color.Transparent;
-            this.sortToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.sortToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nameToolStripMenuItem,
-            this.durationToolStripMenuItem,
-            this.yearToolStripMenuItem,
-            this.ratingToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.orderToolStripMenuItem});
-            this.sortToolStripDropDownButton.Font = new System.Drawing.Font("Nirmala UI Semilight", 9F);
-            this.sortToolStripDropDownButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.sortToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("sortToolStripDropDownButton.Image")));
-            this.sortToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.sortToolStripDropDownButton.Name = "sortToolStripDropDownButton";
-            this.sortToolStripDropDownButton.Size = new System.Drawing.Size(41, 25);
-            this.sortToolStripDropDownButton.Text = "Sort";
-            // 
-            // nameToolStripMenuItem
-            // 
-            this.nameToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
-            this.nameToolStripMenuItem.CheckOnClick = true;
-            this.nameToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.nameToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-            this.nameToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
-            this.nameToolStripMenuItem.Text = "Name";
-            this.nameToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.nameToolStripMenuItem.Click += new System.EventHandler(this.nameToolStripMenuItem_Click);
-            // 
-            // durationToolStripMenuItem
-            // 
-            this.durationToolStripMenuItem.CheckOnClick = true;
-            this.durationToolStripMenuItem.Name = "durationToolStripMenuItem";
-            this.durationToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
-            this.durationToolStripMenuItem.Text = "Duration";
-            this.durationToolStripMenuItem.Click += new System.EventHandler(this.durationToolStripMenuItem_Click);
-            // 
-            // yearToolStripMenuItem
-            // 
-            this.yearToolStripMenuItem.CheckOnClick = true;
-            this.yearToolStripMenuItem.Name = "yearToolStripMenuItem";
-            this.yearToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
-            this.yearToolStripMenuItem.Text = "Year";
-            this.yearToolStripMenuItem.Click += new System.EventHandler(this.yearToolStripMenuItem_Click);
-            // 
-            // ratingToolStripMenuItem
-            // 
-            this.ratingToolStripMenuItem.CheckOnClick = true;
-            this.ratingToolStripMenuItem.Name = "ratingToolStripMenuItem";
-            this.ratingToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
-            this.ratingToolStripMenuItem.Text = "Rating";
-            this.ratingToolStripMenuItem.Click += new System.EventHandler(this.ratingToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(117, 6);
-            // 
-            // orderToolStripMenuItem
-            // 
-            this.orderToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.orderToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ascendingToolStripMenuItem,
-            this.descendingToolStripMenuItem});
-            this.orderToolStripMenuItem.Name = "orderToolStripMenuItem";
-            this.orderToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
-            this.orderToolStripMenuItem.Text = "Order";
-            // 
-            // ascendingToolStripMenuItem
-            // 
-            this.ascendingToolStripMenuItem.CheckOnClick = true;
-            this.ascendingToolStripMenuItem.Name = "ascendingToolStripMenuItem";
-            this.ascendingToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.ascendingToolStripMenuItem.Text = "Ascending";
-            this.ascendingToolStripMenuItem.Click += new System.EventHandler(this.ascendingToolStripMenuItem_Click);
-            // 
-            // descendingToolStripMenuItem
-            // 
-            this.descendingToolStripMenuItem.CheckOnClick = true;
-            this.descendingToolStripMenuItem.Name = "descendingToolStripMenuItem";
-            this.descendingToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.descendingToolStripMenuItem.Text = "Descending";
-            this.descendingToolStripMenuItem.Click += new System.EventHandler(this.descendingToolStripMenuItem_Click);
-            // 
-            // sendMultiButton
-            // 
-            this.sendMultiButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.sendMultiButton.Enabled = false;
-            this.sendMultiButton.Image = global::Media_Distro.Properties.Resources.arrow_symbolic_link_15730;
-            this.sendMultiButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.sendMultiButton.Name = "sendMultiButton";
-            this.sendMultiButton.Size = new System.Drawing.Size(23, 25);
-            this.sendMultiButton.Click += new System.EventHandler(this.sendMultiButton_Click);
             // 
             // selectedItemsLabel
             // 
@@ -480,21 +334,6 @@
             // titleToolTip
             // 
             this.titleToolTip.BackColor = System.Drawing.SystemColors.Control;
-            // 
-            // coverPictureBox
-            // 
-            this.coverPictureBox.BackgroundImage = global::Media_Distro.Properties.Resources.coverart_sample_2;
-            this.coverPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.coverPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.coverPictureBox.ContextMenuStrip = this.removeCoverArtContextMenuStrip;
-            this.coverPictureBox.Location = new System.Drawing.Point(-1, -1);
-            this.coverPictureBox.Name = "coverPictureBox";
-            this.coverPictureBox.Size = new System.Drawing.Size(110, 146);
-            this.coverPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.coverPictureBox.TabIndex = 0;
-            this.coverPictureBox.TabStop = false;
-            this.titleToolTip.SetToolTip(this.coverPictureBox, "Click to change cover art");
-            this.coverPictureBox.Click += new System.EventHandler(this.coverPictureBox_Click);
             // 
             // removeCoverArtContextMenuStrip
             // 
@@ -779,6 +618,21 @@
             this.durationLabel.Text = "Duration:";
             this.durationLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBoxLoseFocus_MouseClick);
             // 
+            // coverPictureBox
+            // 
+            this.coverPictureBox.BackgroundImage = global::Media_Distro.Properties.Resources.coverart_sample_2;
+            this.coverPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.coverPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.coverPictureBox.ContextMenuStrip = this.removeCoverArtContextMenuStrip;
+            this.coverPictureBox.Location = new System.Drawing.Point(-1, -1);
+            this.coverPictureBox.Name = "coverPictureBox";
+            this.coverPictureBox.Size = new System.Drawing.Size(110, 146);
+            this.coverPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.coverPictureBox.TabIndex = 0;
+            this.coverPictureBox.TabStop = false;
+            this.titleToolTip.SetToolTip(this.coverPictureBox, "Click to change cover art");
+            this.coverPictureBox.Click += new System.EventHandler(this.coverPictureBox_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -790,6 +644,163 @@
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Location = new System.Drawing.Point(290, 27);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(255, 10);
+            this.pictureBox2.TabIndex = 11;
+            this.pictureBox2.TabStop = false;
+            // 
+            // moviesSelected
+            // 
+            this.moviesSelected.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(32)))), ((int)(((byte)(86)))));
+            this.moviesSelected.Location = new System.Drawing.Point(0, 0);
+            this.moviesSelected.Name = "moviesSelected";
+            this.moviesSelected.Size = new System.Drawing.Size(90, 31);
+            this.moviesSelected.TabIndex = 3;
+            this.moviesSelected.TabStop = false;
+            // 
+            // seriesSelected
+            // 
+            this.seriesSelected.BackColor = System.Drawing.Color.Transparent;
+            this.seriesSelected.Location = new System.Drawing.Point(96, 0);
+            this.seriesSelected.Name = "seriesSelected";
+            this.seriesSelected.Size = new System.Drawing.Size(90, 31);
+            this.seriesSelected.TabIndex = 5;
+            this.seriesSelected.TabStop = false;
+            // 
+            // musicSelected
+            // 
+            this.musicSelected.BackColor = System.Drawing.Color.Transparent;
+            this.musicSelected.Location = new System.Drawing.Point(192, 0);
+            this.musicSelected.Name = "musicSelected";
+            this.musicSelected.Size = new System.Drawing.Size(90, 31);
+            this.musicSelected.TabIndex = 4;
+            this.musicSelected.TabStop = false;
+            // 
+            // genreToolStripDropDownButton
+            // 
+            this.genreToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.genreToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allToolStripMenuItem,
+            this.toolStripMenuItem2});
+            this.genreToolStripDropDownButton.Font = new System.Drawing.Font("Nirmala UI Semilight", 9F);
+            this.genreToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("genreToolStripDropDownButton.Image")));
+            this.genreToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.genreToolStripDropDownButton.Name = "genreToolStripDropDownButton";
+            this.genreToolStripDropDownButton.Size = new System.Drawing.Size(51, 25);
+            this.genreToolStripDropDownButton.Text = "Genre";
+            // 
+            // allToolStripMenuItem
+            // 
+            this.allToolStripMenuItem.Name = "allToolStripMenuItem";
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
+            this.allToolStripMenuItem.Text = "All";
+            this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(85, 6);
+            // 
+            // sortToolStripDropDownButton
+            // 
+            this.sortToolStripDropDownButton.BackColor = System.Drawing.Color.Transparent;
+            this.sortToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.sortToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nameToolStripMenuItem,
+            this.durationToolStripMenuItem,
+            this.yearToolStripMenuItem,
+            this.ratingToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.orderToolStripMenuItem});
+            this.sortToolStripDropDownButton.Font = new System.Drawing.Font("Nirmala UI Semilight", 9F);
+            this.sortToolStripDropDownButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.sortToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("sortToolStripDropDownButton.Image")));
+            this.sortToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.sortToolStripDropDownButton.Name = "sortToolStripDropDownButton";
+            this.sortToolStripDropDownButton.Size = new System.Drawing.Size(41, 25);
+            this.sortToolStripDropDownButton.Text = "Sort";
+            // 
+            // nameToolStripMenuItem
+            // 
+            this.nameToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.nameToolStripMenuItem.CheckOnClick = true;
+            this.nameToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.nameToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
+            this.nameToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.nameToolStripMenuItem.Text = "Name";
+            this.nameToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.nameToolStripMenuItem.Click += new System.EventHandler(this.nameToolStripMenuItem_Click);
+            // 
+            // durationToolStripMenuItem
+            // 
+            this.durationToolStripMenuItem.CheckOnClick = true;
+            this.durationToolStripMenuItem.Name = "durationToolStripMenuItem";
+            this.durationToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.durationToolStripMenuItem.Text = "Duration";
+            this.durationToolStripMenuItem.Click += new System.EventHandler(this.durationToolStripMenuItem_Click);
+            // 
+            // yearToolStripMenuItem
+            // 
+            this.yearToolStripMenuItem.CheckOnClick = true;
+            this.yearToolStripMenuItem.Name = "yearToolStripMenuItem";
+            this.yearToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.yearToolStripMenuItem.Text = "Year";
+            this.yearToolStripMenuItem.Click += new System.EventHandler(this.yearToolStripMenuItem_Click);
+            // 
+            // ratingToolStripMenuItem
+            // 
+            this.ratingToolStripMenuItem.CheckOnClick = true;
+            this.ratingToolStripMenuItem.Name = "ratingToolStripMenuItem";
+            this.ratingToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.ratingToolStripMenuItem.Text = "Rating";
+            this.ratingToolStripMenuItem.Click += new System.EventHandler(this.ratingToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(117, 6);
+            // 
+            // orderToolStripMenuItem
+            // 
+            this.orderToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.orderToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ascendingToolStripMenuItem,
+            this.descendingToolStripMenuItem});
+            this.orderToolStripMenuItem.Name = "orderToolStripMenuItem";
+            this.orderToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.orderToolStripMenuItem.Text = "Order";
+            // 
+            // ascendingToolStripMenuItem
+            // 
+            this.ascendingToolStripMenuItem.CheckOnClick = true;
+            this.ascendingToolStripMenuItem.Name = "ascendingToolStripMenuItem";
+            this.ascendingToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.ascendingToolStripMenuItem.Text = "Ascending";
+            this.ascendingToolStripMenuItem.Click += new System.EventHandler(this.ascendingToolStripMenuItem_Click);
+            // 
+            // descendingToolStripMenuItem
+            // 
+            this.descendingToolStripMenuItem.CheckOnClick = true;
+            this.descendingToolStripMenuItem.Name = "descendingToolStripMenuItem";
+            this.descendingToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.descendingToolStripMenuItem.Text = "Descending";
+            this.descendingToolStripMenuItem.Click += new System.EventHandler(this.descendingToolStripMenuItem_Click);
+            // 
+            // sendMultiButton
+            // 
+            this.sendMultiButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.sendMultiButton.Enabled = false;
+            this.sendMultiButton.Image = global::Media_Distro.Properties.Resources.arrow_symbolic_link_15730;
+            this.sendMultiButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.sendMultiButton.Name = "sendMultiButton";
+            this.sendMultiButton.Size = new System.Drawing.Size(23, 25);
+            this.sendMultiButton.Click += new System.EventHandler(this.sendMultiButton_Click);
             // 
             // LibraryForm
             // 
@@ -810,17 +821,17 @@
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LibraryForm_MouseClick);
             this.libraryPanel.ResumeLayout(false);
             this.libraryPanel.PerformLayout();
+            this.arrangementToolStrip.ResumeLayout(false);
+            this.arrangementToolStrip.PerformLayout();
+            this.removeCoverArtContextMenuStrip.ResumeLayout(false);
+            this.infoPanel.ResumeLayout(false);
+            this.infoPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.moviesSelected)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.seriesSelected)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.musicSelected)).EndInit();
-            this.arrangementToolStrip.ResumeLayout(false);
-            this.arrangementToolStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).EndInit();
-            this.removeCoverArtContextMenuStrip.ResumeLayout(false);
-            this.infoPanel.ResumeLayout(false);
-            this.infoPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -881,5 +892,6 @@
         private System.Windows.Forms.ToolStripMenuItem removeCoverArtToolStripMenuItem;
         public System.Windows.Forms.ToolStripDropDownButton genreToolStripDropDownButton;
         public System.Windows.Forms.ToolStrip arrangementToolStrip;
+        public System.Windows.Forms.Label loadingLabel;
     }
 }

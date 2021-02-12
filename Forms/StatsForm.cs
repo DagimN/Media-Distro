@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Configurations;
 using LiveCharts.Wpf;
-using System.Collections.Specialized;
 
 namespace Mobile_Service_Distribution.Forms
 {
@@ -155,23 +154,6 @@ namespace Mobile_Service_Distribution.Forms
             {
                 Labels = new[] { " " },
                 Separator = new Separator{ StrokeThickness = 0 }
-            });
-
-            mediaAmountChart.Series.Add(new ColumnSeries
-            {
-                Title = "Movies",
-                Values = new ChartValues<int> { movieCatalogue.Count }
-            });
-
-            mediaAmountChart.Series.Add(new ColumnSeries
-            {
-                Title = "Music",
-                Values = new ChartValues<int> { musicCatalogue.Count }
-            });
-
-            mediaAmountChart.Series.Add(new ColumnSeries {
-                Title = "Series",
-                Values = new ChartValues<int> { seriesCatalogue.Count }
             });
 
             mediaSentExt.Text = (moviesSent + musicSent + seriesSent).ToString();

@@ -468,7 +468,6 @@
         public System.Windows.Forms.Label detailsLabel;
         public System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Label descriptionLabel;
-        private LiveCharts.WinForms.CartesianChart mediaAmountChart;
         public System.Windows.Forms.ComboBox monthComboBox;
         public System.Windows.Forms.ComboBox yearComboBox;
         public Guna.UI2.WinForms.Guna2Button zoomInButton1;
@@ -490,5 +489,6 @@
         public System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label cartSentExt;
         private System.Windows.Forms.Label mediaSentExt;
+        public LiveCharts.WinForms.CartesianChart mediaAmountChart;
     }
 }

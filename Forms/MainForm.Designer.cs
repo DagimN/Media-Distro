@@ -44,35 +44,39 @@
             this.cartLabel = new System.Windows.Forms.ToolStripLabel();
             this.searchButton = new System.Windows.Forms.Button();
             this.sideMenuPanel = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.activationPanel = new System.Windows.Forms.Panel();
             this.activationLabel = new System.Windows.Forms.Label();
             this.submitActiButton = new Guna.UI2.WinForms.Guna2Button();
             this.activationTextBox = new Guna.UI2.WinForms.Guna2TextBox();
-            this.logoPictureBox = new System.Windows.Forms.PictureBox();
-            this.logoLabel = new System.Windows.Forms.Label();
             this.menushowButton = new System.Windows.Forms.Button();
             this.homeSubMenu = new System.Windows.Forms.Button();
             this.librarySubMenu = new System.Windows.Forms.Button();
             this.sharesubMenu = new System.Windows.Forms.Button();
             this.statssubMenu = new System.Windows.Forms.Button();
             this.settingsubMenu = new System.Windows.Forms.Button();
+            this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.workPanel = new System.Windows.Forms.Panel();
             this.searchPanel = new System.Windows.Forms.Panel();
-            this.filterLabel = new System.Windows.Forms.Label();
+            this.seriesCheckBox = new System.Windows.Forms.CheckBox();
+            this.musicCheckBox = new System.Windows.Forms.CheckBox();
+            this.movieCheckBox = new System.Windows.Forms.CheckBox();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.resultPanel = new System.Windows.Forms.Panel();
-            this.seriesFilter = new System.Windows.Forms.Button();
-            this.musicFilter = new System.Windows.Forms.Button();
-            this.movieFilter = new System.Windows.Forms.Button();
             this.sideMenuToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.titleBarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.cartToolStrip.SuspendLayout();
             this.sideMenuPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.activationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.workPanel.SuspendLayout();
             this.searchPanel.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // minimizeButton
@@ -257,21 +261,34 @@
             // sideMenuPanel
             // 
             this.sideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(50)))), ((int)(((byte)(95)))));
+            this.sideMenuPanel.Controls.Add(this.pictureBox3);
             this.sideMenuPanel.Controls.Add(this.activationPanel);
-            this.sideMenuPanel.Controls.Add(this.logoPictureBox);
-            this.sideMenuPanel.Controls.Add(this.logoLabel);
             this.sideMenuPanel.Controls.Add(this.menushowButton);
             this.sideMenuPanel.Controls.Add(this.homeSubMenu);
             this.sideMenuPanel.Controls.Add(this.librarySubMenu);
             this.sideMenuPanel.Controls.Add(this.sharesubMenu);
             this.sideMenuPanel.Controls.Add(this.statssubMenu);
             this.sideMenuPanel.Controls.Add(this.settingsubMenu);
+            this.sideMenuPanel.Controls.Add(this.logoPictureBox);
             this.sideMenuPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.sideMenuPanel.Location = new System.Drawing.Point(0, 0);
             this.sideMenuPanel.Name = "sideMenuPanel";
             this.sideMenuPanel.Size = new System.Drawing.Size(235, 482);
             this.sideMenuPanel.TabIndex = 5;
             this.sideMenuPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sideMenuPanel_MouseClick);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Media_Distro.Properties.Resources.logo_3;
+            this.pictureBox3.Location = new System.Drawing.Point(53, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(182, 52);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 12;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
+            this.pictureBox3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
+            this.pictureBox3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
             // 
             // activationPanel
             // 
@@ -306,12 +323,14 @@
             this.submitActiButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.submitActiButton.ForeColor = System.Drawing.Color.White;
             this.submitActiButton.HoverState.Parent = this.submitActiButton;
+            this.submitActiButton.Image = global::Media_Distro.Properties.Resources.Entypo_2713_0__24;
+            this.submitActiButton.ImageOffset = new System.Drawing.Point(0, -1);
+            this.submitActiButton.ImageSize = new System.Drawing.Size(25, 25);
             this.submitActiButton.Location = new System.Drawing.Point(201, 35);
             this.submitActiButton.Name = "submitActiButton";
             this.submitActiButton.ShadowDecoration.Parent = this.submitActiButton;
             this.submitActiButton.Size = new System.Drawing.Size(28, 27);
             this.submitActiButton.TabIndex = 3;
-            this.submitActiButton.Text = "Sub";
             this.submitActiButton.Click += new System.EventHandler(this.submitActiButton_Click);
             // 
             // activationTextBox
@@ -337,34 +356,6 @@
             this.activationTextBox.ShadowDecoration.Parent = this.activationTextBox;
             this.activationTextBox.Size = new System.Drawing.Size(185, 27);
             this.activationTextBox.TabIndex = 3;
-            // 
-            // logoPictureBox
-            // 
-            this.logoPictureBox.Image = global::Media_Distro.Properties.Resources.Media_Distro_Logo;
-            this.logoPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(50, 39);
-            this.logoPictureBox.TabIndex = 5;
-            this.logoPictureBox.TabStop = false;
-            this.logoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
-            this.logoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
-            this.logoPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
-            // 
-            // logoLabel
-            // 
-            this.logoLabel.AutoSize = true;
-            this.logoLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 19F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.logoLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194)))));
-            this.logoLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.logoLabel.Location = new System.Drawing.Point(47, 3);
-            this.logoLabel.Name = "logoLabel";
-            this.logoLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.logoLabel.Size = new System.Drawing.Size(183, 33);
-            this.logoLabel.TabIndex = 4;
-            this.logoLabel.Text = "Media Distro";
-            this.logoLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
-            this.logoLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
-            this.logoLabel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
             // 
             // menushowButton
             // 
@@ -484,6 +475,19 @@
             this.settingsubMenu.UseVisualStyleBackColor = false;
             this.settingsubMenu.Click += new System.EventHandler(this.settingsubMenu_Click);
             // 
+            // logoPictureBox
+            // 
+            this.logoPictureBox.Image = global::Media_Distro.Properties.Resources.logo_2;
+            this.logoPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.logoPictureBox.Name = "logoPictureBox";
+            this.logoPictureBox.Size = new System.Drawing.Size(53, 45);
+            this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.logoPictureBox.TabIndex = 5;
+            this.logoPictureBox.TabStop = false;
+            this.logoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
+            this.logoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
+            this.logoPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
+            // 
             // workPanel
             // 
             this.workPanel.AutoSize = true;
@@ -499,11 +503,11 @@
             this.searchPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.searchPanel.BackColor = System.Drawing.Color.White;
             this.searchPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.searchPanel.Controls.Add(this.filterLabel);
+            this.searchPanel.Controls.Add(this.seriesCheckBox);
+            this.searchPanel.Controls.Add(this.musicCheckBox);
+            this.searchPanel.Controls.Add(this.movieCheckBox);
+            this.searchPanel.Controls.Add(this.toolStrip1);
             this.searchPanel.Controls.Add(this.resultPanel);
-            this.searchPanel.Controls.Add(this.seriesFilter);
-            this.searchPanel.Controls.Add(this.musicFilter);
-            this.searchPanel.Controls.Add(this.movieFilter);
             this.searchPanel.Location = new System.Drawing.Point(175, -1);
             this.searchPanel.Name = "searchPanel";
             this.searchPanel.Size = new System.Drawing.Size(251, 147);
@@ -511,15 +515,65 @@
             this.searchPanel.Visible = false;
             this.searchPanel.Leave += new System.EventHandler(this.searchPanel_Leave);
             // 
-            // filterLabel
+            // seriesCheckBox
             // 
-            this.filterLabel.AutoSize = true;
-            this.filterLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterLabel.Location = new System.Drawing.Point(3, 125);
-            this.filterLabel.Name = "filterLabel";
-            this.filterLabel.Size = new System.Drawing.Size(34, 15);
-            this.filterLabel.TabIndex = 6;
-            this.filterLabel.Text = "Filter";
+            this.seriesCheckBox.AutoSize = true;
+            this.seriesCheckBox.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.seriesCheckBox.Location = new System.Drawing.Point(173, 123);
+            this.seriesCheckBox.Name = "seriesCheckBox";
+            this.seriesCheckBox.Size = new System.Drawing.Size(56, 19);
+            this.seriesCheckBox.TabIndex = 10;
+            this.seriesCheckBox.Text = "Series";
+            this.seriesCheckBox.UseVisualStyleBackColor = true;
+            this.seriesCheckBox.CheckedChanged += new System.EventHandler(this.seriesCheckBox_CheckedChanged);
+            // 
+            // musicCheckBox
+            // 
+            this.musicCheckBox.AutoSize = true;
+            this.musicCheckBox.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.musicCheckBox.Location = new System.Drawing.Point(110, 123);
+            this.musicCheckBox.Name = "musicCheckBox";
+            this.musicCheckBox.Size = new System.Drawing.Size(57, 19);
+            this.musicCheckBox.TabIndex = 9;
+            this.musicCheckBox.Text = "Music";
+            this.musicCheckBox.UseVisualStyleBackColor = true;
+            this.musicCheckBox.CheckedChanged += new System.EventHandler(this.musicCheckBox_CheckedChanged);
+            // 
+            // movieCheckBox
+            // 
+            this.movieCheckBox.AutoSize = true;
+            this.movieCheckBox.Font = new System.Drawing.Font("Microsoft JhengHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.movieCheckBox.Location = new System.Drawing.Point(45, 123);
+            this.movieCheckBox.Name = "movieCheckBox";
+            this.movieCheckBox.Size = new System.Drawing.Size(59, 19);
+            this.movieCheckBox.TabIndex = 8;
+            this.movieCheckBox.Text = "Movie";
+            this.movieCheckBox.UseVisualStyleBackColor = true;
+            this.movieCheckBox.CheckedChanged += new System.EventHandler(this.movieCheckBox_CheckedChanged);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1,
+            this.toolStripSeparator2});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 120);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(42, 25);
+            this.toolStrip1.TabIndex = 7;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(33, 22);
+            this.toolStripLabel1.Text = "Filter";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // resultPanel
             // 
@@ -529,44 +583,6 @@
             this.resultPanel.Name = "resultPanel";
             this.resultPanel.Size = new System.Drawing.Size(251, 118);
             this.resultPanel.TabIndex = 3;
-            // 
-            // seriesFilter
-            // 
-            this.seriesFilter.BackColor = System.Drawing.Color.White;
-            this.seriesFilter.FlatAppearance.BorderSize = 0;
-            this.seriesFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.seriesFilter.Image = global::Media_Distro.Properties.Resources.Series_FilterB;
-            this.seriesFilter.Location = new System.Drawing.Point(106, 123);
-            this.seriesFilter.Name = "seriesFilter";
-            this.seriesFilter.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.seriesFilter.Size = new System.Drawing.Size(28, 23);
-            this.seriesFilter.TabIndex = 5;
-            this.seriesFilter.UseVisualStyleBackColor = false;
-            this.seriesFilter.Click += new System.EventHandler(this.seriesFilter_Click);
-            // 
-            // musicFilter
-            // 
-            this.musicFilter.FlatAppearance.BorderSize = 0;
-            this.musicFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.musicFilter.Image = ((System.Drawing.Image)(resources.GetObject("musicFilter.Image")));
-            this.musicFilter.Location = new System.Drawing.Point(72, 123);
-            this.musicFilter.Name = "musicFilter";
-            this.musicFilter.Size = new System.Drawing.Size(28, 23);
-            this.musicFilter.TabIndex = 4;
-            this.musicFilter.UseVisualStyleBackColor = true;
-            this.musicFilter.Click += new System.EventHandler(this.musicFilter_Click);
-            // 
-            // movieFilter
-            // 
-            this.movieFilter.FlatAppearance.BorderSize = 0;
-            this.movieFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.movieFilter.Image = global::Media_Distro.Properties.Resources.Movie_FilterB;
-            this.movieFilter.Location = new System.Drawing.Point(38, 123);
-            this.movieFilter.Name = "movieFilter";
-            this.movieFilter.Size = new System.Drawing.Size(28, 23);
-            this.movieFilter.TabIndex = 3;
-            this.movieFilter.UseVisualStyleBackColor = true;
-            this.movieFilter.Click += new System.EventHandler(this.movieFilter_Click);
             // 
             // mediaDistroFrame
             // 
@@ -592,12 +608,14 @@
             this.cartToolStrip.ResumeLayout(false);
             this.cartToolStrip.PerformLayout();
             this.sideMenuPanel.ResumeLayout(false);
-            this.sideMenuPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.activationPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.workPanel.ResumeLayout(false);
             this.searchPanel.ResumeLayout(false);
             this.searchPanel.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -606,18 +624,13 @@
         #endregion
         private System.Windows.Forms.Button closeButton;
         public System.Windows.Forms.Panel sideMenuPanel;
-        private System.Windows.Forms.Label logoLabel;
         private System.Windows.Forms.PictureBox logoPictureBox;
         public System.Windows.Forms.ToolStripButton newCartToolStripButton;
         public System.Windows.Forms.ToolStripLabel cartLabel;
         private System.Windows.Forms.TextBox cartLabelEdit;
         public System.Windows.Forms.ToolStripSplitButton cartsToolStripSplitButton;
         private System.Windows.Forms.Panel resultPanel;
-        private System.Windows.Forms.Button seriesFilter;
-        private System.Windows.Forms.Button musicFilter;
-        private System.Windows.Forms.Button movieFilter;
         private System.Windows.Forms.ToolTip sideMenuToolTip;
-        private System.Windows.Forms.Label filterLabel;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         public System.Windows.Forms.Button sharesubMenu;
@@ -638,6 +651,13 @@
         private Guna.UI2.WinForms.Guna2Button submitActiButton;
         private Guna.UI2.WinForms.Guna2TextBox activationTextBox;
         public System.Windows.Forms.Panel activationPanel;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.CheckBox seriesCheckBox;
+        private System.Windows.Forms.CheckBox musicCheckBox;
+        private System.Windows.Forms.CheckBox movieCheckBox;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

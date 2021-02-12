@@ -10,11 +10,13 @@ using Media_Distro;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Mobile_Service_Distribution.Forms;
 using System.Reflection;
+using LiveCharts;
+using LiveCharts.Wpf;
+using Guna.UI2.WinForms;
 
 
 namespace Mobile_Service_Distribution
@@ -27,12 +29,8 @@ namespace Mobile_Service_Distribution
         public Task manageMediaTask;
         private Button activeButton;
         public ListViewItem activeItem = null;
-
         private bool drag = false;
-        private bool movieBool = false;
-        private bool musicBool = false;
-        private bool seriesBool = false;
-
+      
         private LibraryForm libraryForm;
         private HomeForm homeForm;
         private ShareForm shareForm;
@@ -60,9 +58,7 @@ namespace Mobile_Service_Distribution
         public int completedTasks = 0;
       
         public mediaDistroFrame()
-        {
-            //Media_Distro.Properties.Settings.Default.fInitialize = false;
-
+        {            
             if (!Media_Distro.Properties.Settings.Default.fInitialize)
             {
                 Media_Distro.Properties.Settings.Default.Movie_Media_Location = new System.Collections.Specialized.StringCollection();
@@ -86,13 +82,12 @@ namespace Mobile_Service_Distribution
 
                     //Labels
 
-                    Label logoLabel = new Label
+                    PictureBox logoLabel = new PictureBox
                     {
                         Location = new Point(9, 3),
-                        Size = new Size(395, 60),
-                        Text = "Media Distro",
-                        Font = new Font("Microsoft JhengHei", 36),
-                        ForeColor = Color.FromArgb(112, 112, 112) 
+                        Size = new Size(350, 60),
+                        SizeMode = PictureBoxSizeMode.StretchImage,
+                        Image = Media_Distro.Properties.Resources.logo_1
                     };
 
                     Label descriptionLabel = new Label
@@ -127,76 +122,119 @@ namespace Mobile_Service_Distribution
                         Font = new Font("Microsoft JhengHei", 9)
                     };
 
-                    Label getLabel = new Label
-                    {
-                        Location = new Point(231, 267),
-                        AutoSize = true,
-                        Text = "Gathering all media in selected folders. This will take a few minutes...",
-                        Font = new Font("Microsoft JhengHei", 9),
-                        Visible = false
-                    };
-
                     //TextBoxes
 
-                    TextBox movieURL = new TextBox
+                    Guna2TextBox movieURL = new Guna2TextBox
                     {
-                        Location = new Point(95, 115),
-                        Size = new Size(303, 100),
+                        Location = new Point(85, 97),
+                        Size = new Size(250, 25),
                         Font = new Font("Microsoft JhengHei", 10),
-                        ReadOnly = true
+                        ReadOnly = true,
+                        BorderRadius = 12,
+                        CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges
+                        {
+                            BottomLeft = true,
+                            BottomRight = false,
+                            TopLeft = true,
+                            TopRight = false
+                        }
                     };
 
-                    TextBox musicURL = new TextBox
+                    Guna2TextBox musicURL = new Guna2TextBox
                     {
-                        Location = new Point(95, 152),
-                        Size = new Size(303, 100),
+                        Location = new Point(85, 132),
+                        Size = new Size(250, 25),
                         Font = new Font("Microsoft JhengHei", 10),
-                        ReadOnly = true
+                        ReadOnly = true,
+                        BorderRadius = 12,
+                        CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges
+                        {
+                            BottomLeft = true,
+                            BottomRight = false,
+                            TopLeft = true,
+                            TopRight = false
+                        }
                     };
 
-                    TextBox seriesURL = new TextBox
+                    Guna2TextBox seriesURL = new Guna2TextBox
                     {
-                        Location = new Point(95, 189),
-                        Size = new Size(303, 100),
+                        Location = new Point(85, 167),
+                        Size = new Size(250, 25),
                         Font = new Font("Microsoft JhengHei", 10),
-                        ReadOnly = true
+                        ReadOnly = true,
+                        BorderRadius = 12,
+                        CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges
+                        {
+                            BottomLeft = true,
+                            BottomRight = false,
+                            TopLeft = true,
+                            TopRight = false
+                        }
                     };
 
                     //Buttons
 
-                    Button movieBrowseButton = new Button
+                    Guna2Button movieBrowseButton = new Guna2Button
                     {
-                        Location = new Point(400, 115),
-                        Size = new Size(50, 20),
-                        Text = "Browse"
+                        Location = new Point(385, 113),
+                        Size = new Size(50, 21),
+                        Text = "Browse",
+                        BorderRadius = 8,
+                        CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges
+                        {
+                            BottomLeft = false,
+                            BottomRight = true,
+                            TopLeft = false,
+                            TopRight = true
+                        }
                     };
                     
-                    Button musicBrowseButton = new Button
+                    Guna2Button musicBrowseButton = new Guna2Button
                     {
-                        Location = new Point(400, 152),
-                        Size = new Size(50, 20),
-                        Text = "Browse"
+                        Location = new Point(385, 152),
+                        Size = new Size(50, 21),
+                        Text = "Browse",
+                        BorderRadius = 8,
+                        CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges
+                        {
+                            BottomLeft = false,
+                            BottomRight = true,
+                            TopLeft = false,
+                            TopRight = true
+                        }
                     };
                     
-                    Button seriesBrowseButton = new Button
+                    Guna2Button seriesBrowseButton = new Guna2Button
                     {
-                        Location = new Point(400, 189),
+                        Location = new Point(385, 192),
                         Size = new Size(50, 20),
-                        Text = "Browse"
+                        Text = "Browse",
+                        BorderRadius = 8,
+                        CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges
+                        {
+                            BottomLeft = false,
+                            BottomRight = true,
+                            TopLeft = false,
+                            TopRight = true
+                        }
                     };
-                    
-                    Button continueButton = new Button
+
+                    Guna2Button continueButton = new Guna2Button
                     {
                         Location = new Point(541, 294),
                         Size = new Size(78, 23),
                         Text = "Continue",
-                        Enabled = false
+                        Enabled = false,
+                        AutoRoundedCorners = true,
+                        BackColor = Color.FromArgb(20, 200, 254)
                     };
-                    
-                    Button closeButton = new Button
+
+                    Guna2Button closeButton = new Guna2Button
                     {
                         Location = new Point(594, 0),
-                        Size = new Size(36, 34)
+                        Size = new Size(36, 34),
+                        Font = new Font("Microsoft Sans Serif", 18),
+                        Text = "×"
                     };
 
                     movieBrowseButton.Click += browseButton_Click;
@@ -208,14 +246,15 @@ namespace Mobile_Service_Distribution
                     //Form
 
                     introForm.Size = new Size(630, 330);
+                    introForm.BackColor = Color.FromArgb(235, 250, 250);
                     introForm.FormBorderStyle = FormBorderStyle.None;
+                    introForm.BackgroundImage = Media_Distro.Properties.Resources.introBackground;
 
                     introForm.Controls.Add(logoLabel);
                     introForm.Controls.Add(descriptionLabel);
                     introForm.Controls.Add(movieLabel);
                     introForm.Controls.Add(musicLabel);
                     introForm.Controls.Add(seriesLabel);
-                    introForm.Controls.Add(getLabel);
                     introForm.Controls.Add(movieURL);
                     introForm.Controls.Add(musicURL);
                     introForm.Controls.Add(seriesURL);
@@ -251,8 +290,6 @@ namespace Mobile_Service_Distribution
                             seriesURL.Text = folderBrowser.SelectedPath;
                         }
 
-                        Media_Distro.Properties.Settings.Default.Save();
-
                         folderBrowser.Dispose();
 
                         if (movieURL.Lines.Length > 0 && musicURL.Lines.Length > 0 && seriesURL.Lines.Length > 0)
@@ -263,23 +300,19 @@ namespace Mobile_Service_Distribution
 
                     void continueButton_Click(object sender, EventArgs e)
                     {
-                        manageMediaTask = new Task(() => ManageMedia());
-                        manageMediaTask.Start();
-
                         continueButton.Enabled = false;
-                        getLabel.Visible = true;
+                 
                         Media_Distro.Properties.Settings.Default.fInitialize = true;
                         Media_Distro.Properties.Settings.Default.activationKey = GenerateKeyAlgorithm();
                         Media_Distro.Properties.Settings.Default.expirationDate = DateTime.Now.AddDays(30);
                         Media_Distro.Properties.Settings.Default.Save();
 
-                        manageMediaTask.Wait();
                         introForm.Close();
                     }
                 }
             }
 
-            if (Media_Distro.Properties.Settings.Default.fInitialize)
+            else
             {
                 InitializeComponent();
 
@@ -299,6 +332,7 @@ namespace Mobile_Service_Distribution
                 statsForm = new StatsForm();
                 shareForm = new ShareForm(this, homeForm, statsForm);
                 settingsForm = new SettingsForm(shareForm.progressListView, this, homeForm, libraryForm, shareForm, statsForm);
+
 
                 PropertyInfo workPanelType = workPanel.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
                 workPanelType.SetValue(workPanel, true, null);
@@ -484,12 +518,15 @@ namespace Mobile_Service_Distribution
 
                 this.homeForm.dashBoardPanel.Refresh();
                 this.homeForm.Size = new Size(751, 452);
-                this.homeForm.popularNowPanel.Width = 531;
-                this.homeForm.goRightButton.Location = new Point(577, 267);
-                this.homeForm.adsPanel.Location = new Point(611, 230);
+                this.homeForm.popularNowPanel.Width = 684;
+                this.homeForm.goRightButton.Location = new Point(730, 267);
+                this.homeForm.adsPanel.Size = new Size(521, 212);
                 this.homeForm.taskPieChart.Location = new Point(544, 3);
                 this.homeForm.tempPieChart.Location = new Point(544, 3);
                 this.homeForm.volumeLabel.Location = new Point(608, 106);
+                this.homeForm.mainGetLabel.Location = new Point(272, 20);
+                this.homeForm.subGetLabel.Location = new Point(308, 55);
+                this.homeForm.subGetLabel.Size = new Size(202, 52);
 
                 if (this.libraryForm.infoPanel.Visible) this.libraryForm.infoPanel.Visible = false;
                 this.libraryForm.Size = new Size(751, 452);
@@ -524,6 +561,8 @@ namespace Mobile_Service_Distribution
                 this.settingsForm.Size = new Size(751, 452);
                 this.settingsForm.panel2.Size = new Size(727, 112);
                 this.settingsForm.panel3.Size = new Size(727, 216);
+                this.settingsForm.urlAddingInfo.TextAlign = ContentAlignment.TopCenter;
+                this.settingsForm.urlAddingInfo.Size = new Size(364, 36);
             }
             else
             {
@@ -539,12 +578,15 @@ namespace Mobile_Service_Distribution
 
                 this.homeForm.dashBoardPanel.Refresh();
                 this.homeForm.Size = new Size(567, 452);
-                this.homeForm.popularNowPanel.Width = 347;
-                this.homeForm.goRightButton.Location = new Point(393, 267);
-                this.homeForm.adsPanel.Location = new Point(427, 230);
+                this.homeForm.popularNowPanel.Width = 501;
+                this.homeForm.goRightButton.Location = new Point(547, 267);
+                this.homeForm.adsPanel.Size = new Size(338, 212);
                 this.homeForm.taskPieChart.Location = new Point(360, 3);
                 this.homeForm.tempPieChart.Location = new Point(360, 3);
                 this.homeForm.volumeLabel.Location = new Point(424, 106);
+                this.homeForm.mainGetLabel.Location = new Point(139, 20);
+                this.homeForm.subGetLabel.Location = new Point(175, 55);
+                this.homeForm.subGetLabel.Size = new Size(152, 52);
 
                 if (this.libraryForm.infoPanel.Visible) this.libraryForm.infoPanel.Visible = false;
                 this.libraryForm.Size = new Size(567, 452);
@@ -579,6 +621,8 @@ namespace Mobile_Service_Distribution
                 this.settingsForm.Size = new Size(567, 452);
                 this.settingsForm.panel2.Size = new Size(543, 112);
                 this.settingsForm.panel3.Size = new Size(543, 216);
+                this.settingsForm.urlAddingInfo.TextAlign = ContentAlignment.MiddleRight;
+                this.settingsForm.urlAddingInfo.Size = new Size(211, 36);
             }
 
             this.workPanel.Focus();
@@ -598,6 +642,7 @@ namespace Mobile_Service_Distribution
                 resultPanel.Controls.Clear();
                 searchPanel.Visible = false;
                 pictureBox2.Visible = false;
+                searchTextBox.Clear();
             }
         }
 
@@ -654,6 +699,7 @@ namespace Mobile_Service_Distribution
             foreach (string genre in movieGenreCatalogue)
                 libraryForm.arrangementToolStrip.BeginInvoke((MethodInvoker)delegate { libraryForm.genreToolStripDropDownButton.DropDownItems.Add(genre, null, new EventHandler(libraryForm.genreSelected_Click)); });
 
+            libraryForm.loadingLabel.Invoke((MethodInvoker)delegate { libraryForm.loadingLabel.Visible = false; });
             foreach (LibraryManager movie in movieCatalogue)
             {
                 if (movie.CoverArtDirectory != null && File.Exists(movie.CoverArtDirectory))
@@ -742,6 +788,7 @@ namespace Mobile_Service_Distribution
                 }
             }
 
+            homeForm.loadingLabel.Invoke((MethodInvoker)delegate { homeForm.loadingLabel.Visible = false; });
             foreach (LibraryManager media in SortPRS())
             {
                 PictureBox coverArtPictureBox = new PictureBox
@@ -763,6 +810,37 @@ namespace Mobile_Service_Distribution
 
                 homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Add(coverArtPictureBox); });
             }
+
+
+            statsForm.mediaAmountChart.Invoke((MethodInvoker)delegate
+            {
+                statsForm.mediaAmountChart.Series.Add(new ColumnSeries
+                {
+                    Title = "Movies",
+                    Values = new ChartValues<int> { movieCatalogue.Count }
+                });
+            });
+
+            statsForm.mediaAmountChart.Invoke((MethodInvoker)delegate
+            {
+                statsForm.mediaAmountChart.Series.Add(new ColumnSeries
+                {
+                    Title = "Music",
+                    Values = new ChartValues<int> { musicCatalogue.Count }
+                });
+            });
+
+            statsForm.mediaAmountChart.Invoke((MethodInvoker)delegate
+            {
+                statsForm.mediaAmountChart.Series.Add(new ColumnSeries
+                {
+                    Title = "Series",
+                    Values = new ChartValues<int> { seriesCatalogue.Count }
+                });
+            });
+
+            
+            
         }
 
         private void PRSItem_MouseEnter(object sender, EventArgs e)
@@ -803,7 +881,7 @@ namespace Mobile_Service_Distribution
                         Size = new Size(36, 48),
                         Location = new Point(3, 3),
                         SizeMode = PictureBoxSizeMode.StretchImage,
-                        Image = (media.CoverArtDirectory != "") ? Image.FromFile(media.CoverArtDirectory) : null,
+                        Image = (media.CoverArtDirectory != null) ? Image.FromFile(media.CoverArtDirectory) : Media_Distro.Properties.Resources.coverart_sample_2,
                         BorderStyle = BorderStyle.FixedSingle
                     };
 
@@ -822,7 +900,7 @@ namespace Mobile_Service_Distribution
                         Location = new Point(200, 15),
                         FlatStyle = FlatStyle.Flat,
                         Tag = media,
-                        Image = Image.FromFile(Combine(GetFolderPath(SpecialFolder.MyDocuments), "Euphoria Games", "Software", "Form Designs","Add Media Icon.png"))
+                        Image = Media_Distro.Properties.Resources.Add_Media_Icon
                     };
                     addToCart.FlatAppearance.BorderSize = 0;
                     addToCart.Click += addToCart_Click;
@@ -1161,6 +1239,8 @@ namespace Mobile_Service_Distribution
                 minimizeButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Default_Theme_SearchBar;
                 minimizeButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Default_Theme_SearchBar;
 
+                homeForm.locateZipButton.FillColor = Media_Distro.Properties.Settings.Default.Default_Theme_TitleBar;
+
                 libraryForm.infoPanel.BackgroundImage = Media_Distro.Properties.Resources.infoPanel_Background;
                 libraryForm.titleTextBox.BackColor = libraryForm.infoPanel.BackColor;
                 libraryForm.genreTextBox.BackColor = Color.FromArgb(130, 200, 255);
@@ -1201,6 +1281,8 @@ namespace Mobile_Service_Distribution
             {
                 minimizeButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Fire_Theme_SearchBar;
                 minimizeButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Fire_Theme_SearchBar;
+
+                homeForm.locateZipButton.FillColor = Media_Distro.Properties.Settings.Default.Fire_Theme_TitleBar;
 
                 libraryForm.infoPanel.BackgroundImage = Media_Distro.Properties.Resources.infoPanel_FireBackground;
                 libraryForm.titleTextBox.BackColor = libraryForm.infoPanel.BackColor;
@@ -1243,6 +1325,8 @@ namespace Mobile_Service_Distribution
                 minimizeButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Meadow_Theme_Selected;
                 minimizeButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Meadow_Theme_Selected;
 
+                homeForm.locateZipButton.FillColor = Media_Distro.Properties.Settings.Default.Meadow_Theme_TitleBar;
+
                 libraryForm.infoPanel.BackgroundImage = Media_Distro.Properties.Resources.infoPanel_MeadowBackground;
                 libraryForm.titleTextBox.BackColor = libraryForm.infoPanel.BackColor;
                 libraryForm.genreTextBox.BackColor = Color.FromArgb(155, 255, 165);
@@ -1284,6 +1368,8 @@ namespace Mobile_Service_Distribution
                 minimizeButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Dark_Theme_WorkPlace;
                 minimizeButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Dark_Theme_WorkPlace;
 
+                homeForm.locateZipButton.FillColor = Media_Distro.Properties.Settings.Default.Dark_Theme_SearchBar;
+
                 libraryForm.infoPanel.BackgroundImage = Media_Distro.Properties.Resources.infoPanel_DarkBackground;
                 libraryForm.titleTextBox.BackColor = libraryForm.infoPanel.BackColor;
                 libraryForm.genreTextBox.BackColor = Color.FromArgb(105, 105, 115);
@@ -1324,6 +1410,8 @@ namespace Mobile_Service_Distribution
             {
                 minimizeButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Twilight_Theme_Selected;
                 minimizeButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Twilight_Theme_Selected;
+
+                homeForm.locateZipButton.FillColor = Media_Distro.Properties.Settings.Default.Twilight_Theme_TitleBar;
 
                 libraryForm.infoPanel.BackgroundImage = Media_Distro.Properties.Resources.infoPanel_TwilightBackground;
                 libraryForm.titleTextBox.BackColor = libraryForm.infoPanel.BackColor;
@@ -1373,6 +1461,9 @@ namespace Mobile_Service_Distribution
 
             settingsForm.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
             settingsForm.priceSetting.UpDownButtonFillColor = Media_Distro.Properties.Settings.Default.Active_Theme_SearchBar;
+            settingsForm.movieURLCollectionButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            settingsForm.musicURLCollectionButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+            settingsForm.seriesURLCollectionButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
 
             homeForm.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
             homeForm.goLeftButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
@@ -1381,13 +1472,11 @@ namespace Mobile_Service_Distribution
             homeForm.goRightButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
 
             statsForm.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
-
-           
         }
 
         private void searchPanel_Leave(object sender, EventArgs e)
         {
-            searchTextBox.Text = "Search";
+            searchTextBox.Clear();
             resultPanel.Controls.Clear();
             if (!searchTextBox.Focused)
             {
@@ -1395,66 +1484,6 @@ namespace Mobile_Service_Distribution
                 pictureBox2.Visible = false;
             }
             
-        }
-
-        private void seriesFilter_Click(object sender, EventArgs e)
-        {
-            seriesBool = !seriesBool;
-            if (seriesBool)
-            {
-                catalogues.Add(seriesCatalogue);
-                seriesFilter.BackColor = SystemColors.WindowFrame;
-            }
-            else
-            {
-                catalogues.Remove(seriesCatalogue);
-                seriesFilter.BackColor = SystemColors.Control;
-            }
-                
-            resultPanel.Controls.Clear();
-
-            searchTask = new Task(() => searchT());
-            searchTask.Start();
-        }
-
-        private void musicFilter_Click(object sender, EventArgs e)
-        {
-            musicBool = !musicBool;
-            if (musicBool)
-            {
-                catalogues.Add(musicCatalogue);
-                musicFilter.BackColor = SystemColors.WindowFrame;
-            }
-            else
-            {
-                catalogues.Remove(musicCatalogue);
-                musicFilter.BackColor = SystemColors.Control;
-            }
-                
-            resultPanel.Controls.Clear();
-
-            searchTask = new Task(() => searchT());
-            searchTask.Start();
-        }
-
-        private void movieFilter_Click(object sender, EventArgs e)
-        {
-            movieBool = !movieBool;
-            if (movieBool)
-            {
-                catalogues.Add(movieCatalogue);
-                movieFilter.BackColor = SystemColors.WindowFrame;
-            }
-            else
-            {
-                catalogues.Remove(movieCatalogue);
-                movieFilter.BackColor = SystemColors.Control;
-            }
-                
-            resultPanel.Controls.Clear();
-
-            searchTask = new Task(() => searchT());
-            searchTask.Start();
         }
 
         private void sharesubMenu_Paint(object sender, PaintEventArgs e)
@@ -1551,6 +1580,45 @@ namespace Mobile_Service_Distribution
                 key += c;
 
             return key;
+        }
+
+        private void movieCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (movieCheckBox.Checked)
+                catalogues.Add(movieCatalogue);
+            else
+                catalogues.Remove(movieCatalogue);
+
+            resultPanel.Controls.Clear();
+
+            searchTask = new Task(() => searchT());
+            searchTask.Start();
+        }
+
+        private void musicCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (musicCheckBox.Checked)
+                catalogues.Add(musicCatalogue);
+            else
+                catalogues.Remove(musicCatalogue);
+
+            resultPanel.Controls.Clear();
+
+            searchTask = new Task(() => searchT());
+            searchTask.Start();
+        }
+
+        private void seriesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (seriesCheckBox.Checked)
+                catalogues.Add(seriesCatalogue);
+            else
+                catalogues.Remove(seriesCatalogue);
+
+            resultPanel.Controls.Clear();
+
+            searchTask = new Task(() => searchT());
+            searchTask.Start();
         }
     }
 }

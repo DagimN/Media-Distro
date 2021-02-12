@@ -343,6 +343,8 @@ namespace Mobile_Service_Distribution.Forms
             hRef.goRightButton.FlatAppearance.MouseOverBackColor = themePreference[2];
             hRef.goLeftButton.FlatAppearance.MouseDownBackColor = themePreference[2];
             hRef.goRightButton.FlatAppearance.MouseDownBackColor = themePreference[2];
+            hRef.locateZipButton.FillColor = themePreference[3];
+            hRef.addToCartButton.BackColor = themePreference[3];
 
             //LibraryForm Color Change
 
@@ -491,6 +493,9 @@ namespace Mobile_Service_Distribution.Forms
                 mainRef.minimizeButton.FlatAppearance.MouseOverBackColor = themePreference[4];
                 mainRef.minimizeButton.FlatAppearance.MouseDownBackColor = themePreference[4];
 
+                hRef.locateZipButton.FillColor = themePreference[1];
+                hRef.addToCartButton.BackColor = themePreference[1];
+
                 libRef.infoPanel.BackgroundImage = Media_Distro.Properties.Resources.infoPanel_DarkBackground;
                 libRef.titleTextBox.BackColor = libRef.infoPanel.BackColor;
                 libRef.genreTextBox.BackColor = Color.FromArgb(105, 105, 115);
@@ -587,6 +592,9 @@ namespace Mobile_Service_Distribution.Forms
             priceSetting.UpDownButtonFillColor = themePreference[1];
             selected.BackColor = themePreference[2];
             this.BackColor = themePreference[4];
+            movieURLCollectionButton.FlatAppearance.MouseOverBackColor = themePreference[2];
+            musicURLCollectionButton.FlatAppearance.MouseOverBackColor = themePreference[2];
+            seriesURLCollectionButton.FlatAppearance.MouseOverBackColor = themePreference[2];
 
             DialogResult result = MessageBox.Show("Are you sure you want the theme you chose applied on the interface?", "Change Theme Preference", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if(result == DialogResult.OK)
@@ -634,6 +642,8 @@ namespace Mobile_Service_Distribution.Forms
                 hRef.goRightButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
                 hRef.goLeftButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
                 hRef.goRightButton.FlatAppearance.MouseDownBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+                hRef.locateZipButton.FillColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
+
 
                 //LibraryForm return active color
 
@@ -701,6 +711,9 @@ namespace Mobile_Service_Distribution.Forms
                 selected.Location = new Point(Media_Distro.Properties.Settings.Default.selectedLocation, selected.Location.Y);
                 selected.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Preference;
                 this.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
+                movieURLCollectionButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+                musicURLCollectionButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
+                seriesURLCollectionButton.FlatAppearance.MouseOverBackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
 
                 return 0;
             }
@@ -713,12 +726,43 @@ namespace Mobile_Service_Distribution.Forms
             double bonus = 0;
             string bonusKey = "";
             Random random = new Random();
+            DateTime now = DateTime.Now;
+            string day = now.Day.ToString();
+            string month = now.Month.ToString();
+            string year = now.Year.ToString();
 
             for (int i = 0; i < statsFile.Length - 1; i += 7)
                 bonus += double.Parse(statsFile[i + 5].Substring(15)) * 0.05;
 
-            for (int i = 0; i < 5; i++)
-                bonusKey += letters[random.Next(26)];
+            bonusKey += letters[random.Next(26)];
+
+            for (int i = 0; i < 2; i++)
+                bonusKey += letters[letters.IndexOf(bonusKey[i]) * 9 % 26];
+
+            if (day.Length == 1)
+            {
+                bonusKey += letters[0];
+                bonusKey += letters[int.Parse(day)];
+            }
+            else
+            {
+                bonusKey += letters[int.Parse(day[1].ToString())];
+                bonusKey += letters[int.Parse(day[0].ToString())];
+            }
+
+            if (month.Length == 1)
+            {
+                bonusKey += letters[0];
+                bonusKey += letters[int.Parse(month)];
+            }
+            else
+            {
+                bonusKey += letters[int.Parse(month[1].ToString())];
+                bonusKey += letters[int.Parse(month[0].ToString())];
+            }
+
+            bonusKey += letters[int.Parse(year[2].ToString())];
+            bonusKey += letters[int.Parse(year[3].ToString())];
 
             foreach (char c in String.Format("{0:F}", bonus))
             {

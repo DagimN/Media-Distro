@@ -25,7 +25,10 @@ namespace Mobile_Service_Distribution.Forms
         public Button addToCartButton = new Button {
             Size = new Size(116, 30),
             FlatStyle = FlatStyle.Flat,
-            BackColor = Color.White
+            BackColor = (Media_Distro.Properties.Settings.Default.Active_Theme_Preference == Media_Distro.Properties.Settings.Default.Dark_Theme_Preference) 
+                        ? Media_Distro.Properties.Settings.Default.Dark_Theme_SearchBar : Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar,
+            Text = "Add to Cart",
+            ForeColor = SystemColors.InactiveCaption
         };
         DateTime checkDate;
 
@@ -39,6 +42,7 @@ namespace Mobile_Service_Distribution.Forms
 
             addToCartButton.Click += new EventHandler(addToCartButton_Click);
             addToCartButton.MouseLeave += new EventHandler(addToCartButton_MouseLeave);
+            addToCartButton.FlatAppearance.BorderSize = 0;
 
             taskPieChart.InnerRadius = 20; 
             taskPieChart.LegendLocation = LegendLocation.Right;
@@ -69,7 +73,7 @@ namespace Mobile_Service_Distribution.Forms
                 checkDate = DateTime.Parse(File.ReadAllLines(Combine(adDir, "Date Info.txt"))[0]);
 
                 if (checkDate.Month != DateTime.Now.Month)
-                    if(DateTime.Now.DayOfYear - checkDate.DayOfYear > 30)
+                    if (DateTime.Now.DayOfYear - checkDate.DayOfYear > 30)
                         Delete(adDir, true);
             }
         }
@@ -214,11 +218,6 @@ namespace Mobile_Service_Distribution.Forms
                     graphics.DrawString("GB", new Font("Microsoft JhengHei", 7), Brushes.Black, new PointF(724, 148));
                 }
             }
-        }
-
-        private void adsPanel_DragDrop(object sender, DragEventArgs e)
-        {
-            
         }
 
         private void locateZipButton_Click(object sender, EventArgs e)
