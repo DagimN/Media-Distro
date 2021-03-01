@@ -58,7 +58,7 @@ namespace Mobile_Service_Distribution
         public int completedTasks = 0;
       
         public mediaDistroFrame()
-        {            
+        {
             if (!Media_Distro.Properties.Settings.Default.fInitialize)
             {
                 Media_Distro.Properties.Settings.Default.Movie_Media_Location = new System.Collections.Specialized.StringCollection();
@@ -249,6 +249,8 @@ namespace Mobile_Service_Distribution
                     introForm.BackColor = Color.FromArgb(235, 250, 250);
                     introForm.FormBorderStyle = FormBorderStyle.None;
                     introForm.BackgroundImage = Media_Distro.Properties.Resources.introBackground;
+                    introForm.Icon = Media_Distro.Properties.Resources.logo_ico;
+                    introForm.StartPosition = FormStartPosition.CenterScreen;
 
                     introForm.Controls.Add(logoLabel);
                     introForm.Controls.Add(descriptionLabel);
@@ -300,19 +302,23 @@ namespace Mobile_Service_Distribution
 
                     void continueButton_Click(object sender, EventArgs e)
                     {
+                        StreamWriter dateCheckFile = File.CreateText(Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "akf"));
                         continueButton.Enabled = false;
                  
                         Media_Distro.Properties.Settings.Default.fInitialize = true;
                         Media_Distro.Properties.Settings.Default.activationKey = GenerateKeyAlgorithm();
-                        Media_Distro.Properties.Settings.Default.expirationDate = DateTime.Now.AddDays(30);
+                        Media_Distro.Properties.Settings.Default.expirationDate = DateTime.Now.AddDays(7);
                         Media_Distro.Properties.Settings.Default.Save();
-
+                        
+                        dateCheckFile.WriteLine(Media_Distro.Properties.Settings.Default.expirationDate.ToString());
+                        dateCheckFile.Close();
+                       
                         introForm.Close();
                     }
                 }
             }
 
-            else
+            if(Media_Distro.Properties.Settings.Default.fInitialize)
             {
                 InitializeComponent();
 
@@ -333,12 +339,13 @@ namespace Mobile_Service_Distribution
                 shareForm = new ShareForm(this, homeForm, statsForm);
                 settingsForm = new SettingsForm(shareForm.progressListView, this, homeForm, libraryForm, shareForm, statsForm);
 
-
                 PropertyInfo workPanelType = workPanel.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
                 workPanelType.SetValue(workPanel, true, null);
                 PropertyInfo sidePanelType = sideMenuPanel.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
                 sidePanelType.SetValue(sideMenuPanel, true, null);
 
+                openChildForm(settingsForm);
+                openChildForm(shareForm);
                 openChildForm(statsForm);
                 openChildForm(libraryForm);
                 openChildForm(homeForm);
@@ -346,9 +353,16 @@ namespace Mobile_Service_Distribution
                 activeButton = homeSubMenu;
                 activeButton.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Selected;
 
+                string expDate;
+                if (File.Exists(Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "akf")))
+                    expDate = File.ReadAllLines(Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "akf"))[0];
+                else expDate = "";
+
                 if (Media_Distro.Properties.Settings.Default.activationKey.Length < 1 ||
                     Media_Distro.Properties.Settings.Default.expirationDate.ToShortDateString() == DateTime.Now.ToShortDateString() ||
-                        (Media_Distro.Properties.Settings.Default.expirationDate.AddDays(30) < DateTime.Now))
+                    Media_Distro.Properties.Settings.Default.expirationDate.AddDays(7) < DateTime.Now ||
+                    expDate == "" || DateTime.Parse(expDate).AddDays(7) < DateTime.Now || 
+                    DateTime.Parse(expDate).ToShortDateString() == DateTime.Now.ToShortDateString())
                 {
                     newCartToolStripButton.Enabled = false;
                     cartsToolStripSplitButton.Enabled = false;
@@ -396,14 +410,14 @@ namespace Mobile_Service_Distribution
                                             ImageIndex = 2
                                         };
                                     }
-                                    
+                                   
                                     if(shareForm.deviceList.Items.Count == 0)
                                     {
                                         shareForm.sendToToolStripMenuItem.Enabled = true;
                                         shareForm.sendToToolStripMenuItem.DropDownItems.Add(usbStorage.Name).Tag = usbStorage.Name;
                                         shareForm.deviceList.Items.Add(usbDrive);
-                                    }
-                                        
+                                        shareToolStripSplitButton.DropDownItems.Add(usbDrive.Text).Tag = usbDrive.Tag;
+                                    }  
                                     else
                                     {
                                         bool exist = false;
@@ -426,11 +440,13 @@ namespace Mobile_Service_Distribution
                                         {
                                             shareForm.deviceList.Items.Add(usbDrive);
                                             shareForm.sendToToolStripMenuItem.DropDownItems.Add(usbStorage.Name).Tag = usbStorage.Name;
+                                            shareToolStripSplitButton.DropDownItems.Add(usbDrive.Text).Tag = usbDrive.Tag;
                                         }
                                     }
-                                    
                                 }
                             }
+
+                            if (shareToolStripSplitButton.DropDownItems.Count > 0) shareToolStripSplitButton.ToolTipText = null;
 
                             if (shareForm.deviceList.Items.Count > 0)
                                 shareForm.deviceLabel.Visible = false;
@@ -444,6 +460,9 @@ namespace Mobile_Service_Distribution
                                 shareForm.sendToToolStripMenuItem.DropDownItems.Clear();
                                 shareForm.sendToToolStripMenuItem.DropDownItems.Add("0");
                                 shareForm.sendToToolStripMenuItem.Enabled = false;
+
+                                shareToolStripSplitButton.DropDownItems.Clear();
+                                shareToolStripSplitButton.ToolTipText = "No Devices Connected";
                             }
                             else
                             {
@@ -453,25 +472,32 @@ namespace Mobile_Service_Distribution
                                     {
                                         foreach (ListViewItem usbName in shareForm.deviceList.Items)
                                         {
-                                            if (usbName.Text == usbStorage.Name) continue;
+                                            if (usbName.Text == usbStorage.VolumeLabel + " " + usbStorage.Name) continue;
                                             else
                                             {
                                                 shareForm.deviceList.Items.Remove(usbName);
                                                 break;
                                             } 
-                                                
-
                                         }
 
                                         foreach (ToolStripItem usbName in shareForm.sendToToolStripMenuItem.DropDownItems)
                                         {
-                                            if (usbName.Text == usbStorage.Name) continue;
+                                            if (usbName.Text == usbStorage.VolumeLabel + " " + usbStorage.Name) continue;
                                             else
                                             {
                                                 shareForm.sendToToolStripMenuItem.DropDownItems.Remove(usbName);
                                                 break;
                                             }
-                                                
+                                        }
+
+                                        foreach (ToolStripItem usbName in shareToolStripSplitButton.DropDownItems)
+                                        {
+                                            if (usbName.Text == usbStorage.VolumeLabel + " " + usbStorage.Name) continue;
+                                            else
+                                            {
+                                                shareToolStripSplitButton.DropDownItems.Remove(usbName);
+                                                break;
+                                            }
                                         }
                                     }
                                 }
@@ -509,13 +535,13 @@ namespace Mobile_Service_Distribution
                 this.activeForm.SetBounds(0, 0, 750, 452);
                 this.workPanel.SetBounds(52, 30, 750, 452);
                 this.workPanel.BackColor = Color.Black;
-                this.searchPanel.Location = new Point(358, -1);
+                this.searchPanel.Location = new Point(367, -3);
                 if (this.activationPanel.Visible)
                     this.activationTextBox.Visible = false;
                 
                 this.cartToolStrip.Location = new Point(58, 5);
                 this.pictureBox1.Location = new Point(58, 27);
-
+                
                 this.homeForm.dashBoardPanel.Refresh();
                 this.homeForm.Size = new Size(751, 452);
                 this.homeForm.popularNowPanel.Width = 684;
@@ -569,13 +595,13 @@ namespace Mobile_Service_Distribution
                 this.sideMenuPanel.Size = new Size(235, 482);
                 this.activeForm.SetBounds(0, 0, 567, 452);
                 this.workPanel.SetBounds(235, 30, 567, 452);
-                this.searchPanel.Location = new Point(175, -1);
+                this.searchPanel.Location = new Point(184, -3);
                 if (this.activationPanel.Visible)
                     this.activationTextBox.Visible = true;
 
                 this.cartToolStrip.Location = new Point(238, 5);
                 this.pictureBox1.Location = new Point(238, 27);
-
+                
                 this.homeForm.dashBoardPanel.Refresh();
                 this.homeForm.Size = new Size(567, 452);
                 this.homeForm.popularNowPanel.Width = 501;
@@ -649,33 +675,72 @@ namespace Mobile_Service_Distribution
         public void ManageMedia()
         {
             int initial1 = 3;
+            List<string> nonExistentMovDirs = new List<string>();
+            List<string> nonExistentMusDirs = new List<string>();
+            List<string> nonExistentSerDirs = new List<string>();
 
             foreach (string dir in Media_Distro.Properties.Settings.Default.Movie_Media_Location)
             {
-                foreach (string file in GetFiles(dir))
-                    if (GetExtension(file) == ".mp4" || GetExtension(file) == ".mkv" || GetExtension(file) == ".avi" ||
-                            GetExtension(file) == ".flv" || GetExtension(file) == ".wmv" || GetExtension(file) == ".f4v" ||
-                            GetExtension(file) == ".f4p" || GetExtension(file) == ".f4a" || GetExtension(file) == ".f4b" ||
-                            GetExtension(file) == ".3gp" || GetExtension(file) == ".m4v" || GetExtension(file) == ".mpeg" ||
-                            GetExtension(file) == ".mpg" || GetExtension(file) == ".mov" || GetExtension(file) == ".qt")
-                        movieDir.Add(file);
+                if (Exists(dir))
+                {
+                    foreach (string file in GetFiles(dir))
+                        if (GetExtension(file) == ".mp4" || GetExtension(file) == ".mkv" || GetExtension(file) == ".avi" ||
+                                GetExtension(file) == ".flv" || GetExtension(file) == ".wmv" || GetExtension(file) == ".f4v" ||
+                                GetExtension(file) == ".f4p" || GetExtension(file) == ".f4a" || GetExtension(file) == ".f4b" ||
+                                GetExtension(file) == ".3gp" || GetExtension(file) == ".m4v" || GetExtension(file) == ".mpeg" ||
+                                GetExtension(file) == ".mpg" || GetExtension(file) == ".mov" || GetExtension(file) == ".qt")
+                            movieDir.Add(file);
 
-                RetrieveMediaDirectories(dir, movieDir, this);
+                    RetrieveMediaDirectories(dir, movieDir, this);
+                    settingsForm.urlPathListBox.Invoke((MethodInvoker)delegate { settingsForm.urlPathListBox.Items.Add(dir); });
+                }
+                else
+                    nonExistentMovDirs.Add(dir);
             }
 
             foreach (string dir in Media_Distro.Properties.Settings.Default.Series_Media_Location)
-                foreach (string subDir in GetDirectories(dir))
-                    seriesDir.Add(subDir);
-
+            {
+                if (Exists(dir))
+                {
+                    foreach (string subDir in GetDirectories(dir))
+                        seriesDir.Add(subDir);
+                }
+                else
+                    nonExistentSerDirs.Add(dir);
+            }
+                
             foreach (string dir in Media_Distro.Properties.Settings.Default.Music_Media_Location)
             {
-                foreach (string file in GetFiles(dir))
-                    if (GetExtension(file) == ".mp3" || GetExtension(file) == ".m4a" || GetExtension(file) == ".webm" ||
-                        GetExtension(file) == ".wv" || GetExtension(file) == ".wma" || GetExtension(file) == ".wav" ||
-                        GetExtension(file) == ".m4b" || GetExtension(file) == ".m4p" || GetExtension(file) == ".aac")
-                        musicDir.Add(file);
+                if (Exists(dir))
+                {
+                    foreach (string file in GetFiles(dir))
+                        if (GetExtension(file) == ".mp3" || GetExtension(file) == ".m4a" || GetExtension(file) == ".webm" ||
+                            GetExtension(file) == ".wv" || GetExtension(file) == ".wma" || GetExtension(file) == ".wav" ||
+                            GetExtension(file) == ".m4b" || GetExtension(file) == ".m4p" || GetExtension(file) == ".aac")
+                            musicDir.Add(file);
 
-                RetrieveMediaDirectories(dir, musicDir, this);
+                    RetrieveMediaDirectories(dir, musicDir, this);
+                }
+                else
+                    nonExistentMusDirs.Add(dir);
+            }
+
+            foreach(string dir in nonExistentMovDirs)
+            {
+                Media_Distro.Properties.Settings.Default.Movie_Media_Location.Remove(dir);
+                Media_Distro.Properties.Settings.Default.Save();
+            }
+
+            foreach (string dir in nonExistentMusDirs)
+            {
+                Media_Distro.Properties.Settings.Default.Music_Media_Location.Remove(dir);
+                Media_Distro.Properties.Settings.Default.Save();
+            }
+
+            foreach (string dir in nonExistentSerDirs)
+            {
+                Media_Distro.Properties.Settings.Default.Series_Media_Location.Remove(dir);
+                Media_Distro.Properties.Settings.Default.Save();
             }
 
             foreach (string dir in movieDir) { ManageMediaReference(dir, MediaType.Movie, GetFileNameWithoutExtension(dir)); }
@@ -712,7 +777,7 @@ namespace Mobile_Service_Distribution
                         {
                             Text = movie.Title,
                             Tag = movie,
-                            ImageIndex = libraryForm.iter++
+                            ImageIndex = libraryForm.moiter++
                         });
                     });
                 }
@@ -741,7 +806,7 @@ namespace Mobile_Service_Distribution
                         {
                             Text = music.Title,
                             Tag = music,
-                            ImageIndex = libraryForm.iter++
+                            ImageIndex = libraryForm.muiter++
                         });
                     });
                 }
@@ -770,7 +835,7 @@ namespace Mobile_Service_Distribution
                         {
                             Text = series.Title,
                             Tag = series,
-                            ImageIndex = libraryForm.iter++
+                            ImageIndex = libraryForm.siter++
                         });
                     });
                 }
@@ -811,7 +876,6 @@ namespace Mobile_Service_Distribution
                 homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Add(coverArtPictureBox); });
             }
 
-
             statsForm.mediaAmountChart.Invoke((MethodInvoker)delegate
             {
                 statsForm.mediaAmountChart.Series.Add(new ColumnSeries
@@ -838,9 +902,6 @@ namespace Mobile_Service_Distribution
                     Values = new ChartValues<int> { seriesCatalogue.Count }
                 });
             });
-
-            
-            
         }
 
         private void PRSItem_MouseEnter(object sender, EventArgs e)
@@ -1138,7 +1199,7 @@ namespace Mobile_Service_Distribution
         {
             cartLabelEdit = new TextBox
             {
-                Location = new Point(cartToolStrip.Location.X + 64, cartToolStrip.Location.Y + 2),
+                Location = new Point(cartToolStrip.Location.X + 97, cartToolStrip.Location.Y + 2),
                 Size = new Size(cartLabel.Width, cartLabel.Height),
                 BorderStyle = BorderStyle.Fixed3D,
                 BackColor = Color.FromArgb(200, 215, 255)
@@ -1512,10 +1573,13 @@ namespace Mobile_Service_Distribution
                 activationTextBox.Text = keyCodeZip.FileName;
                 key = File.ReadAllLines(keyFilePath)[0];
 
-                if (key == GenerateKeyAlgorithm(key[0]))
+                if (key == GenerateKeyAlgorithm(key[0]) && key != Media_Distro.Properties.Settings.Default.activationKey)
                 {
                     Media_Distro.Properties.Settings.Default.activationKey = key;
-                    Media_Distro.Properties.Settings.Default.expirationDate = DateTime.Now.AddDays(30);
+                    Media_Distro.Properties.Settings.Default.expirationDate = DateTime.Now.AddDays(7);
+                    StreamWriter dateCheckFile = File.CreateText(Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "akf"));
+                    dateCheckFile.WriteLine(Media_Distro.Properties.Settings.Default.expirationDate.ToString());
+                    dateCheckFile.Close();
 
                     newCartToolStripButton.Enabled = true;
                     cartsToolStripSplitButton.Enabled = true;
@@ -1619,6 +1683,26 @@ namespace Mobile_Service_Distribution
 
             searchTask = new Task(() => searchT());
             searchTask.Start();
+        }
+
+        private void shareToolStripSplitButton_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            DriveInfo usbStorage = new DriveInfo(e.ClickedItem.Tag.ToString());
+            CartManager cart = (CartManager)cartLabel.Tag;
+
+            try
+            {
+                if (!cart.IsEmpty() && usbStorage.AvailableFreeSpace > cart.cartSize)
+                    shareForm.progressListView.Add(cart, cartLabel.Text, usbStorage);
+                else throw new Exception();
+            }
+            catch (Exception)
+            {
+                if (cart.IsEmpty())
+                    MessageBox.Show("Cart is currently empty. Go to the library and pick some stuff up.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else if (usbStorage.AvailableFreeSpace < cart.cartSize)
+                    MessageBox.Show("There is no available space in the storage device.", "Low Available Storage", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

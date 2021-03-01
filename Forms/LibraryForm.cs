@@ -28,7 +28,9 @@ namespace Mobile_Service_Distribution.Forms
         public LibraryManager libraryManager;
         private mediaDistroFrame reference;
         private RichTextBox currentTextBox;
-        public int iter = 1;
+        public int moiter = 1;
+        public int muiter = 1;
+        public int siter = 1;
 
         private bool nameChecked = false;
         private bool ratingChecked = false;
@@ -229,7 +231,7 @@ namespace Mobile_Service_Distribution.Forms
 
                 foreach (string album in activeItem.AlbumList)
                 {
-                    libraryManager = new LibraryManager(album, MediaType.Music);
+                    libraryManager = new LibraryManager(album, MediaType.Music, false, true);
                     albumTreeView.Nodes.Add(GetFileNameWithoutExtension(album)).Tag = libraryManager;
                 }
             }
@@ -333,7 +335,8 @@ namespace Mobile_Service_Distribution.Forms
                         mediaCover.CoverArtDirectory = newImageDir;
 
                         this.movieList.LargeImageList.Images.Add(Image.FromFile(newImageDir));
-                        this.movieList.FocusedItem.ImageIndex = iter++;
+                        this.movieList.FocusedItem.ImageIndex = moiter++;
+                        coverPictureBox.Tag = moiter;
                     }
                     else if (musicList.Visible)
                     {
@@ -345,7 +348,8 @@ namespace Mobile_Service_Distribution.Forms
                         mediaCover.CoverArtDirectory = newImageDir;
 
                         this.musicList.LargeImageList.Images.Add(Image.FromFile(newImageDir));
-                        this.musicList.FocusedItem.ImageIndex = iter++;
+                        this.musicList.FocusedItem.ImageIndex = muiter++;
+                        coverPictureBox.Tag = muiter;
                     }
                     else if (seriesList.Visible)
                     {
@@ -354,10 +358,9 @@ namespace Mobile_Service_Distribution.Forms
                         mediaCover.CoverArtDirectory = newImageDir;
 
                         this.seriesList.LargeImageList.Images.Add(Image.FromFile(newImageDir));
-                        this.seriesList.FocusedItem.ImageIndex = iter++;
+                        this.seriesList.FocusedItem.ImageIndex = siter++;
+                        coverPictureBox.Tag = siter;
                     }
-
-                    coverPictureBox.Tag = iter;
                 }
                 catch(Exception ex)
                 {
@@ -1063,42 +1066,42 @@ namespace Mobile_Service_Distribution.Forms
                 {
                     SortMedia(movieCatalogue, SortType.Rating, Order.Ascending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "30";
                 }
                 else if (movieList.Visible && descendingChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Rating, Order.Descending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "31";
                 }
                 else if (musicList.Visible && ascendingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Rating, Order.Ascending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "30";
                 }
                 else if (musicList.Visible && descendingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Rating, Order.Descending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "31";
                 }
                 else if (seriesList.Visible && ascendingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Rating, Order.Ascending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "30";
                 }
                 else if (seriesList.Visible && descendingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Rating, Order.Descending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "31";
                 }
             }
@@ -1126,42 +1129,42 @@ namespace Mobile_Service_Distribution.Forms
                 {
                     SortMedia(movieCatalogue, SortType.Year, Order.Ascending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "20";
                 }
                 else if (movieList.Visible && descendingChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Year, Order.Descending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "21";
                 }
                 else if (musicList.Visible && ascendingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Year, Order.Ascending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "20";
                 }
                 else if (musicList.Visible && descendingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Year, Order.Descending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "21";
                 }
                 else if (seriesList.Visible && ascendingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Year, Order.Ascending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "20";
                 }
                 else if (seriesList.Visible && descendingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Year, Order.Descending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "21";
                 }
             }
@@ -1189,42 +1192,42 @@ namespace Mobile_Service_Distribution.Forms
                 {
                     SortMedia(movieCatalogue, SortType.Duration, Order.Ascending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "10";
                 }
                 else if (movieList.Visible && descendingChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Duration, Order.Descending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "11";
                 }
                 else if (musicList.Visible && ascendingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Duration, Order.Ascending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "10";
                 }
                 else if (musicList.Visible && descendingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Duration, Order.Descending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "11";
                 }
                 else if (seriesList.Visible && ascendingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Duration, Order.Ascending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "10";
                 }
                 else if (seriesList.Visible && descendingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Duration, Order.Descending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "11";
                 }
             }
@@ -1253,42 +1256,42 @@ namespace Mobile_Service_Distribution.Forms
                 {
                     SortMedia(movieCatalogue, SortType.Name, Order.Ascending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "00";
                 }
                 else if (movieList.Visible && descendingChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Name, Order.Descending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "01";
                 }
                 else if (musicList.Visible && ascendingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Name, Order.Ascending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "00";
                 }
                 else if (musicList.Visible && descendingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Name, Order.Descending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "01";
                 }
                 else if (seriesList.Visible && ascendingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Name, Order.Ascending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "00";
                 }
                 else if (seriesList.Visible && descendingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Name, Order.Descending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "01";
                 }
             }
@@ -1314,84 +1317,84 @@ namespace Mobile_Service_Distribution.Forms
                 {
                     SortMedia(movieCatalogue, SortType.Name, Order.Ascending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "00";
                 }
                 else if(movieList.Visible && durationChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Duration, Order.Ascending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "10";
                 }
                 else if (movieList.Visible && ratingChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Rating, Order.Ascending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "30";
                 }
                 else if (movieList.Visible && yearChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Year, Order.Ascending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "20";
                 }
                 else if (musicList.Visible && nameChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Name, Order.Ascending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "00";
                 }
                 else if (musicList.Visible && durationChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Duration, Order.Ascending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "10";
                 }
                 else if (musicList.Visible && yearChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Year, Order.Ascending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "20";
                 }
                 else if (musicList.Visible && ratingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Rating, Order.Ascending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "30";
                 }
                 else if(seriesList.Visible && nameChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Name, Order.Ascending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "00";
                 }
                 else if (seriesList.Visible && durationChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Duration, Order.Ascending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "10";
                 }
                 else if (seriesList.Visible && yearChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Year, Order.Ascending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "20";
                 }
                 else if (seriesList.Visible && ratingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Rating, Order.Ascending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "30";
                 }
             }
@@ -1414,84 +1417,84 @@ namespace Mobile_Service_Distribution.Forms
                 {
                     SortMedia(movieCatalogue, SortType.Name, Order.Descending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "01";
                 }
                 else if (movieList.Visible && durationChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Duration, Order.Descending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "11";
                 }
                 else if (movieList.Visible && yearChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Year, Order.Descending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "21";
                 }
                 else if (movieList.Visible && ratingChecked)
                 {
                     SortMedia(movieCatalogue, SortType.Rating, Order.Descending);
                     this.movieList.Items.Clear();
-                    foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                    reloadMediaList(MediaType.Movie);
                     movieList.Tag = "31";
                 }
                 else if (musicList.Visible && nameChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Name, Order.Descending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "01";
                 }
                 else if (musicList.Visible && durationChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Duration, Order.Descending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "11";
                 }
                 else if (musicList.Visible && yearChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Year, Order.Descending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "21";
                 }
                 else if (musicList.Visible && ratingChecked)
                 {
                     SortMedia(musicCatalogue, SortType.Rating, Order.Descending);
                     this.musicList.Items.Clear();
-                    foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                    reloadMediaList(MediaType.Music);
                     musicList.Tag = "31";
                 }
                 else if (seriesList.Visible && nameChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Name, Order.Descending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "01";
                 }
                 else if (seriesList.Visible && durationChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Duration, Order.Descending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "11";
                 }
                 else if (seriesList.Visible && yearChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Year, Order.Descending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "21";
                 }
                 else if (seriesList.Visible && ratingChecked)
                 {
                     SortMedia(seriesCatalogue, SortType.Rating, Order.Descending);
                     this.seriesList.Items.Clear();
-                    foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                    reloadMediaList(MediaType.Series);
                     seriesList.Tag = "31";
                 }
             }
@@ -1843,5 +1846,96 @@ namespace Mobile_Service_Distribution.Forms
             }
 
         }   
+
+        private void reloadMediaList(MediaType type)
+        {
+            if(type == MediaType.Movie)
+            {
+                moiter = 1;
+                for (int i = movieCoverArtImageList.Images.Count - 1; i > 0; i--)
+                    movieCoverArtImageList.Images.RemoveAt(i);
+
+                foreach (LibraryManager movie in movieCatalogue)
+                {
+                    if (movie.CoverArtDirectory != null && File.Exists(movie.CoverArtDirectory))
+                    {
+                        movieList.LargeImageList.Images.Add(Image.FromFile(movie.CoverArtDirectory));
+                        movieList.Items.Add(new ListViewItem
+                        {
+                            Text = movie.Title,
+                            Tag = movie,
+                            ImageIndex = moiter++
+                        });
+                    }
+                    else
+                    {
+                        movieList.Items.Add(new ListViewItem
+                        {
+                            Text = movie.Title,
+                            Tag = movie,
+                            ImageIndex = 0
+                        });
+                    }
+                }
+            }
+            else if(type == MediaType.Music)
+            {
+                muiter = 1;
+                for (int i = musicCoverArtImageList.Images.Count - 1; i > 0; i--)
+                    musicCoverArtImageList.Images.RemoveAt(i);
+
+                foreach (LibraryManager music in musicCatalogue)
+                {
+                    if (music.CoverArtDirectory != null && File.Exists(music.CoverArtDirectory))
+                    {
+                        musicList.LargeImageList.Images.Add(Image.FromFile(music.CoverArtDirectory));
+                        musicList.Items.Add(new ListViewItem
+                        {
+                            Text = music.Title,
+                            Tag = music,
+                            ImageIndex = muiter++
+                        });
+                    }
+                    else
+                    {
+                        musicList.Items.Add(new ListViewItem
+                        {
+                            Text = music.Title,
+                            Tag = music,
+                            ImageIndex = 0
+                        });
+                    }
+                }
+            }
+            else if(type == MediaType.Series)
+            {
+                siter = 1;
+                for (int i = seriesCoverArtImageList.Images.Count - 1; i > 0; i--)
+                    seriesCoverArtImageList.Images.RemoveAt(i);
+
+                foreach (LibraryManager series in seriesCatalogue)
+                {
+                    if (series.CoverArtDirectory != null && File.Exists(series.CoverArtDirectory))
+                    {
+                        seriesList.LargeImageList.Images.Add(Image.FromFile(series.CoverArtDirectory));
+                        seriesList.Items.Add(new ListViewItem
+                        {
+                            Text = series.Title,
+                            Tag = series,
+                            ImageIndex = siter++
+                        });
+                    }
+                    else
+                    {
+                        seriesList.Items.Add(new ListViewItem
+                        {
+                            Text = series.Title,
+                            Tag = series,
+                            ImageIndex = 0
+                        });
+                    }
+                }
+            }
+        }
     }
 }

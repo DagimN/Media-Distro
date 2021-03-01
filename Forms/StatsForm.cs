@@ -15,7 +15,7 @@ namespace Mobile_Service_Distribution.Forms
     public partial class StatsForm : Form
     {
         private static string statsFileURL = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Stats Record.txt");
-        private string[] statsFile = File.ReadAllLines(statsFileURL);
+        public string[] statsFile = File.ReadAllLines(statsFileURL);
         public int moviesSent = 0, musicSent = 0, seriesSent = 0, cartsSent = 0;
         private int numYears = DateTime.Now.Year, minYear;
         private Axis xAxis;
@@ -191,8 +191,8 @@ namespace Mobile_Service_Distribution.Forms
             }
             else
             {
-                xAxis.MinValue += TimeSpan.FromDays(4).Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue += TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MinValue += TimeSpan.FromDays(7).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue += TimeSpan.FromDays(7).Ticks / TimeSpan.TicksPerDay;
             }
         }
 
@@ -208,8 +208,8 @@ namespace Mobile_Service_Distribution.Forms
             }
             else
             {
-                xAxis.MinValue -= TimeSpan.FromDays(4).Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue -= TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MinValue -= TimeSpan.FromDays(7).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue -= TimeSpan.FromDays(7).Ticks / TimeSpan.TicksPerDay;
             }
         }
 
@@ -239,11 +239,11 @@ namespace Mobile_Service_Distribution.Forms
 
         private void zoomOutButton1_Click(object sender, EventArgs e)
         {
-            xAxis.MinValue -= TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
-            xAxis.MaxValue += TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
+            xAxis.MinValue -= TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
+            xAxis.MaxValue += TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
 
-            minValue -= TimeSpan.FromDays(1).Ticks;
-            maxValue += TimeSpan.FromDays(1).Ticks;
+            minValue -= TimeSpan.FromDays(3).Ticks;
+            maxValue += TimeSpan.FromDays(3).Ticks;
         }
 
         private void yearComboBox_TextChanged(object sender, EventArgs e)

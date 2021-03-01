@@ -40,6 +40,7 @@
             this.cartToolStrip = new System.Windows.Forms.ToolStrip();
             this.newCartToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.cartsToolStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.shareToolStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.cartLabel = new System.Windows.Forms.ToolStripLabel();
             this.searchButton = new System.Windows.Forms.Button();
@@ -144,9 +145,9 @@
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.White;
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(410, 25);
+            this.pictureBox2.Location = new System.Drawing.Point(419, 23);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(251, 10);
+            this.pictureBox2.Size = new System.Drawing.Size(242, 10);
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Visible = false;
@@ -170,9 +171,9 @@
             this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft JhengHei", 10F);
             this.searchTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.searchTextBox.Location = new System.Drawing.Point(410, 6);
+            this.searchTextBox.Location = new System.Drawing.Point(420, 6);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(251, 18);
+            this.searchTextBox.Size = new System.Drawing.Size(241, 18);
             this.searchTextBox.TabIndex = 6;
             this.searchTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.searchTextBox_MouseClick);
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
@@ -195,12 +196,13 @@
             this.cartToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newCartToolStripButton,
             this.cartsToolStripSplitButton,
+            this.shareToolStripSplitButton,
             this.toolStripSeparator1,
             this.cartLabel});
             this.cartToolStrip.Location = new System.Drawing.Point(238, 5);
             this.cartToolStrip.Name = "cartToolStrip";
             this.cartToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cartToolStrip.Size = new System.Drawing.Size(64, 25);
+            this.cartToolStrip.Size = new System.Drawing.Size(96, 25);
             this.cartToolStrip.TabIndex = 0;
             // 
             // newCartToolStripButton
@@ -221,6 +223,16 @@
             this.cartsToolStripSplitButton.Name = "cartsToolStripSplitButton";
             this.cartsToolStripSplitButton.Size = new System.Drawing.Size(32, 22);
             this.cartsToolStripSplitButton.ToolTipText = "No Carts";
+            // 
+            // shareToolStripSplitButton
+            // 
+            this.shareToolStripSplitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.shareToolStripSplitButton.Image = global::Media_Distro.Properties.Resources.arrow_symbolic_link_15730;
+            this.shareToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.shareToolStripSplitButton.Name = "shareToolStripSplitButton";
+            this.shareToolStripSplitButton.Size = new System.Drawing.Size(32, 22);
+            this.shareToolStripSplitButton.ToolTipText = "No Devices Connected";
+            this.shareToolStripSplitButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.shareToolStripSplitButton_DropDownItemClicked);
             // 
             // toolStripSeparator1
             // 
@@ -337,7 +349,7 @@
             // 
             this.activationTextBox.BorderRadius = 5;
             this.activationTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.activationTextBox.DefaultText = "";
+            this.activationTextBox.DefaultText = "Press button to locate Key Code";
             this.activationTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.activationTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.activationTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -345,7 +357,7 @@
             this.activationTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.activationTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.activationTextBox.FocusedState.Parent = this.activationTextBox;
-            this.activationTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.activationTextBox.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.activationTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.activationTextBox.HoverState.Parent = this.activationTextBox;
             this.activationTextBox.Location = new System.Drawing.Point(10, 35);
@@ -508,9 +520,9 @@
             this.searchPanel.Controls.Add(this.movieCheckBox);
             this.searchPanel.Controls.Add(this.toolStrip1);
             this.searchPanel.Controls.Add(this.resultPanel);
-            this.searchPanel.Location = new System.Drawing.Point(175, -1);
+            this.searchPanel.Location = new System.Drawing.Point(184, -3);
             this.searchPanel.Name = "searchPanel";
-            this.searchPanel.Size = new System.Drawing.Size(251, 147);
+            this.searchPanel.Size = new System.Drawing.Size(242, 150);
             this.searchPanel.TabIndex = 2;
             this.searchPanel.Visible = false;
             this.searchPanel.Leave += new System.EventHandler(this.searchPanel_Leave);
@@ -581,7 +593,7 @@
             this.resultPanel.BackColor = System.Drawing.Color.White;
             this.resultPanel.Location = new System.Drawing.Point(-1, -1);
             this.resultPanel.Name = "resultPanel";
-            this.resultPanel.Size = new System.Drawing.Size(251, 118);
+            this.resultPanel.Size = new System.Drawing.Size(241, 118);
             this.resultPanel.TabIndex = 3;
             // 
             // mediaDistroFrame
@@ -658,6 +670,7 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        public System.Windows.Forms.ToolStripSplitButton shareToolStripSplitButton;
     }
 }
 

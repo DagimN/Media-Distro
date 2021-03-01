@@ -53,6 +53,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.selected = new System.Windows.Forms.PictureBox();
+            this.fileLoadLabel = new System.Windows.Forms.Label();
+            this.removeURLContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.redColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkBlueColor)).BeginInit();
@@ -63,6 +66,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.priceSetting)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selected)).BeginInit();
+            this.removeURLContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // notificationSettingCheckBox
@@ -141,6 +145,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.fileLoadLabel);
             this.panel1.Controls.Add(this.mediaDistroLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 417);
@@ -264,13 +269,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.urlPathListBox.BackColor = System.Drawing.Color.White;
             this.urlPathListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.urlPathListBox.ContextMenuStrip = this.removeURLContextMenuStrip;
             this.urlPathListBox.Font = new System.Drawing.Font("Microsoft JhengHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.urlPathListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.urlPathListBox.FormattingEnabled = true;
             this.urlPathListBox.ItemHeight = 17;
             this.urlPathListBox.Location = new System.Drawing.Point(121, 60);
             this.urlPathListBox.Name = "urlPathListBox";
-            this.urlPathListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.urlPathListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.urlPathListBox.Size = new System.Drawing.Size(406, 87);
             this.urlPathListBox.TabIndex = 6;
             // 
@@ -395,6 +401,37 @@
             this.selected.TabIndex = 12;
             this.selected.TabStop = false;
             // 
+            // fileLoadLabel
+            // 
+            this.fileLoadLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fileLoadLabel.AutoSize = true;
+            this.fileLoadLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fileLoadLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.fileLoadLabel.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.fileLoadLabel.Location = new System.Drawing.Point(3, 9);
+            this.fileLoadLabel.Name = "fileLoadLabel";
+            this.fileLoadLabel.Padding = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.fileLoadLabel.Size = new System.Drawing.Size(215, 16);
+            this.fileLoadLabel.TabIndex = 22;
+            this.fileLoadLabel.Text = "Files will be loaded after restarting the app.";
+            this.fileLoadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.fileLoadLabel.Visible = false;
+            // 
+            // removeURLContextMenuStrip
+            // 
+            this.removeURLContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeURLToolStripMenuItem});
+            this.removeURLContextMenuStrip.Name = "removeURLContextMenuStrip";
+            this.removeURLContextMenuStrip.Size = new System.Drawing.Size(181, 48);
+            // 
+            // removeURLToolStripMenuItem
+            // 
+            this.removeURLToolStripMenuItem.Name = "removeURLToolStripMenuItem";
+            this.removeURLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.removeURLToolStripMenuItem.Text = "Remove URL";
+            this.removeURLToolStripMenuItem.Click += new System.EventHandler(this.removeURLToolStripMenuItem_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -411,6 +448,7 @@
             this.Name = "SettingsForm";
             this.Text = "settingsForm";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
+            this.Leave += new System.EventHandler(this.SettingsForm_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.redColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkBlueColor)).EndInit();
@@ -424,6 +462,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selected)).EndInit();
+            this.removeURLContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,5 +493,8 @@
         public System.Windows.Forms.Button musicURLCollectionButton;
         public System.Windows.Forms.Button movieURLCollectionButton;
         public System.Windows.Forms.Label urlAddingInfo;
+        public System.Windows.Forms.Label fileLoadLabel;
+        private System.Windows.Forms.ContextMenuStrip removeURLContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem removeURLToolStripMenuItem;
     }
 }

@@ -17,7 +17,7 @@ namespace Mobile_Service_Distribution.Forms
         private mediaDistroFrame reference;
         private Control activeList;
         public CartManager cart;
-        private int iter = 1;
+        public int iter = 1;
 
         public ShareForm(mediaDistroFrame reference, HomeForm homeForm, StatsForm statsForm)
         {
@@ -56,6 +56,9 @@ namespace Mobile_Service_Distribution.Forms
                     deviceList.Items.Add(usbDrive);
                     sendToToolStripMenuItem.Enabled = true;
                     sendToToolStripMenuItem.DropDownItems.Add(usbStorage.Name).Tag = usbStorage.Name;
+
+                    reference.shareToolStripSplitButton.DropDownItems.Add(usbDrive.Text).Tag = usbDrive.Tag;
+                    reference.shareToolStripSplitButton.ToolTipText = null;
                 }       
             }
 
@@ -280,7 +283,8 @@ namespace Mobile_Service_Distribution.Forms
         private void removeCartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CartManager cartDetails = (CartManager)cartsListView.SelectedItems[0].Tag;
-            
+            ListViewItem removeItem = new ListViewItem();
+
             carts.Remove(cartDetails);
             foreach (ToolStripItem item in reference.cartsToolStripSplitButton.DropDownItems)
             {
@@ -293,7 +297,11 @@ namespace Mobile_Service_Distribution.Forms
 
             reference.customers--;
             if (reference.cartLabel.Tag == cartDetails) reference.cartLabel.Text = null;
-            cartsListView.Items.Remove(cartsListView.SelectedItems[0]);
+            
+            foreach (ListViewItem item in cartsListView.Items)
+                if (item.Tag == cartDetails)
+                    removeItem = item;
+            cartsListView.Items.Remove(removeItem);
 
             if (reference.cartsToolStripSplitButton.DropDownItems.Count == 0)
             {

@@ -25,16 +25,13 @@ namespace Mobile_Service_Distribution.Forms
         public SettingsForm(Media_Distro.ProgressListView reference, mediaDistroFrame mainRef, HomeForm hRef ,LibraryForm libRef, ShareForm shRef, StatsForm stRef)
         {
             InitializeComponent();
-
+          
             this.reference = reference;
             this.mainRef = mainRef;
             this.libRef = libRef;
             this.shRef = shRef;
             this.stRef = stRef;
             this.hRef = hRef;
-
-            foreach (string url in Media_Distro.Properties.Settings.Default.Movie_Media_Location)
-                urlPathListBox.Items.Add(url);
         }
 
         private void addURLButton_Click(object sender, EventArgs e)
@@ -48,10 +45,12 @@ namespace Mobile_Service_Distribution.Forms
                 if (OnMovie) Media_Distro.Properties.Settings.Default.Movie_Media_Location.Add(folderBrowser.SelectedPath);
                 else if (OnMusic) Media_Distro.Properties.Settings.Default.Music_Media_Location.Add(folderBrowser.SelectedPath);
                 else if (OnSeries) Media_Distro.Properties.Settings.Default.Series_Media_Location.Add(folderBrowser.SelectedPath);
+
+                Media_Distro.Properties.Settings.Default.Save();
+                fileLoadLabel.Visible = true;
             }
                 
             folderBrowser.Dispose();
-            Media_Distro.Properties.Settings.Default.Save();
             urlPathListBox.Focus();
         }
 
@@ -255,33 +254,69 @@ namespace Mobile_Service_Distribution.Forms
 
         private void bonusButton_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            DialogResult result = folderBrowser.ShowDialog();
-            string bonusFolder = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Bonus");
-            string statsFile = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Stats Record.txt");
-            string bonusFile;
-
-            if (result == DialogResult.OK)
+            if(GetDirectories(Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Ads")).Length > 0)
             {
-                bonusFile = Combine(folderBrowser.SelectedPath, "Bonus");
-
+                FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+                DialogResult result = folderBrowser.ShowDialog();
+                string bonusFolder = Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Bonus");
                 CreateDirectory(bonusFolder);
-                File.Copy(statsFile, Combine(bonusFolder, GetBonusKey() + ".txt"));
 
-                try
+                string statsRecord = Combine(bonusFolder, GetBonusKey() + ".txt");
+                StreamWriter writer = File.CreateText(statsRecord);
+                string bonusFile;
+                DateTime date = new DateTime();
+
+                for (int i = 0; i < stRef.statsFile.Length - 1; i += 7)
                 {
-                    ZipFile.CreateFromDirectory(bonusFolder, bonusFile);
+                    date = DateTime.Parse(stRef.statsFile[i].Substring(11));
+
+                    if (date > Media_Distro.Properties.Settings.Default.latestBonusDate || 
+                        Media_Distro.Properties.Settings.Default.latestBonusDate == new DateTime())
+                    {
+                        writer.WriteLine(stRef.statsFile[i]);
+                        writer.WriteLine(stRef.statsFile[i + 1]);
+                        writer.WriteLine(stRef.statsFile[i + 2]);
+                        writer.WriteLine(stRef.statsFile[i + 3]);
+                        writer.WriteLine(stRef.statsFile[i + 4]);
+                        writer.WriteLine(stRef.statsFile[i + 5]);
+                        writer.WriteLine();
+                    }
                 }
-                catch(IOException ex)
+
+                writer.Close();
+
+                if (date != new DateTime() && date != Media_Distro.Properties.Settings.Default.latestBonusDate)
                 {
-                    MessageBox.Show(ex.Message, "File Exists", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Media_Distro.Properties.Settings.Default.latestBonusDate = date;
+                    Media_Distro.Properties.Settings.Default.Save();
+
+                    if (result == DialogResult.OK)
+                    {
+                        bonusFile = Combine(folderBrowser.SelectedPath, "Bonus");
+
+                        try
+                        {
+                            ZipFile.CreateFromDirectory(bonusFolder, bonusFile);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message, "File Exists", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                    
+                else
+                    MessageBox.Show("Latest bonuses have already been collected.", "Bonus Collected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
                 Delete(bonusFolder, true);
+            }
+            else
+            {
+                MessageBox.Show("No Distro Package has ever been loaded, therefore you cannot recieve bonuses for now. Get the packages via telegram bot " +
+                    "and integrate it with the interface.", "Package Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -302,6 +337,32 @@ namespace Mobile_Service_Distribution.Forms
                 Media_Distro.Properties.Settings.Default.Save();
             }
                 
+        }
+
+        private void SettingsForm_Leave(object sender, EventArgs e)
+        {
+            fileLoadLabel.Visible = false;
+        }
+
+        private void removeURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<string> removedURL = new List<string>();
+
+            if(urlPathListBox.SelectedItems.Count != 0)
+            {
+                foreach(string dir in urlPathListBox.SelectedItems)
+                {
+                    removedURL.Add(dir);
+                    if (OnMovie) Media_Distro.Properties.Settings.Default.Movie_Media_Location.Remove(dir);
+                    else if (OnMusic) Media_Distro.Properties.Settings.Default.Music_Media_Location.Remove(dir);
+                    else if (OnSeries) Media_Distro.Properties.Settings.Default.Series_Media_Location.Remove(dir);
+                }
+
+                Media_Distro.Properties.Settings.Default.Save();
+
+                foreach (string dir in removedURL)
+                    urlPathListBox.Items.Remove(dir);
+            }
         }
 
         private int PreviewPreference(Color[] themePreference)

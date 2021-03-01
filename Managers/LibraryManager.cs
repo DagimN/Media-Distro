@@ -159,7 +159,8 @@ namespace Mobile_Service_Distribution
                         }
                         else
                         {
-                            while ((inner > h - 1) && TimeSpan.Compare(TimeSpan.Parse(A[inner - h].Duration), TimeSpan.Parse(temp.Duration)) == -1)
+                            while ((inner > h - 1) && TimeSpan.Compare(TimeSpan.Parse((A[inner - h].Duration.Length < 6) ? "00:" + A[inner - h].Duration : A[inner - h].Duration),
+                                                    TimeSpan.Parse((temp.Duration.Length < 6) ? "00:" + temp.Duration : temp.Duration)) == -1)
                             {
                                 A[inner] = A[inner - h];
                                 inner -= h;

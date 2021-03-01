@@ -162,7 +162,7 @@ namespace Mobile_Service_Distribution.Forms
             {
                 foreach (DriveInfo hardDrive in DriveInfo.GetDrives())
                 {
-                    if (hardDrive.DriveType == DriveType.Fixed && hardDrive.IsReady)
+                    if ((hardDrive.DriveType == DriveType.Fixed) && hardDrive.IsReady)
                     {
                         hardDrives.Add(hardDrive);
 
@@ -185,8 +185,7 @@ namespace Mobile_Service_Distribution.Forms
                         graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
                         graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 147));
                         i += 60;
-                        initial = (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
-
+                        initial += (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
                     }
 
 
@@ -210,7 +209,7 @@ namespace Mobile_Service_Distribution.Forms
                         graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
                         graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 148));
                         i += 60;
-                        initial = (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
+                        initial += (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
                     }
 
 
@@ -226,8 +225,8 @@ namespace Mobile_Service_Distribution.Forms
             StreamWriter dateFile;
             OpenFileDialog zipFile = new OpenFileDialog
             {
-                Title = "Locate ZIP File",
-                Filter = "ZIP Files (*.zip)| *.zip | RAR Files(*.rar) | *.rar | All Files (*.*)| *.*"
+                Title = "Locate Distro Package",
+                Filter = "All Files (*.*)| *.*"
             };
 
             try
