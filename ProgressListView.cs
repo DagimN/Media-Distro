@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using LiveCharts.WinForms;
 using Mobile_Service_Distribution;
 using static Mobile_Service_Distribution.Forms.StatsForm;
+using static Mobile_Service_Distribution.Managers.CartManager;
 using LiveCharts;
 
 namespace Media_Distro
@@ -36,8 +37,7 @@ namespace Media_Distro
         public void Add(CartManager cart, string customer, DriveInfo destination)
         {
             ProgressListViewItem newItem = new ProgressListViewItem(this, cart ,customer, destination.RootDirectory.ToString(), destination.VolumeLabel);
-            this.Items.Add(newItem);
-
+            
             if (this.Items.Count > 0)
                 notifyComp.progressLabel.Visible = false;
         }
@@ -118,7 +118,7 @@ namespace Media_Distro
                     startButton.FlatAppearance.MouseOverBackColor = Color.Silver;
                     startButton.Click += new EventHandler(startButton_Click);
 
-                    stopButton = new Button 
+                    stopButton = new Button
                     {
                         Location = new Point(111, 170),
                         Size = new Size(27, 23),
@@ -196,10 +196,13 @@ namespace Media_Distro
                     this.Tag = cart;
                     itemViewPanel.ResumeLayout(false);
                     this.list.Controls.Add(itemViewPanel);
-                       
+                    this.list.Items.Add(this);
+
                     Task copyTask = new Task(() => StartCopy(cart, destination));
                     copyTask.Start();
                 }
+                else
+                    MessageBox.Show("This cart is already in progress.", "Cart in Progress", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             public void Copy(FileStream source, string dest)
@@ -260,6 +263,7 @@ namespace Media_Distro
             public void StartCopy(CartManager cart, string destination)
             {
                 LibraryManager[] medias = cart.ShowList();
+                ListViewItem removeItem = new ListViewItem();
                 totalSSize = cart.cartSize;
                 int iter = 0;
                 string distroFolder = Combine(destination, "Your Media Files");
@@ -442,37 +446,71 @@ namespace Media_Distro
                         break;
                 }
 
-                if(ads.Length > 0)
+                carts.Remove(cart);
+                foreach (ToolStripItem item in completedTasks.cartsToolStripSplitButton.DropDownItems)
                 {
-                    while (true)
+                    if (item.Tag == cart)
                     {
-                        Random index = new Random();
-                        int i = index.Next() % ads.Length;
-
-                        if (!File.Exists(Combine(ads[i], "Ad Info.txt")))
-                        {
-                            foreach (string adFile in GetFiles(ads[i]))
-                            {
-                                if (GetFileName(adFile) == "Ad Info.txt" || GetFileName(adFile) == "Date Info.txt")
-                                    continue;
-
-                                if(!File.Exists(Combine(distroFolder, GetFileName(adFile))))
-                                    File.Copy(adFile, Combine(distroFolder, GetFileName(adFile)));
-                            }
-
-                            File.CreateText(Combine(ads[i], "Ad Info.txt"));
-                            break;
-                        }
-                        else
-                        {
-                            File.Delete(Combine(ads[i], "Ad Info.txt"));
-                            i = index.Next() % ads.Length;
-                        }    
+                        completedTasks.cartToolStrip.Invoke((MethodInvoker)delegate { completedTasks.cartsToolStripSplitButton.DropDownItems.Remove(item); });
+                        break;
                     }
                 }
 
+                completedTasks.customers--;
+                if (completedTasks.cartLabel.Tag == cart) completedTasks.cartToolStrip.Invoke((MethodInvoker)delegate { completedTasks.cartLabel.Text = null; });
+                
+                    
+                notifyComp.cartsListView.Invoke((MethodInvoker)delegate 
+                { 
+                    foreach (ListViewItem item in notifyComp.cartsListView.Items)
+                        if (item.Tag == cart)
+                            removeItem = item;
+
+                    notifyComp.cartsListView.Items.Remove(removeItem);
+                });
+
+                if (completedTasks.cartsToolStripSplitButton.DropDownItems.Count == 0)
+                {
+                    completedTasks.Invoke((MethodInvoker)delegate { completedTasks.cartsToolStripSplitButton.ToolTipText = "No Carts"; });
+                    if(notifyComp.cartsListView.Visible) notifyComp.noCartLabel.Invoke((MethodInvoker)delegate { notifyComp.noCartLabel.Visible = true; }); 
+                }
+
+                int p = notifyComp.iter - 1;
+                for (int i = p; i > 0; i--)
+                    notifyComp.detailListView.Invoke((MethodInvoker)delegate { notifyComp.detailListView.LargeImageList.Images.RemoveAt(i); });
+                notifyComp.iter = 1;
+
                 if (!stopped)
                 {
+                    if (ads.Length > 0)
+                    {
+                        while (true)
+                        {
+                            Random index = new Random();
+                            int i = index.Next() % ads.Length;
+
+                            if (!File.Exists(Combine(ads[i], "Ad Info.txt")))
+                            {
+                                foreach (string adFile in GetFiles(ads[i]))
+                                {
+                                    if (GetFileName(adFile) == "Ad Info.txt" || GetFileName(adFile) == "Date Info.txt")
+                                        continue;
+
+                                    if (!File.Exists(Combine(distroFolder, GetFileName(adFile))))
+                                        File.Copy(adFile, Combine(distroFolder, GetFileName(adFile)));
+                                }
+
+                                File.CreateText(Combine(ads[i], "Ad Info.txt"));
+                                break;
+                            }
+                            else
+                            {
+                                File.Delete(Combine(ads[i], "Ad Info.txt"));
+                                i = index.Next() % ads.Length;
+                            }
+                        }
+                    }
+
                     this.progressLabel.Invoke((MethodInvoker)delegate { progressLabel.Text = "Finished"; });
 
                     File.AppendAllLines(statsFileURL, new string[] {$"Date Time: {DateTime.Now.ToString()}",
@@ -482,16 +520,18 @@ namespace Media_Distro
                                                                 $"Series Sent: {cart.seriesNum}",
                                                                 $"Price of Cart: {cart.cartPrice}",
                                                                 " "});
+
+                    pieChart.Invoke((MethodInvoker)delegate
+                    {
+                        pieChart.onGoingTask.Values = new ChartValues<int> { --onGoing };
+                        pieChart.taskCompleted.Values = new ChartValues<int> { ++completed };
+                    });
+
+                    completedTasks.Invoke((MethodInvoker)delegate { completedTasks.completedTasks = completed; });
+                    completedTasks.Invoke((MethodInvoker)delegate { completedTasks.sharesubMenu.Refresh(); });
                 }
                     
-                pieChart.Invoke((MethodInvoker)delegate
-                {
-                    pieChart.onGoingTask.Values = new ChartValues<int> { --onGoing };
-                    pieChart.taskCompleted.Values = new ChartValues<int> { ++completed };
-                });
-
-                completedTasks.Invoke((MethodInvoker)delegate { completedTasks.completedTasks = completed; });
-                completedTasks.Invoke((MethodInvoker)delegate { completedTasks.sharesubMenu.Refresh(); });
+                
 
                 if (list.showNotification && !stopped)
                 {
