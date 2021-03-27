@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using LiveCharts.WinForms;
 using Mobile_Service_Distribution;
 using static Mobile_Service_Distribution.Forms.StatsForm;
+using static Mobile_Service_Distribution.LibraryManager;
 using static Mobile_Service_Distribution.Managers.CartManager;
 using LiveCharts;
 
@@ -185,7 +186,7 @@ namespace Media_Distro
                     customerLabel = new Label
                     {
                         Location = new Point(3, 3),
-                        Text = customer + " - " + volumeLabel,
+                        Text = customer + " - " + volumeLabel + " " + destination,
                         Font = new Font("Microsoft JhengHei", 7, FontStyle.Bold),
                         ForeColor = Color.SlateGray,
                         AutoSize = true
@@ -287,14 +288,16 @@ namespace Media_Distro
                         if (media.Type == LibraryManager.MediaType.Movie)
                         {
                             if (!File.Exists(Combine(distroFolder, GetFileName(media.OriginalDirectory))))
+                            {
                                 Copy(new FileStream(media.OriginalDirectory, FileMode.Open, FileAccess.Read), distroFolder);
+                                media.PRS += 0.5f;
+                                AppendMediaInfo(media.thisDirectory, media.PRS.ToString(), MediaProperty.PRS);
+                            }
                             else
                             {
                                 totalDSize += new FileStream(media.OriginalDirectory, FileMode.Open, FileAccess.Read).Length;
                                 this.progressGauge.Invoke((MethodInvoker)delegate { progressGauge.Value = (int)(totalDSize / totalSSize) * 100; });
                             }
-
-                            media.PRS += 0.1f;
                         }
                         else if (media.Type == LibraryManager.MediaType.Music)
                         {
@@ -303,14 +306,16 @@ namespace Media_Distro
                                 string directory = Combine(distroFolder, GetFileName(media.OriginalDirectory));
 
                                 if (!File.Exists(directory))
+                                {
                                     Copy(new FileStream(media.OriginalDirectory, FileMode.Open, FileAccess.Read), distroFolder);
+                                    media.PRS += 0.5f;
+                                    AppendMediaInfo(media.thisDirectory, media.PRS.ToString(), MediaProperty.PRS);
+                                }
                                 else
                                 {
                                     totalDSize += new FileStream(media.OriginalDirectory, FileMode.Open, FileAccess.Read).Length;
                                     this.progressGauge.Invoke((MethodInvoker)delegate { progressGauge.Value = (int)(totalDSize / totalSSize) * 100; });
                                 }
-
-                                media.PRS += 0.1f;
                             }
                             else
                             {
@@ -328,18 +333,17 @@ namespace Media_Distro
                                             Delete(directory, true);
                                             break;
                                         }
-
-                                        media.PRS += 0.1f;
                                     }
-                                }
 
+                                    media.PRS += 0.1f;
+                                    AppendMediaInfo(media.thisDirectory, media.PRS.ToString(), MediaProperty.PRS);
+                                }
                                 else
                                 {
                                     foreach (string dir in GetFiles(media.OriginalDirectory))
-                                    {
                                         totalDSize += new FileStream(dir, FileMode.Open, FileAccess.Read).Length;
-                                        media.PRS += 0.1f;
-                                    }
+
+                                    media.PRS += 0.5f;
 
                                     this.progressGauge.Invoke((MethodInvoker)delegate { progressGauge.Value = (int)(totalDSize / totalSSize) * 100; });
                                 }
@@ -356,13 +360,12 @@ namespace Media_Distro
                                     if (!File.Exists(directory))
                                     {
                                         Copy(new FileStream(media.OriginalDirectory, FileMode.Open, FileAccess.Read), distroFolder);
-                                        media.PRS += 0.1f;
+                                        media.PRS += 0.5f;
+                                        AppendMediaInfo(media.thisDirectory, media.PRS.ToString(), MediaProperty.PRS);
                                     }
                                     else
                                     {
                                         totalDSize += new FileStream(media.OriginalDirectory, FileMode.Open, FileAccess.Read).Length;
-                                        media.PRS += 0.1f;
-
                                         this.progressGauge.Invoke((MethodInvoker)delegate { progressGauge.Value = (int)(totalDSize / totalSSize) * 100; });
                                     }
                                 }
@@ -382,17 +385,15 @@ namespace Media_Distro
                                                 Delete(directory, true);
                                                 break;
                                             }
-
-                                            media.PRS += 0.1f;
                                         }
+
+                                        media.PRS += 0.5f;
+                                        AppendMediaInfo(media.thisDirectory, media.PRS.ToString(), MediaProperty.PRS);
                                     }
                                     else
                                     {
                                         foreach (string dir in GetFiles(media.OriginalDirectory))
-                                        {
                                             totalDSize += new FileStream(dir, FileMode.Open, FileAccess.Read).Length;
-                                            media.PRS += 0.1f;
-                                        }
 
                                         this.progressGauge.Invoke((MethodInvoker)delegate { progressGauge.Value = (int)(totalDSize / totalSSize) * 100; });
                                     }
@@ -418,9 +419,10 @@ namespace Media_Distro
                                                 Delete(directory, true);
                                                 break;
                                             }
-
-                                            media.PRS += 0.1f;
                                         }
+
+                                        media.PRS += 0.5f;
+                                        AppendMediaInfo(media.thisDirectory, media.PRS.ToString(), MediaProperty.PRS);
                                     }
                                 }
 
@@ -429,10 +431,7 @@ namespace Media_Distro
                                     foreach (ArrayList seasons in media.SeriesList)
                                     {
                                         for (int i = 1; i < seasons.Count; i++)
-                                        {
                                             totalDSize += new FileStream(File.ReadAllLines((string)seasons[i])[6].Substring(11), FileMode.Open, FileAccess.Read).Length;
-                                            media.PRS += 0.1f;
-                                        }
                                     }
 
                                     this.progressGauge.Invoke((MethodInvoker)delegate { progressGauge.Value = (int)(totalDSize / totalSSize) * 100; });
@@ -505,15 +504,19 @@ namespace Media_Distro
                             }
                             else
                             {
-                                File.Delete(Combine(ads[i], "Ad Info.txt"));
-                                i = index.Next() % ads.Length;
+                                try
+                                {
+                                    File.Delete(Combine(ads[i], "Ad Info.txt"));
+                                    i = index.Next() % ads.Length;
+                                }
+                                catch (Exception) { }
                             }
                         }
                     }
 
                     this.progressLabel.Invoke((MethodInvoker)delegate { progressLabel.Text = "Finished"; });
 
-                    File.AppendAllLines(statsFileURL, new string[] {$"Date Time: {DateTime.Now.ToString()}",
+                    File.AppendAllLines(statsFileURL, new string[] {$"Date Time: {DateTime.Now}",
                                                                 String.Format("Value: {0:F}", (totalSSize / (1024 * 1024 * 1024))),
                                                                 $"Movie Sent: {cart.movieNum}",
                                                                 $"Music Sent: {cart.musicNum}",
@@ -531,8 +534,6 @@ namespace Media_Distro
                     completedTasks.Invoke((MethodInvoker)delegate { completedTasks.sharesubMenu.Refresh(); });
                 }
                     
-                
-
                 if (list.showNotification && !stopped)
                 {
                     notifyComp.transferCompNotifyIcon.Visible = true;
@@ -606,6 +607,8 @@ namespace Media_Distro
                     this.stopButton.Enabled = false;
                     this.pauseButton.Enabled = false;
                     this.startButton.Enabled = false;
+                    pieChart.onGoingTask.Values = new ChartValues<int> { --onGoing };
+                    if (onGoing == 0) pieChart.tempPieChart.Visible = true;
                 }
             }
 
@@ -637,13 +640,11 @@ namespace Media_Distro
                                 int x = item.itemViewPanel.Location.X - 187;
                                 item.itemViewPanel.Location = new Point(x, item.Location.Y);
                             }
-
                         }
                         this.list.Controls.Remove(this.itemViewPanel);
                         this.list.Items.Remove(this);
                         this.list.Focus();
 
-                        pieChart.taskCompleted.Values = new ChartValues<int> { --completed };
                         completedTasks.completedTasks = completed;
                         completedTasks.sharesubMenu.Refresh();
                         if (completed == 0) pieChart.tempPieChart.Visible = true;
