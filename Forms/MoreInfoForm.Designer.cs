@@ -111,7 +111,6 @@
             this.nameDescripLabel.BackColor = System.Drawing.Color.Transparent;
             this.nameDescripLabel.ForeColor = System.Drawing.Color.Azure;
             this.nameDescripLabel.Name = "nameDescripLabel";
-            this.nameDescripLabel.Click += new System.EventHandler(this.nameDescripLabel_Click);
             // 
             // titleDescripLabel
             // 
@@ -184,6 +183,8 @@
             // 
             // coverArtPictureBox
             // 
+            this.coverArtPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.coverArtPictureBox.Image = global::Media_Distro.Properties.Resources.coverart_sample_2;
             resources.ApplyResources(this.coverArtPictureBox, "coverArtPictureBox");
             this.coverArtPictureBox.Name = "coverArtPictureBox";
             this.coverArtPictureBox.TabStop = false;

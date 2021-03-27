@@ -5,8 +5,10 @@ using Mobile_Service_Distribution.Managers;
 using static Mobile_Service_Distribution.LibraryManager;
 using static Mobile_Service_Distribution.Managers.CartManager;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Management;
 using System.Windows.Forms;
 
 
@@ -267,11 +269,11 @@ namespace Mobile_Service_Distribution.Forms
         {
             CartManager cartDetails = (CartManager)cartsContextMenuStrip.Tag;
             cartDetails.Clear();
-            cartSizeExtLabel.Text = null;
+            cartSizeExtLabel.Text = "0";
             movieExtLabel.Text = "0";
             musicExtLabel.Text = "0";
             seriesExtLabel.Text = "0";
-            priceExtLabel.Text = null;
+            priceExtLabel.Text = "0.00 ETB";
             detailListView.Items.Clear();
 
             int p = iter - 1;
@@ -296,7 +298,12 @@ namespace Mobile_Service_Distribution.Forms
             }
 
             reference.customers--;
-            if (reference.cartLabel.Tag == cartDetails) reference.cartLabel.Text = null;
+            if (reference.cartLabel.Tag == cartDetails)
+            {
+                reference.cartLabel.Text = null;
+                reference.cartLabel.Tag = null;
+            }
+                
             
             foreach (ListViewItem item in cartsListView.Items)
                 if (item.Tag == cartDetails)

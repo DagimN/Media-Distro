@@ -37,6 +37,7 @@
             this.defaultColor = new System.Windows.Forms.PictureBox();
             this.blackColor = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.fileLoadLabel = new System.Windows.Forms.Label();
             this.mediaDistroLabel = new System.Windows.Forms.Label();
             this.bonusButton = new Guna.UI2.WinForms.Guna2Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -45,6 +46,8 @@
             this.movieURLCollectionButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.urlPathListBox = new System.Windows.Forms.ListBox();
+            this.removeURLContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.priceSetting = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.musicURLCollectionButton = new System.Windows.Forms.Button();
             this.seriesURLCollectionButton = new System.Windows.Forms.Button();
@@ -53,9 +56,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.selected = new System.Windows.Forms.PictureBox();
-            this.fileLoadLabel = new System.Windows.Forms.Label();
-            this.removeURLContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.redColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkBlueColor)).BeginInit();
@@ -63,10 +63,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.blackColor)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.removeURLContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.priceSetting)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selected)).BeginInit();
-            this.removeURLContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // notificationSettingCheckBox
@@ -153,6 +153,23 @@
             this.panel1.Size = new System.Drawing.Size(567, 35);
             this.panel1.TabIndex = 18;
             // 
+            // fileLoadLabel
+            // 
+            this.fileLoadLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fileLoadLabel.AutoSize = true;
+            this.fileLoadLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fileLoadLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.fileLoadLabel.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.fileLoadLabel.Location = new System.Drawing.Point(3, 9);
+            this.fileLoadLabel.Name = "fileLoadLabel";
+            this.fileLoadLabel.Padding = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.fileLoadLabel.Size = new System.Drawing.Size(215, 16);
+            this.fileLoadLabel.TabIndex = 22;
+            this.fileLoadLabel.Text = "Files will be loaded after restarting the app.";
+            this.fileLoadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.fileLoadLabel.Visible = false;
+            // 
             // mediaDistroLabel
             // 
             this.mediaDistroLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -185,6 +202,7 @@
             this.bonusButton.TabIndex = 23;
             this.bonusButton.Text = "Get Bonus";
             this.bonusButton.UseTransparentBackground = true;
+            this.bonusButton.Visible = false;
             this.bonusButton.Click += new System.EventHandler(this.bonusButton_Click);
             // 
             // panel3
@@ -279,6 +297,20 @@
             this.urlPathListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.urlPathListBox.Size = new System.Drawing.Size(406, 87);
             this.urlPathListBox.TabIndex = 6;
+            // 
+            // removeURLContextMenuStrip
+            // 
+            this.removeURLContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeURLToolStripMenuItem});
+            this.removeURLContextMenuStrip.Name = "removeURLContextMenuStrip";
+            this.removeURLContextMenuStrip.Size = new System.Drawing.Size(142, 26);
+            // 
+            // removeURLToolStripMenuItem
+            // 
+            this.removeURLToolStripMenuItem.Name = "removeURLToolStripMenuItem";
+            this.removeURLToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.removeURLToolStripMenuItem.Text = "Remove URL";
+            this.removeURLToolStripMenuItem.Click += new System.EventHandler(this.removeURLToolStripMenuItem_Click);
             // 
             // priceSetting
             // 
@@ -401,37 +433,6 @@
             this.selected.TabIndex = 12;
             this.selected.TabStop = false;
             // 
-            // fileLoadLabel
-            // 
-            this.fileLoadLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fileLoadLabel.AutoSize = true;
-            this.fileLoadLabel.Font = new System.Drawing.Font("Microsoft JhengHei", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fileLoadLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.fileLoadLabel.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.fileLoadLabel.Location = new System.Drawing.Point(3, 9);
-            this.fileLoadLabel.Name = "fileLoadLabel";
-            this.fileLoadLabel.Padding = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            this.fileLoadLabel.Size = new System.Drawing.Size(215, 16);
-            this.fileLoadLabel.TabIndex = 22;
-            this.fileLoadLabel.Text = "Files will be loaded after restarting the app.";
-            this.fileLoadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.fileLoadLabel.Visible = false;
-            // 
-            // removeURLContextMenuStrip
-            // 
-            this.removeURLContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeURLToolStripMenuItem});
-            this.removeURLContextMenuStrip.Name = "removeURLContextMenuStrip";
-            this.removeURLContextMenuStrip.Size = new System.Drawing.Size(181, 48);
-            // 
-            // removeURLToolStripMenuItem
-            // 
-            this.removeURLToolStripMenuItem.Name = "removeURLToolStripMenuItem";
-            this.removeURLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.removeURLToolStripMenuItem.Text = "Remove URL";
-            this.removeURLToolStripMenuItem.Click += new System.EventHandler(this.removeURLToolStripMenuItem_Click);
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -458,11 +459,11 @@
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.removeURLContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.priceSetting)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selected)).EndInit();
-            this.removeURLContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -487,7 +488,6 @@
         public System.Windows.Forms.Panel panel2;
         public System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.ListBox urlPathListBox;
-        private Guna.UI2.WinForms.Guna2Button bonusButton;
         public System.Windows.Forms.Button addURLButton;
         public System.Windows.Forms.Button seriesURLCollectionButton;
         public System.Windows.Forms.Button musicURLCollectionButton;
@@ -496,5 +496,6 @@
         public System.Windows.Forms.Label fileLoadLabel;
         private System.Windows.Forms.ContextMenuStrip removeURLContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem removeURLToolStripMenuItem;
+        public Guna.UI2.WinForms.Guna2Button bonusButton;
     }
 }

@@ -59,6 +59,7 @@ namespace Mobile_Service_Distribution
             Rating,
             OriginalDirectory,
             Cover_Art_Dir,
+            PRS,
             Price
         }
 
@@ -241,7 +242,7 @@ namespace Mobile_Service_Distribution
             ArrayList catalogue = new ArrayList();
             List<LibraryManager> prsList = new List<LibraryManager>(10);
 
-            for(int i = 0; i < lists.Length - 1; i++)
+            for(int i = 0; i < lists.Length; i++)
                 foreach(LibraryManager media in lists[i])
                     catalogue.Add(media);
 
@@ -271,28 +272,37 @@ namespace Mobile_Service_Distribution
             if(type == MediaType.Movie)
             {
                 string[] info = File.ReadAllLines(dir);
-                this.OriginalDirectory = info[6].Substring(11);
-
-                if (File.Exists(this.OriginalDirectory))
+                try
                 {
-                    this.Name = info[0].Substring(6);
-                    this.Title = info[1].Substring(7);
-                    this.Duration = new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("HH:mm:ss");
-                    this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
-                    this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
-                    this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0;
-                    this.PRS = this.Rating;
-                    this.CoverArtDirectory = (info[7].Substring(21) != "") ? info[7].Substring(21) : null;
-                    this.thisDirectory = dir;
-                    this.Price = Media_Distro.Properties.Settings.Default.moviePrice;
+                    this.OriginalDirectory = info[6].Substring(11);
 
-                    return 1;
+                    if (File.Exists(this.OriginalDirectory))
+                    {
+                        this.Name = info[0].Substring(6);
+                        this.Title = info[1].Substring(7);
+                        this.Duration = new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("HH:mm:ss");
+                        this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
+                        this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
+                        this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0.0f;
+                        this.PRS = (info[8].Substring(5) != "") ? float.Parse(info[8].Substring(5)) : 0.0f;
+                        this.CoverArtDirectory = (info[7].Substring(21) != "") ? info[7].Substring(21) : null;
+                        this.thisDirectory = dir;
+                        this.Price = Media_Distro.Properties.Settings.Default.moviePrice;
+
+                        return 1;
+                    }
+                    else
+                    {
+                        File.Delete(dir);
+                        return 0;
+                    }
                 }
-                else
+                catch (Exception)
                 {
                     File.Delete(dir);
                     return 0;
                 }
+                
             }
             else if(type == MediaType.Music)
             {
@@ -300,34 +310,42 @@ namespace Mobile_Service_Distribution
 
                 if (onTop)
                 {
-                    string[] info = File.ReadAllLines(GetFiles(dir)[0]);
-                    this.OriginalDirectory = info[6].Substring(11);
-
-                    if (Exists(this.OriginalDirectory))
+                    try
                     {
-                        string[] tracks = GetFiles(dir);
+                        string[] info = File.ReadAllLines(GetFiles(dir)[0]);
+                        this.OriginalDirectory = info[6].Substring(11);
 
-                        this.Name = info[0].Substring(6);
-                        this.Title = info[1].Substring(7);
-                        this.Duration = (info[2].Substring(10).ElementAt(1) == '0') ? new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("mm:ss") : new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("HH:mm:ss"); ; new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("mm:ss");
-                        this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
-                        this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
-                        this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0;
-                        this.PRS = this.Rating;
-                        this.CoverArtDirectory = (info[7].Substring(21) != "") ? info[7].Substring(21) : null;
-                        this.thisDirectory = dir;
-
-                        for(int i = 1; i < tracks.Length; i++)
+                        if (Exists(this.OriginalDirectory))
                         {
-                            music.Add(tracks[i]);
-                            this.Price += Media_Distro.Properties.Settings.Default.musicPrice;
-                        }
-                            
-                        this.AlbumList = music;
+                            string[] tracks = GetFiles(dir);
 
-                        return 1;
+                            this.Name = info[0].Substring(6);
+                            this.Title = info[1].Substring(7);
+                            this.Duration = (info[2].Substring(10).ElementAt(1) == '0') ? new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("mm:ss") : new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("HH:mm:ss"); ; new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("mm:ss");
+                            this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
+                            this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
+                            this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0.0f;
+                            this.PRS = (info[8].Substring(5) != "") ? float.Parse(info[8].Substring(5)) : 0.0f;
+                            this.CoverArtDirectory = (info[7].Substring(21) != "") ? info[7].Substring(21) : null;
+                            this.thisDirectory = GetFiles(dir)[0];
+
+                            for (int i = 1; i < tracks.Length; i++)
+                            {
+                                music.Add(tracks[i]);
+                                this.Price += Media_Distro.Properties.Settings.Default.musicPrice;
+                            }
+
+                            this.AlbumList = music;
+
+                            return 1;
+                        }
+                        else
+                        {
+                            Delete(dir, true);
+                            return 0;
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
                         Delete(dir, true);
                         return 0;
@@ -335,25 +353,33 @@ namespace Mobile_Service_Distribution
                 }
                 else
                 {
-                    string[] info = File.ReadAllLines(dir);
-                    this.OriginalDirectory = info[6].Substring(11);
-
-                    if (File.Exists(this.OriginalDirectory))
+                    try
                     {
-                        this.Name = info[0].Substring(6);
-                        this.Title = info[1].Substring(7);
-                        this.Duration = (info[2].Substring(10).ElementAt(1) == '0') ? new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("mm:ss") : new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("HH:mm:ss");;
-                        this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
-                        this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
-                        this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0;
-                        this.PRS = this.Rating;
-                        this.CoverArtDirectory = (info[7].Substring(21) != "") ? info[7].Substring(21) : null;
-                        this.thisDirectory = dir;
-                        this.Price = Media_Distro.Properties.Settings.Default.musicPrice;
+                        string[] info = File.ReadAllLines(dir);
+                        this.OriginalDirectory = info[6].Substring(11);
 
-                        return 1;
+                        if (File.Exists(this.OriginalDirectory))
+                        {
+                            this.Name = info[0].Substring(6);
+                            this.Title = info[1].Substring(7);
+                            this.Duration = (info[2].Substring(10).ElementAt(1) == '0') ? new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("mm:ss") : new DateTime(TimeSpan.Parse(info[2].Substring(10)).Ticks).ToString("HH:mm:ss"); ;
+                            this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
+                            this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
+                            this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0.0f;
+                            this.PRS = (info[8].Substring(5) != "") ? float.Parse(info[8].Substring(5)) : 0.0f;
+                            this.CoverArtDirectory = (info[7].Substring(21) != "") ? info[7].Substring(21) : null;
+                            this.thisDirectory = dir;
+                            this.Price = Media_Distro.Properties.Settings.Default.musicPrice;
+
+                            return 1;
+                        }
+                        else
+                        {
+                            File.Delete(dir);
+                            return 0;
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
                         File.Delete(dir);
                         return 0;
@@ -366,93 +392,123 @@ namespace Mobile_Service_Distribution
                 {
                     string[] info;
                     string[] seasonFolders;
+                    string linkFile;
+                    bool file = false;
 
-                    if (File.Exists(dir))
+                    try
                     {
-                        info = File.ReadAllLines(dir);
-
-                        this.Price = (GetFiles(GetDirectoryName(dir)).Length - 1) * Media_Distro.Properties.Settings.Default.seriesPrice;
-                    }
-                        
-                    else if (GetDirectories(dir) != null)
-                    {
-                        decimal price = 0;
-                        seasonFolders = GetDirectories(dir);
-                        info = File.ReadAllLines(GetFiles(dir)[0]);
-
-                        ArrayList season = new ArrayList();
-                        ArrayList seasons = new ArrayList();
-
-                        foreach (string sea in seasonFolders)
+                        if (File.Exists(dir))
                         {
-                            season = new ArrayList();
-                            string[] episodeFiles = GetFiles(sea);
-                            season.Add(episodeFiles[0]);
+                            info = File.ReadAllLines(dir);
+                            linkFile = dir;
+                            file = true;
 
-                            if (episodeFiles.Length < 2 || !Exists(File.ReadAllLines(episodeFiles[0])[6].Substring(11)))
-                            {
-                                Delete(episodeFiles[0].Remove(episodeFiles[0].LastIndexOf('\\')), true);
-                                continue;
-                            }
-                                
-                            for (int i = 1; i < episodeFiles.Length; i++)
-                            {
-                                season.Add(episodeFiles[i]);
-                                price += Media_Distro.Properties.Settings.Default.seriesPrice;
-                            }
-
-                            seasons.Add(season);
+                            this.Price = (GetFiles(GetDirectoryName(dir)).Length - 1) * Media_Distro.Properties.Settings.Default.seriesPrice;
                         }
 
-                        this.SeriesList = seasons;
-                        this.Price = price;
-                    }
+                        else if (GetDirectories(dir) != null)
+                        {
+                            seasonFolders = GetDirectories(dir);
+                            info = File.ReadAllLines(GetFiles(dir)[0]);
+                            linkFile = GetFiles(dir)[0];
+
+                            ArrayList season = new ArrayList();
+                            ArrayList seasons = new ArrayList();
+
+                            foreach (string sea in seasonFolders)
+                            {
+                                season = new ArrayList();
+                                string[] episodeFiles = GetFiles(sea);
+                                season.Add(episodeFiles[0]);
+
+                                if (episodeFiles.Length < 2 || !Exists(File.ReadAllLines(episodeFiles[0])[6].Substring(11)))
+                                {
+                                    Delete(episodeFiles[0].Remove(episodeFiles[0].LastIndexOf('\\')), true);
+                                    continue;
+                                }
+
+                                for (int i = 1; i < episodeFiles.Length; i++)
+                                {
+                                    season.Add(episodeFiles[i]);
+                                    this.Price += Media_Distro.Properties.Settings.Default.seriesPrice;
+                                }
+
+                                seasons.Add(season);
+                            }
+
+                            this.SeriesList = seasons;
+                        }
+
+                        else
+                        {
+                            info = null;
+                            linkFile = null;
+                        }
                         
-                    else 
-                        info = null;
+                        this.OriginalDirectory = info[6].Substring(11);
 
-                    this.OriginalDirectory = info[6].Substring(11);
+                        if (Exists(this.OriginalDirectory))
+                        {
+                            this.Name = info[0].Substring(13);
+                            this.Title = info[1].Substring(7).Replace(" -", ":");
+                            this.Duration = info[2].Substring(10);
+                            this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
+                            this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
+                            this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0.0f;
+                            this.PRS = (info[8].Substring(5) != "") ? float.Parse(info[8].Substring(5)) : 0.0f;
+                            this.CoverArtDirectory = (info[7].Substring(21) != "") ? info[7].Substring(21) : null;
+                            this.thisDirectory = linkFile;
 
-                    if (Exists(this.OriginalDirectory))
-                    {
-                        this.Name = info[0].Substring(13);
-                        this.Title = info[1].Substring(7).Replace(" -", ":");
-                        this.Duration = info[2].Substring(10);
-                        this.Genre = (info[4].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
-                        this.Year = (info[3].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
-                        this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0;
-                        this.PRS = this.Rating;
-                        this.CoverArtDirectory = (info[7].Substring(21) != "") ? info[7].Substring(21) : null;
-                        this.thisDirectory = dir;
+                            return 1;
+                        }
+                        else
+                        {
+                            if (file)
+                                File.Delete(dir);
+                            else
+                                Delete(dir, true);
 
-                        return 1;
+                            return 0;
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        Delete(dir, true);
+                        if (file)
+                            File.Delete(dir);
+                        else
+                            Delete(dir, true);
+
                         return 0;
                     }
                 }
                 else
                 {
-                    string[] info = File.ReadAllLines(dir);
-                    this.OriginalDirectory = info[6].Substring(11);
-
-                    if (File.Exists(this.OriginalDirectory))
+                    try
                     {
-                        this.Name = info[0].Substring(6);
-                        this.Title = info[1].Substring(7);
-                        this.Duration = info[2].Substring(10);
-                        this.Genre = (info[4].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
-                        this.Year = (info[3].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
-                        this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0;
-                        this.PRS = this.Rating;
-                        this.thisDirectory = dir;
-                        this.Price = Media_Distro.Properties.Settings.Default.seriesPrice;
+                        string[] info = File.ReadAllLines(dir);
+                        this.OriginalDirectory = info[6].Substring(11);
 
-                        return 1;
+                        if (File.Exists(this.OriginalDirectory))
+                        {
+                            this.Name = info[0].Substring(6);
+                            this.Title = info[1].Substring(7);
+                            this.Duration = info[2].Substring(10);
+                            this.Genre = (info[3].Substring(7) != "") ? info[3].Substring(7) : "Unknown";
+                            this.Year = (info[4].Substring(6) != "") ? int.Parse(info[4].Substring(6)) : 0;
+                            this.Rating = (info[5].Substring(8) != "") ? float.Parse(info[5].Substring(8)) : 0.0f;
+                            this.PRS = (info[7].Substring(5) != "") ? float.Parse(info[8].Substring(5)) : 0.0f;
+                            this.thisDirectory = dir;
+                            this.Price = Media_Distro.Properties.Settings.Default.seriesPrice;
+
+                            return 1;
+                        }
+                        else
+                        {
+                            File.Delete(dir);
+                            return 0;
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
                         File.Delete(dir);
                         return 0;
@@ -490,7 +546,7 @@ namespace Mobile_Service_Distribution
                 
             else return null;
 
-            //1580
+            //0185
         }
 
         public static void AppendMediaInfo(string dir, string newInfo, MediaProperty property)
@@ -498,7 +554,7 @@ namespace Mobile_Service_Distribution
             StringBuilder[] appendLines = new StringBuilder[File.ReadAllLines(dir).Length];
             byte count = 0;
 
-            foreach (String file in File.ReadAllLines(dir))
+            foreach(String file in File.ReadAllLines(dir))
             {
                 appendLines[count] = new StringBuilder(file);
                 count++;
@@ -506,15 +562,23 @@ namespace Mobile_Service_Distribution
 
             StreamWriter writer = File.CreateText(dir);
 
-            if (property == MediaProperty.Name) appendLines[(int)MediaProperty.Name].Replace(appendLines[(int)MediaProperty.Name].ToString(), "Name: " + newInfo);
-            else if (property == MediaProperty.Title) appendLines[(int)MediaProperty.Title].Replace(appendLines[(int)MediaProperty.Title].ToString(), "Title: " + newInfo);
-            else if (property == MediaProperty.Duration) appendLines[(int)MediaProperty.Duration].Replace(appendLines[(int)MediaProperty.Duration].ToString(), "Duration: " + newInfo);
-            else if (property == MediaProperty.Genre) appendLines[(int)MediaProperty.Genre].Replace(appendLines[(int)MediaProperty.Genre].ToString(), "Genre: " + newInfo);
-            else if (property == MediaProperty.Year) appendLines[(int)MediaProperty.Year].Replace(appendLines[(int)MediaProperty.Year].ToString(), "Year: " + newInfo);
-            else if (property == MediaProperty.Rating) appendLines[(int)MediaProperty.Rating].Replace(appendLines[(int)MediaProperty.Rating].ToString(), "Rating: " + newInfo);
-            else if (property == MediaProperty.Cover_Art_Dir) appendLines[(int)MediaProperty.Cover_Art_Dir].Replace(appendLines[(int)MediaProperty.Cover_Art_Dir].ToString(), "Cover Art Directory: " + newInfo);
-
+            try
+            {
+                if (property == MediaProperty.Name) appendLines[(int)MediaProperty.Name].Replace(appendLines[(int)MediaProperty.Name].ToString(), "Name: " + newInfo);
+                else if (property == MediaProperty.Title) appendLines[(int)MediaProperty.Title].Replace(appendLines[(int)MediaProperty.Title].ToString(), "Title: " + newInfo);
+                else if (property == MediaProperty.Duration) appendLines[(int)MediaProperty.Duration].Replace(appendLines[(int)MediaProperty.Duration].ToString(), "Duration: " + newInfo);
+                else if (property == MediaProperty.Genre) appendLines[(int)MediaProperty.Genre].Replace(appendLines[(int)MediaProperty.Genre].ToString(), "Genre: " + newInfo);
+                else if (property == MediaProperty.Year) appendLines[(int)MediaProperty.Year].Replace(appendLines[(int)MediaProperty.Year].ToString(), "Year: " + newInfo);
+                else if (property == MediaProperty.Rating) appendLines[(int)MediaProperty.Rating].Replace(appendLines[(int)MediaProperty.Rating].ToString(), "Rating: " + newInfo);
+                else if (property == MediaProperty.Cover_Art_Dir) appendLines[(int)MediaProperty.Cover_Art_Dir].Replace(appendLines[(int)MediaProperty.Cover_Art_Dir].ToString(), "Cover Art Directory: " + newInfo);
+                else if (property == MediaProperty.PRS) appendLines[(int)MediaProperty.PRS].Replace(appendLines[(int)MediaProperty.PRS].ToString(), "PRS: " + newInfo);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                appendLines[(int)MediaProperty.PRS - 1].Replace(appendLines[(int)MediaProperty.PRS - 1].ToString(), "PRS: " + newInfo);
+            }
             
+
             foreach (StringBuilder line in appendLines) writer.WriteLine(line.ToString());
             writer.Close();
             writer.Dispose();
@@ -599,14 +663,15 @@ namespace Mobile_Service_Distribution
                     videoInfo = TimeSpan.FromSeconds(mediaFile.newMedia((string)dir[i]).duration);
 
                     writer = File.CreateText(path);
-                    writer.WriteLine("Name: " + fileName);
-                    writer.WriteLine("Title: " + fileName);
+                    writer.WriteLine("Name: " + GetFileName((string)dir[i]));
+                    writer.WriteLine("Title: " + GetFileNameWithoutExtension((string)dir[i]));
                     writer.WriteLine("Duration: " + videoInfo);
                     writer.WriteLine("Genre: ");
                     writer.WriteLine("Year: ");
                     writer.WriteLine("Rating: ");
                     writer.WriteLine("Directory: " + (string)dir[i]);
                     writer.WriteLine("Cover Art Directory: ");
+                    writer.WriteLine("PRS: ");
                     writer.Close();
                     writer.Dispose();
                 }
@@ -620,13 +685,14 @@ namespace Mobile_Service_Distribution
             {
                 writer = File.CreateText(file.FullName);
                 writer.WriteLine("Name: " + GetFileName((string)dir[0]));
-                writer.WriteLine("Title: " + GetFileName((string)dir[0]));
+                writer.WriteLine("Title: " + GetFileNameWithoutExtension((string)dir[0]));
                 writer.WriteLine("Duration: " + albumDuration);
                 writer.WriteLine("Genre: ");
                 writer.WriteLine("Year: ");
                 writer.WriteLine("Rating: ");
                 writer.WriteLine("Directory: " + (string)dir[0]);
                 writer.WriteLine("Cover Art Directory: ");
+                writer.WriteLine("PRS: ");
                 writer.Close();
                 writer.Dispose();
             }
@@ -656,6 +722,7 @@ namespace Mobile_Service_Distribution
                     writer.WriteLine("Rating: ");
                     writer.WriteLine("Directory: " + dir);
                     writer.WriteLine("Cover Art Directory: ");
+                    writer.WriteLine("PRS: ");
                     writer.Close();
                     writer.Dispose();
                 }
@@ -690,10 +757,11 @@ namespace Mobile_Service_Distribution
                                 writer.WriteLine("Name: " + episodeName);
                                 writer.WriteLine("Title: " + episodeName);
                                 writer.WriteLine("Duration: " + videoInfo);
-                                writer.WriteLine("Year: ");
                                 writer.WriteLine("Genre: ");
+                                writer.WriteLine("Year: ");
                                 writer.WriteLine("Rating: ");
                                 writer.WriteLine("Directory: " + seasons[i]);
+                                writer.WriteLine("PRS: ");
                                 writer.Close();
                                 writer.Dispose();
 
@@ -709,11 +777,12 @@ namespace Mobile_Service_Distribution
                             writer.WriteLine("Folder Name: " + fileString);
                             writer.WriteLine("Title: " + fileString);
                             writer.WriteLine("Duration: " + seasonDuration);
-                            writer.WriteLine("Year: ");
                             writer.WriteLine("Genre: ");
+                            writer.WriteLine("Year: ");
                             writer.WriteLine("Rating: ");
                             writer.WriteLine("Directory: " + seasons[0]);
                             writer.WriteLine("Cover Art Directory: ");
+                            writer.WriteLine("PRS: ");
                             writer.WriteLine(GetFileName(fileName));
                             writer.Close();
                             writer.Dispose();
@@ -731,11 +800,12 @@ namespace Mobile_Service_Distribution
                     writer.WriteLine("Folder Name: " + fileName);
                     writer.WriteLine("Title: " + fileName);
                     writer.WriteLine("Duration: " + seriesDuration);
-                    writer.WriteLine("Year: ");
                     writer.WriteLine("Genre: ");
+                    writer.WriteLine("Year: ");
                     writer.WriteLine("Rating: ");
                     writer.WriteLine("Directory: " + dir);
                     writer.WriteLine("Cover Art Directory: ");
+                    writer.WriteLine("PRS: ");
                     writer.Close();
                     writer.Dispose();
                 }
@@ -751,13 +821,14 @@ namespace Mobile_Service_Distribution
 
                     writer = File.CreateText(directory);
                     writer.WriteLine("Name: " + fileName);
-                    writer.WriteLine("Title: " + fileName);
+                    writer.WriteLine("Title: " + GetFileNameWithoutExtension(dir));
                     writer.WriteLine("Duration: " + videoInfo);
                     writer.WriteLine("Genre: ");
                     writer.WriteLine("Year: ");
                     writer.WriteLine("Rating: ");
                     writer.WriteLine("Directory: " + dir);
                     writer.WriteLine("Cover Art Directory: ");
+                    writer.WriteLine("PRS: ");
                     writer.Close();
                     writer.Dispose();
                 }

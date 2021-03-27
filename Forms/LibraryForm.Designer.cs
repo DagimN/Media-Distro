@@ -45,8 +45,10 @@
             this.movieTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.musicList = new System.Windows.Forms.ListView();
             this.musicTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.musicCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
             this.seriesList = new System.Windows.Forms.ListView();
             this.seriesTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.seriesCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
             this.arrangementToolStrip = new System.Windows.Forms.ToolStrip();
             this.genreDescriptionLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -85,8 +87,7 @@
             this.genreLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.musicCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
-            this.seriesCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
+            this.genreCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
             this.libraryPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.moviesSelected)).BeginInit();
@@ -131,18 +132,24 @@
             // 
             // genreListView
             // 
+            this.genreListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.genreListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.genreListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.genreListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.genreListView.CheckBoxes = true;
+            this.genreListView.Cursor = System.Windows.Forms.Cursors.Default;
             this.genreListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.genreListView.HideSelection = false;
-            this.genreListView.LargeImageList = this.movieCoverArtImageList;
+            this.genreListView.LargeImageList = this.genreCoverArtImageList;
             this.genreListView.Location = new System.Drawing.Point(0, 41);
             this.genreListView.Name = "genreListView";
             this.genreListView.Size = new System.Drawing.Size(546, 384);
             this.genreListView.TabIndex = 12;
             this.genreListView.UseCompatibleStateImageBehavior = false;
             this.genreListView.Visible = false;
+            this.genreListView.ItemActivate += new System.EventHandler(this.genreList_ItemActivate);
             // 
             // movieCoverArtImageList
             // 
@@ -293,6 +300,13 @@
             this.musicTitleColumnHeader.Text = "Title";
             this.musicTitleColumnHeader.Width = 500;
             // 
+            // musicCoverArtImageList
+            // 
+            this.musicCoverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("musicCoverArtImageList.ImageStream")));
+            this.musicCoverArtImageList.Tag = "No";
+            this.musicCoverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.musicCoverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
+            // 
             // seriesList
             // 
             this.seriesList.Activation = System.Windows.Forms.ItemActivation.OneClick;
@@ -324,6 +338,13 @@
             // 
             this.seriesTitleColumnHeader.Text = "Title";
             this.seriesTitleColumnHeader.Width = 500;
+            // 
+            // seriesCoverArtImageList
+            // 
+            this.seriesCoverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("seriesCoverArtImageList.ImageStream")));
+            this.seriesCoverArtImageList.Tag = "No";
+            this.seriesCoverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.seriesCoverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
             // 
             // arrangementToolStrip
             // 
@@ -804,19 +825,12 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
-            // musicCoverArtImageList
+            // genreCoverArtImageList
             // 
-            this.musicCoverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("musicCoverArtImageList.ImageStream")));
-            this.musicCoverArtImageList.Tag = "No";
-            this.musicCoverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.musicCoverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
-            // 
-            // seriesCoverArtImageList
-            // 
-            this.seriesCoverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("seriesCoverArtImageList.ImageStream")));
-            this.seriesCoverArtImageList.Tag = "No";
-            this.seriesCoverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.seriesCoverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
+            this.genreCoverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("genreCoverArtImageList.ImageStream")));
+            this.genreCoverArtImageList.Tag = "No";
+            this.genreCoverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.genreCoverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
             // 
             // LibraryForm
             // 
@@ -911,5 +925,6 @@
         public System.Windows.Forms.Label loadingLabel;
         private System.Windows.Forms.ImageList musicCoverArtImageList;
         private System.Windows.Forms.ImageList seriesCoverArtImageList;
+        private System.Windows.Forms.ImageList genreCoverArtImageList;
     }
 }

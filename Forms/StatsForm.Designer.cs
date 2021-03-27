@@ -309,7 +309,7 @@
             "March",
             "April",
             "May",
-            "June ",
+            "June",
             "July",
             "August",
             "September",

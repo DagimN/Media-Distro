@@ -29,6 +29,8 @@ namespace Mobile_Service_Distribution
         public Task manageMediaTask;
         private Button activeButton;
         public ListViewItem activeItem = null;
+
+        private bool IsExpired = false;
         private bool drag = false;
       
         private LibraryForm libraryForm;
@@ -358,11 +360,16 @@ namespace Mobile_Service_Distribution
                     expDate = File.ReadAllLines(Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "akf"))[0];
                 else expDate = "";
 
-                if (Media_Distro.Properties.Settings.Default.activationKey.Length < 1 ||
-                    Media_Distro.Properties.Settings.Default.expirationDate.ToShortDateString() == DateTime.Now.ToShortDateString() ||
-                    Media_Distro.Properties.Settings.Default.expirationDate.AddDays(7) < DateTime.Now ||
-                    expDate == "" || DateTime.Parse(expDate).AddDays(7) < DateTime.Now || 
-                    DateTime.Parse(expDate).ToShortDateString() == DateTime.Now.ToShortDateString())
+                if (Media_Distro.Properties.Settings.Default.activationKey == "")
+                    IsExpired = true;
+                if (Media_Distro.Properties.Settings.Default.expirationDate < DateTime.Now)
+                    IsExpired = true;
+                if (expDate == "")
+                    IsExpired = true;
+                if (DateTime.Parse(expDate) < DateTime.Now)
+                    IsExpired = true;
+
+                if (IsExpired)
                 {
                     newCartToolStripButton.Enabled = false;
                     cartsToolStripSplitButton.Enabled = false;
@@ -1033,7 +1040,14 @@ namespace Mobile_Service_Distribution
 
         private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter && searchTextBox.Text != "")
+            if (e.KeyChar == (char)Keys.Enter && searchTextBox.Text == "//Activate_Bonus")
+            {
+                Media_Distro.Properties.Settings.Default.bonusAvailable = true;
+                settingsForm.bonusButton.Visible = true;
+                searchTextBox.Text = "Bonus Activated";
+                Media_Distro.Properties.Settings.Default.Save();
+            }
+            else if (e.KeyChar == (char)Keys.Enter && searchTextBox.Text != "")
             {
                 resultPanel.Controls.Clear();
                 searchTextBox.Focus();
@@ -1044,7 +1058,7 @@ namespace Mobile_Service_Distribution
                 searchTask.Start();
 
                 searchTextBox.Focus();
-            }
+            }   
         }
 
         private void titleBarPanel_MouseDown(object sender, MouseEventArgs e)
@@ -1549,7 +1563,7 @@ namespace Mobile_Service_Distribution
 
         private void sharesubMenu_Paint(object sender, PaintEventArgs e)
         {
-            if (completedTasks != 0)
+            if (completedTasks > 0)
             {
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 e.Graphics.FillEllipse(Brushes.Gray, 33, 25, 15, 15);
@@ -1576,7 +1590,7 @@ namespace Mobile_Service_Distribution
                 if (key == GenerateKeyAlgorithm(key[0]) && key != Media_Distro.Properties.Settings.Default.activationKey)
                 {
                     Media_Distro.Properties.Settings.Default.activationKey = key;
-                    Media_Distro.Properties.Settings.Default.expirationDate = DateTime.Now.AddDays(7);
+                    Media_Distro.Properties.Settings.Default.expirationDate = Media_Distro.Properties.Settings.Default.expirationDate.AddDays(7d);
                     StreamWriter dateCheckFile = File.CreateText(Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "akf"));
                     dateCheckFile.WriteLine(Media_Distro.Properties.Settings.Default.expirationDate.ToString());
                     dateCheckFile.Close();
@@ -1592,10 +1606,11 @@ namespace Mobile_Service_Distribution
                     MessageBox.Show("The activation code is invalid. Retrieve the code from the bot and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 File.Delete(keyFilePath);
+                File.Delete(keyCodeZip.FileName);
             }
         }
 
-        private static string GenerateKeyAlgorithm(char arbitChar = ' ')
+        public static string GenerateKeyAlgorithm(char arbitChar = ' ')
         {
             List<char> letters = new List<char> { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             List<char> numbers = new List<char> { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -1606,42 +1621,49 @@ namespace Mobile_Service_Distribution
             int emptySpaces = 9;
             Random randNum = new Random();
 
-            if (arbitChar == ' ')
-                generatedKey[0] = firstChar = letters[randNum.Next(letters.Count)];
-            else
-                generatedKey[0] = firstChar = (letters.Contains(arbitChar)) ? arbitChar : ' ';
-
-            if (firstChar == ' ')
-                return "";
-
-            generatedKey[3] = letters[((letters.IndexOf(firstChar) + 4) * 8 % 26) - 1];
-            generatedKey[6] = letters[((letters.IndexOf(firstChar) + 7) * 7 % 26) - 1];
-            emptySpaces -= 3;
-
-            for (int i = 0; i < generatedKey.Count; i++)
+            while(key == "")
             {
-                char character;
-                int index;
-
-                if (generatedKey[i] != ' ')
+                try
                 {
-                    index = (((letters.IndexOf(generatedKey[i]) + 1) * emptySpaces) % 26);
-                    character = (index > 0) ? letters[index - 1] : letters[index];
-                    generatedKey[i + 1] = (!generatedKey.Contains(character)) ? character : char.ToLower(character);
-                    i++;
-                }
-                else
-                {
-                    index = (((letters.IndexOf(generatedKey[i - 1]) + 1) * emptySpaces) % 9);
-                    generatedKey[i] = (index > 0) ? numbers[index - 1] : numbers[index];
-                }
+                    if (arbitChar == ' ')
+                        generatedKey[0] = firstChar = letters[randNum.Next(letters.Count)];
+                    else
+                        generatedKey[0] = firstChar = (letters.Contains(arbitChar)) ? arbitChar : ' ';
 
-                emptySpaces--;
+                    if (firstChar == ' ')
+                        return "";
+
+                    generatedKey[3] = letters[((letters.IndexOf(firstChar) + 4) * 8 % 26) - 1];
+                    generatedKey[6] = letters[((letters.IndexOf(firstChar) + 7) * 7 % 26) - 1];
+                    emptySpaces -= 3;
+
+                    for (int i = 0; i < generatedKey.Count; i++)
+                    {
+                        char character;
+                        int index;
+
+                        if (generatedKey[i] != ' ')
+                        {
+                            index = (((letters.IndexOf(generatedKey[i]) + 1) * emptySpaces) % 26);
+                            character = (index > 0) ? letters[index - 1] : letters[index];
+                            generatedKey[i + 1] = (!generatedKey.Contains(character)) ? character : char.ToLower(character);
+                            i++;
+                        }
+                        else
+                        {
+                            index = (((letters.IndexOf(generatedKey[i - 1]) + 1) * emptySpaces) % 9);
+                            generatedKey[i] = (index > 0) ? numbers[index - 1] : numbers[index];
+                        }
+
+                        emptySpaces--;
+                    }
+
+                    foreach (char c in generatedKey)
+                        key += c;
+                }
+                catch (Exception)
+                {  }
             }
-
-            Console.WriteLine();
-            foreach (char c in generatedKey)
-                key += c;
 
             return key;
         }
@@ -1692,16 +1714,19 @@ namespace Mobile_Service_Distribution
 
             try
             {
-                if (!cart.IsEmpty() && usbStorage.AvailableFreeSpace > cart.cartSize)
+                if (cart != null && !cart.IsEmpty() && usbStorage.AvailableFreeSpace > cart.cartSize)
                     shareForm.progressListView.Add(cart, cartLabel.Text, usbStorage);
                 else throw new Exception();
             }
             catch (Exception)
             {
-                if (cart.IsEmpty())
+                if (cart == null)
+                    MessageBox.Show("There are currenlty no carts. Go ahead and create a new cart.", "No Carts Exist", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else if (cart.IsEmpty())
                     MessageBox.Show("Cart is currently empty. Go to the library and pick some stuff up.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else if (usbStorage.AvailableFreeSpace < cart.cartSize)
                     MessageBox.Show("There is no available space in the storage device.", "Low Available Storage", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
             }
         }
     }

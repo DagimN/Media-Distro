@@ -39,6 +39,7 @@ namespace Mobile_Service_Distribution.Forms
         private bool ascendingChecked = false;
         private bool descendingChecked = false;
         private bool newSave = false;
+        private bool keyPressed = false;
 
         private byte movieItemSelected = 0;
         private byte seriesItemSelected = 0;
@@ -83,6 +84,11 @@ namespace Mobile_Service_Distribution.Forms
             durationLabel.Text = "Duration: ";
             pictureBox1.Visible = false;
 
+            if (genreListView.Visible)
+            {
+                genreListView.Visible = false;
+                genreDescriptionLabel.Text = "All";
+            }
             genreToolStripDropDownButton.DropDownItems.Clear();
             genreToolStripDropDownButton.DropDownItems.Add("All").Click += allToolStripMenuItem_Click;
             genreToolStripDropDownButton.DropDownItems.Add("-");
@@ -107,7 +113,6 @@ namespace Mobile_Service_Distribution.Forms
                 else libraryPanel.SetBounds(12, 12, 725, 431);
             }
 
-
             moviesSelected.BackColor = Color.Transparent;
             moviesTabButton.ForeColor = Color.DimGray;
             musicTabButton.ForeColor = Color.DimGray;
@@ -120,9 +125,15 @@ namespace Mobile_Service_Distribution.Forms
             durationLabel.Text = "Seasons: ";
             pictureBox1.Visible = true;
 
+            if (genreListView.Visible)
+            {
+                genreListView.Visible = false;
+                genreDescriptionLabel.Text = "All";
+            }  
             genreToolStripDropDownButton.DropDownItems.Clear();
             genreToolStripDropDownButton.DropDownItems.Add("All").Click += allToolStripMenuItem_Click;
             genreToolStripDropDownButton.DropDownItems.Add("-");
+            seriesGenreCatalogue.Sort();
             foreach (string genre in seriesGenreCatalogue)
                 genreToolStripDropDownButton.DropDownItems.Add(genre).Click += genreSelected_Click;
 
@@ -156,12 +167,18 @@ namespace Mobile_Service_Distribution.Forms
             durationLabel.Text = "Duration: ";
             pictureBox1.Visible = true;
 
+            if (genreListView.Visible)
+            {
+                genreListView.Visible = false;
+                genreDescriptionLabel.Text = "All";
+            }
             genreToolStripDropDownButton.DropDownItems.Clear();
             genreToolStripDropDownButton.DropDownItems.Add("All").Click += allToolStripMenuItem_Click;
             genreToolStripDropDownButton.DropDownItems.Add("-");
+            musicGenreCatalogue.Sort();
             foreach (string genre in musicGenreCatalogue)
                 genreToolStripDropDownButton.DropDownItems.Add(genre).Click += genreSelected_Click;
-
+            
             activeList = this.musicList;
             activeListButton = musicTabButton;
             selected = musicSelected;
@@ -232,7 +249,7 @@ namespace Mobile_Service_Distribution.Forms
                 foreach (string album in activeItem.AlbumList)
                 {
                     libraryManager = new LibraryManager(album, MediaType.Music, false, true);
-                    albumTreeView.Nodes.Add(GetFileNameWithoutExtension(album)).Tag = libraryManager;
+                    albumTreeView.Nodes.Add(GetFileNameWithoutExtension(libraryManager.Title)).Tag = libraryManager;
                 }
             }
             else
@@ -288,11 +305,88 @@ namespace Mobile_Service_Distribution.Forms
             }
 
             string file = activeItem.CoverArtDirectory;
+            coverPictureBox.Image = null;
             if (file != null)
             {
                 image = new Bitmap(Image.FromFile(file));
                 coverPictureBox.Image = image;
                 coverPictureBox.Tag = this.seriesList.FocusedItem.ImageIndex;
+            }
+            else
+                coverPictureBox.Tag = 0;
+        }
+
+        private void genreList_ItemActivate(object sender, EventArgs e)
+        {
+            LibraryManager activeItem = (LibraryManager)this.genreListView.FocusedItem.Tag;
+
+            if (this.libraryPanel.Width == 546) libraryPanel.SetBounds(12, 12, 546, 290);
+            else libraryPanel.SetBounds(12, 12, 725, 290);
+
+            infoPanel.Visible = true;
+
+            titleTextBox.Text = activeItem.Title;
+            durationLabelExt.Text = activeItem.Duration;
+            genreTextBox.Text = activeItem.Genre;
+            yearTextBox.Text = (activeItem.Year != 0) ? activeItem.Year.ToString() : "";
+            ratingTextBox.Text = activeItem.Rating.ToString();
+            titleToolTip.SetToolTip(titleTextBox, titleTextBox.Text);
+
+            if (musicList.Visible)
+            {
+                albumTreeView.Nodes.Clear();
+
+                if (activeItem.AlbumList != null)
+                {
+                    albumTreeView.Visible = true;
+                    addSTCart.Visible = true;
+                    pictureBox1.Visible = true;
+
+                    foreach (string album in activeItem.AlbumList)
+                    {
+                        libraryManager = new LibraryManager(album, MediaType.Music, false, true);
+                        albumTreeView.Nodes.Add(GetFileNameWithoutExtension(libraryManager.Title)).Tag = libraryManager;
+                    }
+                }
+                else
+                {
+                    albumTreeView.Visible = false;
+                    addSTCart.Visible = false;
+                    pictureBox1.Visible = false;
+                }
+            }
+
+            if (seriesList.Visible)
+            {
+                albumTreeView.Nodes.Clear();
+
+                durationLabelExt.Text = activeItem.SeriesList.Count.ToString();
+
+                foreach (ArrayList season in activeItem.SeriesList)
+                {
+                    TreeNode seasonNode = new TreeNode
+                    {
+                        Text = GetFileNameWithoutExtension((string)season[0]).Substring(5),
+                        Tag = season[0].ToString()
+                    };
+                    albumTreeView.Nodes.Add(seasonNode);
+
+                    for (int i = 1; i < season.Count; i++)
+                    {
+                        libraryManager = new LibraryManager((string)season[i], MediaType.Series);
+                        seasonNode.Nodes.Add(GetFileNameWithoutExtension((string)season[i])).Tag = libraryManager;
+                    }
+                }
+            }
+            
+            string file = activeItem.CoverArtDirectory;
+            coverPictureBox.Image = null;
+
+            if (file != null)
+            {
+                image = new Bitmap(Image.FromFile(file));
+                coverPictureBox.Image = image;
+                coverPictureBox.Tag = this.genreListView.FocusedItem.ImageIndex;
             }
             else
                 coverPictureBox.Tag = 0;
@@ -315,7 +409,7 @@ namespace Mobile_Service_Distribution.Forms
             OpenFileDialog pictureDialog = new OpenFileDialog
             {
                 Title = "Select Cover Art",
-                Filter = "JPEG Files (*.jpeg)|*.jpeg |JPG Files (*.jpg)|*.jpg |PNG Files (*.png)|*.png |All Files (*.*)|*.*"
+                Filter = "JPG file (*.jpg)| *.jpg |JPEG file (*.jpeg)| *.jpeg |PNG file (*.png)| *.png |All files (*.*)|*.*"
             };
 
             string newImageDir;
@@ -334,7 +428,7 @@ namespace Mobile_Service_Distribution.Forms
                         AppendMediaInfo(mediaCover.thisDirectory, newImageDir, MediaProperty.Cover_Art_Dir);
                         mediaCover.CoverArtDirectory = newImageDir;
 
-                        this.movieList.LargeImageList.Images.Add(Image.FromFile(newImageDir));
+                        this.movieList.LargeImageList.Images.Add(image);
                         this.movieList.FocusedItem.ImageIndex = moiter++;
                         coverPictureBox.Tag = moiter;
                     }
@@ -347,17 +441,17 @@ namespace Mobile_Service_Distribution.Forms
                             AppendMediaInfo(mediaCover.thisDirectory, newImageDir, MediaProperty.Cover_Art_Dir);
                         mediaCover.CoverArtDirectory = newImageDir;
 
-                        this.musicList.LargeImageList.Images.Add(Image.FromFile(newImageDir));
+                        this.musicList.LargeImageList.Images.Add(image);
                         this.musicList.FocusedItem.ImageIndex = muiter++;
                         coverPictureBox.Tag = muiter;
                     }
                     else if (seriesList.Visible)
                     {
                         mediaCover = (LibraryManager)this.seriesList.FocusedItem.Tag;
-                        AppendMediaInfo(GetFiles(mediaCover.thisDirectory)[0], newImageDir, MediaProperty.Cover_Art_Dir);
+                        AppendMediaInfo(mediaCover.thisDirectory, newImageDir, MediaProperty.Cover_Art_Dir);
                         mediaCover.CoverArtDirectory = newImageDir;
 
-                        this.seriesList.LargeImageList.Images.Add(Image.FromFile(newImageDir));
+                        this.seriesList.LargeImageList.Images.Add(image);
                         this.seriesList.FocusedItem.ImageIndex = siter++;
                         coverPictureBox.Tag = siter;
                     }
@@ -365,6 +459,7 @@ namespace Mobile_Service_Distribution.Forms
                 catch(Exception ex)
                 {
                     MessageBox.Show("Unable to load picture: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    coverPictureBox.Image = Media_Distro.Properties.Resources.coverart_sample_2;
                 }   
             }
 
@@ -439,8 +534,6 @@ namespace Mobile_Service_Distribution.Forms
                         foreach (string genre in movieGenreCatalogue)
                             genreToolStripDropDownButton.DropDownItems.Add(genre).Click += genreSelected_Click;
                     }
-
-                    
                 }
                     
                 else if (saveInfoButton.Location.Y == 76)
@@ -479,15 +572,13 @@ namespace Mobile_Service_Distribution.Forms
                         ratingTextBox.Text = ratingInfo;
                     }
                 }
-                    
-
             }
             else if (musicList.Visible)
             {
                 if (this.musicList.FocusedItem != null) item = this.musicList.FocusedItem;
 
                 LibraryManager activeItem = (LibraryManager)item.Tag;
-                string appendText, directory = activeItem.thisDirectory;
+                string directory = activeItem.thisDirectory;
 
                 if (saveInfoButton.Location.Y == 13)
                 {
@@ -590,7 +681,7 @@ namespace Mobile_Service_Distribution.Forms
                 if (this.seriesList.FocusedItem != null) item = this.seriesList.FocusedItem;
 
                 LibraryManager activeItem = (LibraryManager)item.Tag;
-                string appendText, directory = activeItem.thisDirectory;
+                string directory = activeItem.thisDirectory;
 
                 if (saveInfoButton.Location.Y == 13)
                 {
@@ -685,7 +776,6 @@ namespace Mobile_Service_Distribution.Forms
                         MessageBox.Show("Couldn't save info: " + ex.Message);
                         ratingTextBox.Text = ratingInfo;
                     }
-                    
                 }
             }
 
@@ -736,13 +826,14 @@ namespace Mobile_Service_Distribution.Forms
 
         private void titleTextBox_Leave(object sender, EventArgs e)
         {
-            if(!saveInfoButton.Focused)
+            if(!saveInfoButton.Focused && !keyPressed)
             {
                 titleTextBox.ResetText();
                 titleTextBox.Text = titleInfo;
                 titleInfo = null;
             }
 
+            keyPressed = false;
             currentTextBox = null;
             infoPanel.Refresh();
         }
@@ -770,13 +861,14 @@ namespace Mobile_Service_Distribution.Forms
 
         private void genreTextBox_Leave(object sender, EventArgs e)
         {
-            if (!saveInfoButton.Focused)
+            if (!saveInfoButton.Focused && !keyPressed)
             {
                 genreTextBox.ResetText();
                 genreTextBox.Text = genreInfo;
                 genreInfo = null;
             }
 
+            keyPressed = false;
             currentTextBox = null;
             infoPanel.Refresh();
         }
@@ -804,13 +896,14 @@ namespace Mobile_Service_Distribution.Forms
 
         private void yearTextBox_Leave(object sender, EventArgs e)
         {
-            if (!saveInfoButton.Focused)
+            if (!saveInfoButton.Focused && !keyPressed)
             {
                 yearTextBox.ResetText();
                 yearTextBox.Text = yearInfo;
                 yearInfo = null;
             }
 
+            keyPressed = false;
             currentTextBox = null;
             infoPanel.Refresh();
         }
@@ -838,13 +931,14 @@ namespace Mobile_Service_Distribution.Forms
 
         private void ratingTextBox_Leave(object sender, EventArgs e)
         {
-            if (!saveInfoButton.Focused)
+            if (!saveInfoButton.Focused && !keyPressed)
             {
                 ratingTextBox.ResetText();
                 ratingTextBox.Text = ratingInfo;
                 ratingInfo = null;
             }
 
+            keyPressed = false;
             currentTextBox = null;
             infoPanel.Refresh();
         }
@@ -859,7 +953,7 @@ namespace Mobile_Service_Distribution.Forms
             if (!movieList.Visible && newSave)
             {
                 this.movieList.Items.Clear();
-                foreach (LibraryManager movie in movieCatalogue) this.movieList.Items.Add(movie.Title).Tag = movie;
+                reloadMediaList(MediaType.Movie);
                 newSave = false;
             }
 
@@ -904,7 +998,7 @@ namespace Mobile_Service_Distribution.Forms
             if (!musicList.Visible && newSave)
             {
                 this.musicList.Items.Clear();
-                foreach (LibraryManager music in musicCatalogue) this.musicList.Items.Add(music.Title).Tag = music;
+                reloadMediaList(MediaType.Music);
                 newSave = false;
             }
 
@@ -949,7 +1043,7 @@ namespace Mobile_Service_Distribution.Forms
             if (!seriesList.Visible && newSave)
             {
                 this.seriesList.Items.Clear();
-                foreach (LibraryManager series in seriesCatalogue) this.seriesList.Items.Add(series.Title).Tag = series;
+                reloadMediaList(MediaType.Series);
                 newSave = false;
             }
 
@@ -1550,32 +1644,61 @@ namespace Mobile_Service_Distribution.Forms
             ToolStripDropDownItem item = (ToolStripDropDownItem)sender;
             genreListView.Visible = true;
             genreListView.Items.Clear();
+            int gIter = 1;
+
+            for (int i = genreCoverArtImageList.Images.Count - 1; i > 0; i--)
+                genreCoverArtImageList.Images.RemoveAt(i);
 
             if (movieList.Visible)
             {
                 foreach (LibraryManager movie in movieCatalogue)
                     if (movie.Genre == item.Text)
                     {
-                        genreListView.Items.Add(new ListViewItem
+                        if (movie.CoverArtDirectory != null && File.Exists(movie.CoverArtDirectory))
                         {
-                            Text = movie.Title,
-                            Tag = movie,
-                            ImageIndex = 0
-                        });
-                    }
-                        
+                            genreListView.LargeImageList.Images.Add(Image.FromFile(movie.CoverArtDirectory));
+                            genreListView.Items.Add(new ListViewItem
+                            {
+                                Text = movie.Title,
+                                Tag = movie,
+                                ImageIndex = gIter++
+                            });
+                        }
+                        else
+                        {
+                            genreListView.Items.Add(new ListViewItem
+                            {
+                                Text = movie.Title,
+                                Tag = movie,
+                                ImageIndex = 0
+                            });
+                        }
+                    }           
             }
             else if (musicList.Visible)
             {
                 foreach (LibraryManager music in musicCatalogue)
                     if (music.Genre == item.Text)
                     {
-                        genreListView.Items.Add(new ListViewItem
+                        if (music.CoverArtDirectory != null && File.Exists(music.CoverArtDirectory))
                         {
-                            Text = music.Title,
-                            Tag = music,
-                            ImageIndex = 0
-                        });
+                            genreListView.LargeImageList.Images.Add(Image.FromFile(music.CoverArtDirectory));
+                            genreListView.Items.Add(new ListViewItem
+                            {
+                                Text = music.Title,
+                                Tag = music,
+                                ImageIndex = gIter++
+                            });
+                        }
+                        else
+                        {
+                            genreListView.Items.Add(new ListViewItem
+                            {
+                                Text = music.Title,
+                                Tag = music,
+                                ImageIndex = 0
+                            });
+                        }
                     }
             }
             else if (seriesList.Visible)
@@ -1583,12 +1706,25 @@ namespace Mobile_Service_Distribution.Forms
                 foreach (LibraryManager series in seriesCatalogue)
                     if (series.Genre == item.Text)
                     {
-                        genreListView.Items.Add(new ListViewItem
+                        if (series.CoverArtDirectory != null && File.Exists(series.CoverArtDirectory))
                         {
-                            Text = series.Title,
-                            Tag = series,
-                            ImageIndex = 0
-                        });
+                            genreListView.LargeImageList.Images.Add(Image.FromFile(series.CoverArtDirectory));
+                            genreListView.Items.Add(new ListViewItem
+                            {
+                                Text = series.Title,
+                                Tag = series,
+                                ImageIndex = gIter++
+                            });
+                        }
+                        else
+                        {
+                            genreListView.Items.Add(new ListViewItem
+                            {
+                                Text = series.Title,
+                                Tag = series,
+                                ImageIndex = 0
+                            });
+                        }
                     }
             }
 
@@ -1676,13 +1812,10 @@ namespace Mobile_Service_Distribution.Forms
         {
             if(e.KeyChar == (char)Keys.Enter)
             {
+                keyPressed = true;
+                
                 saveInfoButton.PerformClick();
                 infoPanel.Focus();
-
-                if ((RichTextBox)sender == titleTextBox) titleTextBox.Text = appendText;
-                else if ((RichTextBox)sender == genreTextBox) genreTextBox.Text = appendText;
-                else if ((RichTextBox)sender == yearTextBox) yearTextBox.Text = appendText;
-                else if ((RichTextBox)sender == ratingTextBox) ratingTextBox.Text = appendText;
             }
         }
 
@@ -1797,7 +1930,7 @@ namespace Mobile_Service_Distribution.Forms
             }
         }
 
-        private void allToolStripMenuItem_Click(object sender, EventArgs e)
+        public void allToolStripMenuItem_Click(object sender, EventArgs e)
         {
             genreListView.Visible = false;
             genreDescriptionLabel.Text = "All";

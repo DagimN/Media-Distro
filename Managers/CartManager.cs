@@ -150,6 +150,9 @@ namespace Mobile_Service_Distribution.Managers
                             cartSize -= fileSize.Length;
                         }
                     }
+
+                    if (cartSize < 1700)
+                        cartSize = 0;
                 }
                 else
                 {

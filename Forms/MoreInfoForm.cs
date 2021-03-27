@@ -95,7 +95,7 @@ namespace Mobile_Service_Distribution.Forms
 
             priceDescripLabel.Text = mediaInfo.Price.ToString();
 
-            if(mediaInfo.CoverArtDirectory.Length > 10) coverArtPictureBox.Image = Image.FromFile(mediaInfo.CoverArtDirectory);
+            if(mediaInfo.CoverArtDirectory != null) coverArtPictureBox.Image = Image.FromFile(mediaInfo.CoverArtDirectory);
 
         }
 
@@ -131,12 +131,6 @@ namespace Mobile_Service_Distribution.Forms
         private void yearDescripLabel_Click(object sender, EventArgs e)
         {
             l = yearDescripLabel;
-            EditInfo();
-        }
-
-        private void nameDescripLabel_Click(object sender, EventArgs e)
-        {
-            l = nameDescripLabel;
             EditInfo();
         }
 
@@ -205,6 +199,53 @@ namespace Mobile_Service_Distribution.Forms
                 genreDescripLabel.Text = editTextBox.Text;
                 this.mediaInfo.Genre = genreDescripLabel.Text;
                 reference.genreTextBox.Text = genreDescripLabel.Text;
+
+                if(mediaInfo.Type == MediaType.Movie)
+                {
+                    if (!movieGenreCatalogue.Contains(mediaInfo.Genre))
+                    {
+                        if (mediaInfo.Genre != "")
+                            movieGenreCatalogue.Add(mediaInfo.Genre);
+
+                        reference.genreToolStripDropDownButton.DropDownItems.Clear();
+                        reference.genreToolStripDropDownButton.DropDownItems.Add("All").Click += reference.allToolStripMenuItem_Click;
+                        reference.genreToolStripDropDownButton.DropDownItems.Add("-");
+
+                        movieGenreCatalogue.Sort();
+                        foreach (string genre in movieGenreCatalogue)
+                            reference.genreToolStripDropDownButton.DropDownItems.Add(genre).Click += reference.genreSelected_Click;
+                    }
+                }
+                else if(mediaInfo.Type == MediaType.Music)
+                {
+                    if (!musicGenreCatalogue.Contains(mediaInfo.Genre))
+                    {
+                        musicGenreCatalogue.Add(mediaInfo.Genre);
+                        musicGenreCatalogue.Sort();
+
+                        reference.genreToolStripDropDownButton.DropDownItems.Clear();
+                        reference.genreToolStripDropDownButton.DropDownItems.Add("All").Click += reference.allToolStripMenuItem_Click;
+                        reference.genreToolStripDropDownButton.DropDownItems.Add("-");
+
+                        foreach (string genre in musicGenreCatalogue)
+                            reference.genreToolStripDropDownButton.DropDownItems.Add(genre).Click += reference.genreSelected_Click;
+                    }
+                }
+                else if(mediaInfo.Type == MediaType.Series)
+                {
+                    if (!seriesGenreCatalogue.Contains(mediaInfo.Genre))
+                    {
+                        seriesGenreCatalogue.Add(mediaInfo.Genre);
+                        seriesGenreCatalogue.Sort();
+
+                        reference.genreToolStripDropDownButton.DropDownItems.Clear();
+                        reference.genreToolStripDropDownButton.DropDownItems.Add("All").Click += reference.allToolStripMenuItem_Click;
+                        reference.genreToolStripDropDownButton.DropDownItems.Add("-");
+
+                        foreach (string genre in seriesGenreCatalogue)
+                            reference.genreToolStripDropDownButton.DropDownItems.Add(genre).Click += reference.genreSelected_Click;
+                    }
+                }
             }
             else if (editTextBox.Location.Y == yearDescripLabel.Location.Y) 
             {

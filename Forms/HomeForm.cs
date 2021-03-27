@@ -4,8 +4,8 @@ using System.IO.Compression;
 using static System.IO.Directory;
 using static System.IO.Path;
 using static System.Environment;
-using static Mobile_Service_Distribution.LibraryManager;
 using Mobile_Service_Distribution.Managers;
+using static Mobile_Service_Distribution.mediaDistroFrame;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -167,7 +167,7 @@ namespace Mobile_Service_Distribution.Forms
                         hardDrives.Add(hardDrive);
 
                         totalSize += hardDrive.TotalSize;
-                        availableSize += hardDrive.AvailableFreeSpace;
+                        availableSize += hardDrive.TotalFreeSpace;
                     }
                 }
 
@@ -222,28 +222,53 @@ namespace Mobile_Service_Distribution.Forms
         private void locateZipButton_Click(object sender, EventArgs e)
         {
             string zipPath;
-            StreamWriter dateFile;
+            StreamWriter dateFile, verifyFile;
             OpenFileDialog zipFile = new OpenFileDialog
             {
                 Title = "Locate Distro Package",
                 Filter = "All Files (*.*)| *.*"
             };
+            FolderBrowserDialog verifyKeyFileLocation;
+            DialogResult result;
 
             try
             {
-                if (zipFile.ShowDialog() == DialogResult.OK)
+                if(File.Exists(Combine(GetCurrentDirectory(), "Verification File")))
                 {
-                    zipPath = zipFile.FileName;
-                    foreach(string adDir in GetDirectories(adFolder))
-                        Delete(adDir, true);
+                    result = MessageBox.Show("Before you proceed first send the verfication file to the telegram bot.", "Verify Package", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    verifyKeyFileLocation = new FolderBrowserDialog();
 
-                    ZipFile.ExtractToDirectory(zipPath, adFolder);
-                    
-                    foreach(string adDir in GetDirectories(adFolder))
+                    if (result == DialogResult.OK)
+                        if (verifyKeyFileLocation.ShowDialog() == DialogResult.OK)
+                            File.Move(Combine(GetCurrentDirectory(), "Verification File"), Combine(verifyKeyFileLocation.SelectedPath, "Verification File"));
+                }
+                else
+                {
+                    if (zipFile.ShowDialog() == DialogResult.OK)
                     {
-                        dateFile = File.CreateText(Combine(adDir, "Date Info.txt"));
-                        dateFile.WriteLine(DateTime.Now.ToString());
-                        dateFile.Close();
+                        zipPath = zipFile.FileName;
+                        foreach (string adDir in GetDirectories(adFolder))
+                            Delete(adDir, true);
+
+                        ZipFile.ExtractToDirectory(zipPath, adFolder);
+
+                        foreach (string adDir in GetDirectories(adFolder))
+                        {
+                            dateFile = File.CreateText(Combine(adDir, "Date Info.txt"));
+                            dateFile.WriteLine(DateTime.Now.ToString());
+                            dateFile.Close();
+                        }
+
+                        verifyKeyFileLocation = new FolderBrowserDialog();
+                        result = MessageBox.Show("ZIP File Located. To proceed, send this key file into the telegram bot for verificatiion. Click OK to copy the file to your desired location.", "Distro Package Received", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        verifyFile = File.CreateText(Combine(GetCurrentDirectory(), "Verification File"));
+                        verifyFile.WriteLine(GenerateKeyAlgorithm());
+                        verifyFile.Close();
+
+                        if (result == DialogResult.OK)
+                            if (verifyKeyFileLocation.ShowDialog() == DialogResult.OK)
+                                File.Move(Combine(GetCurrentDirectory(), "Verification File"), Combine(verifyKeyFileLocation.SelectedPath, "Verification File"));
                     }
                 }
             }

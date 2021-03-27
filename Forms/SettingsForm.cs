@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Collections;
 using System.Collections.Generic;
 using static System.IO.Path;
 using static System.Environment;
@@ -32,6 +33,11 @@ namespace Mobile_Service_Distribution.Forms
             this.shRef = shRef;
             this.stRef = stRef;
             this.hRef = hRef;
+
+            if (Media_Distro.Properties.Settings.Default.bonusAvailable)
+                bonusButton.Visible = true;
+            else
+                bonusButton.Visible = false;
         }
 
         private void addURLButton_Click(object sender, EventArgs e)
@@ -239,14 +245,31 @@ namespace Mobile_Service_Distribution.Forms
                 Media_Distro.Properties.Settings.Default.musicPrice = priceSetting.Value;
 
                 foreach (LibraryManager priceChange in musicCatalogue)
-                    priceChange.Price = priceSetting.Value;
+                {
+                    if(priceChange.AlbumList != null)
+                    {
+                        priceChange.Price = 0;
+
+                        foreach (object track in priceChange.AlbumList)
+                            priceChange.Price += Media_Distro.Properties.Settings.Default.musicPrice;
+                    }
+                    else
+                        priceChange.Price = Media_Distro.Properties.Settings.Default.musicPrice;
+                }
+                    
             }
-            else if (priceSettingLabel.Text.Contains("Series"))
+            else if (priceSettingLabel.Text.Contains("Episode"))
             {
                 Media_Distro.Properties.Settings.Default.seriesPrice = priceSetting.Value;
 
                 foreach (LibraryManager priceChange in seriesCatalogue)
-                    priceChange.Price = priceSetting.Value;
+                {
+                    priceChange.Price = 0;
+                    
+                    foreach (ArrayList file in priceChange.SeriesList)
+                        for (int i = 1; i < file.Count; i++)
+                            priceChange.Price += Media_Distro.Properties.Settings.Default.seriesPrice;
+                }
             }
 
             Media_Distro.Properties.Settings.Default.Save();
