@@ -433,5 +433,28 @@ namespace Media_Distro.Properties {
                 this["fInitialize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime latestBonusDate {
+            get {
+                return ((global::System.DateTime)(this["latestBonusDate"]));
+            }
+            set {
+                this["latestBonusDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool bonusAvailable {
+            get {
+                return ((bool)(this["bonusAvailable"]));
+            }
+            set {
+                this["bonusAvailable"] = value;
+            }
+        }
     }
 }

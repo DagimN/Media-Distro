@@ -73,6 +73,16 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Add_Media_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Add_Media_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap arrow_symbolic_link_15730 {
             get {
                 object obj = ResourceManager.GetObject("arrow_symbolic_link_15730", resourceCulture);
@@ -223,6 +233,16 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Download_Folder_Small_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Download_Folder_Small_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Entypo_25b4_0__24 {
             get {
                 object obj = ResourceManager.GetObject("Entypo_25b4(0)_24", resourceCulture);
@@ -246,6 +266,16 @@ namespace Media_Distro.Properties {
         public static System.Drawing.Bitmap Entypo_25c2_0__24 {
             get {
                 object obj = ResourceManager.GetObject("Entypo_25c2(0)_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Entypo_2713_0__24 {
+            get {
+                object obj = ResourceManager.GetObject("Entypo_2713(0)_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -383,6 +413,16 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap introBackground {
+            get {
+                object obj = ResourceManager.GetObject("introBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Library_Icon {
             get {
                 object obj = ResourceManager.GetObject("Library Icon", resourceCulture);
@@ -393,9 +433,9 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Material_Icons_e80e_0__48 {
+        public static System.Drawing.Bitmap logo_1 {
             get {
-                object obj = ResourceManager.GetObject("Material Icons_e80e(0)_48", resourceCulture);
+                object obj = ResourceManager.GetObject("logo_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -403,9 +443,49 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Media_Distro_Logo {
+        public static System.Drawing.Bitmap logo_2 {
             get {
-                object obj = ResourceManager.GetObject("Media_Distro_Logo", resourceCulture);
+                object obj = ResourceManager.GetObject("logo 2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap logo_3 {
+            get {
+                object obj = ResourceManager.GetObject("logo 3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon logo_ico {
+            get {
+                object obj = ResourceManager.GetObject("logo_ico", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon logo_icon_2 {
+            get {
+                object obj = ResourceManager.GetObject("logo_icon_2", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Material_Icons_e80e_0__48 {
+            get {
+                object obj = ResourceManager.GetObject("Material Icons_e80e(0)_48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -423,9 +503,19 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Movie_FilterB {
+        public static System.Drawing.Bitmap Movie_Icon {
             get {
-                object obj = ResourceManager.GetObject("Movie_FilterB", resourceCulture);
+                object obj = ResourceManager.GetObject("Movie_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Music_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Music_Icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -493,9 +583,9 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Series_FilterB {
+        public static System.Drawing.Bitmap Series_Icon {
             get {
-                object obj = ResourceManager.GetObject("Series_FilterB", resourceCulture);
+                object obj = ResourceManager.GetObject("Series_Icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
