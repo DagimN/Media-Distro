@@ -17,6 +17,7 @@ using System.Reflection;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Guna.UI2.WinForms;
+using System.Diagnostics;
 
 
 namespace Mobile_Service_Distribution
@@ -32,6 +33,7 @@ namespace Mobile_Service_Distribution
 
         private bool IsExpired = false;
         private bool drag = false;
+        public bool IsUpdating = false;
       
         private LibraryForm libraryForm;
         private HomeForm homeForm;
@@ -335,6 +337,9 @@ namespace Mobile_Service_Distribution
                     statsFile.Close();
                 }
 
+                if (File.Exists(Combine(GetCurrentDirectory(), "Media Distro.bat")))
+                    File.Delete(Combine(GetCurrentDirectory(), "Media Distro.bat"));
+
                 homeForm = new HomeForm(this);
                 libraryForm = new LibraryForm(this);
                 statsForm = new StatsForm();
@@ -524,6 +529,7 @@ namespace Mobile_Service_Distribution
         {
             if(Media_Distro.Properties.Settings.Default.fInitialize)
                 titleBarPanel.Focus();
+
             Application.Exit();
         }
 
@@ -1329,6 +1335,9 @@ namespace Mobile_Service_Distribution
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(130, 200, 255);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Default_Theme_TitleBar;
                 libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
+                libraryForm.moreInfoLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Default_Theme_SearchBar;
+                settingsForm.updateLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
+                settingsForm.updateLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Default_Theme_SearchBar;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Default_BackGround;
 
@@ -1372,6 +1381,9 @@ namespace Mobile_Service_Distribution
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(180, 80, 95);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Fire_Theme_TitleBar;
                 libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.titleTextBox.ForeColor;
+                libraryForm.moreInfoLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Fire_Theme_SearchBar;
+                settingsForm.updateLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
+                settingsForm.updateLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Fire_Theme_SearchBar;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Fire_BackGround;
 
@@ -1415,6 +1427,9 @@ namespace Mobile_Service_Distribution
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(155, 255, 165);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Meadow_Theme_Preference;
                 libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
+                libraryForm.moreInfoLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Meadow_Theme_SearchBar;
+                settingsForm.updateLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
+                settingsForm.updateLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Meadow_Theme_SearchBar;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Meadow_BackGround;
 
@@ -1458,6 +1473,9 @@ namespace Mobile_Service_Distribution
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(105, 105, 115);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Default_Theme_SearchBar;
                 libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
+                libraryForm.moreInfoLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Dark_Theme_SearchBar;
+                settingsForm.updateLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
+                settingsForm.updateLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Dark_Theme_SearchBar;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Dark_BackGround;
 
@@ -1501,6 +1519,9 @@ namespace Mobile_Service_Distribution
                 libraryForm.pictureBox1.BackColor = Color.FromArgb(60, 70, 100);
                 libraryForm.addSTCart.FillColor = Media_Distro.Properties.Settings.Default.Twilight_Theme_Preference;
                 libraryForm.moreInfoLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
+                libraryForm.moreInfoLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Twilight_Theme_SearchBar;
+                settingsForm.updateLinkLabel.LinkColor = libraryForm.infoPanel.BackColor;
+                settingsForm.updateLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Twilight_Theme_SearchBar;
 
                 shareForm.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Twilight_BackGround;
 
@@ -1727,6 +1748,17 @@ namespace Mobile_Service_Distribution
                 else if (usbStorage.AvailableFreeSpace < cart.cartSize)
                     MessageBox.Show("There is no available space in the storage device.", "Low Available Storage", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
+            }
+        }
+
+        private void mediaDistroFrame_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (IsUpdating)
+            {
+                ProcessStartInfo info = new ProcessStartInfo(Combine(GetCurrentDirectory(), "Updater.exe"));
+                info.UseShellExecute = true;
+                info.Verb = "runas";
+                Process.Start(info);
             }
         }
     }

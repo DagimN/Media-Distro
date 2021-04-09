@@ -365,6 +365,7 @@
             this.activationTextBox.PasswordChar = '\0';
             this.activationTextBox.PlaceholderText = "";
             this.activationTextBox.SelectedText = "";
+            this.activationTextBox.SelectionStart = 31;
             this.activationTextBox.ShadowDecoration.Parent = this.activationTextBox;
             this.activationTextBox.Size = new System.Drawing.Size(185, 27);
             this.activationTextBox.TabIndex = 3;
@@ -612,6 +613,7 @@
             this.IsMdiContainer = true;
             this.Name = "mediaDistroFrame";
             this.Text = "Media Distro";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mediaDistroFrame_FormClosed);
             this.Load += new System.EventHandler(this.mediaDistroFrame_Load);
             this.titleBarPanel.ResumeLayout(false);
             this.titleBarPanel.PerformLayout();

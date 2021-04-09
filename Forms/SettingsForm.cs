@@ -9,7 +9,8 @@ using System.IO.Compression;
 using System.IO;
 using static Mobile_Service_Distribution.LibraryManager;
 using System.Windows.Forms;
-using System.Threading.Tasks;
+using System.Diagnostics;
+
 
 namespace Mobile_Service_Distribution.Forms
 {
@@ -388,6 +389,55 @@ namespace Mobile_Service_Distribution.Forms
             }
         }
 
+        private void updateLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenFileDialog updateFile = new OpenFileDialog();
+            Version currentVersion = new Version(typeof(mediaDistroFrame).Assembly.GetName().Version.ToString());
+            Version latestVersion = new Version(1, 0, 0, 0);
+
+            updateFile.Title = "Locating Update";
+            updateFile.Filter = "Zip Files (*.zip)|*.zip |All files (*.*)|*.*";
+
+            if(updateFile.ShowDialog() == DialogResult.OK)
+            {
+                string newUpdateDir = CreateDirectory(Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "temp")).FullName;
+                try
+                {
+                    ZipFile.ExtractToDirectory(updateFile.FileName, newUpdateDir);
+                }
+                catch (Exception)
+                {
+                    if (Exists(newUpdateDir))
+                        Delete(newUpdateDir, true);
+
+                    newUpdateDir = CreateDirectory(Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "temp")).FullName;
+                    ZipFile.ExtractToDirectory(updateFile.FileName, newUpdateDir);
+                }
+                
+                foreach(string dir in GetFiles(newUpdateDir))
+                {
+                    if(GetFileName(dir) == "Version Number.txt")
+                    {
+                        latestVersion = new Version(File.ReadAllLines(dir)[0]);
+                        break;
+                    }
+                }
+
+                if (currentVersion < latestVersion)
+                {
+                    DialogResult result = MessageBox.Show("Update is available. Click YES to start the update and the app will need a restart after completion.", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    
+                    if(result == DialogResult.Yes)
+                    {
+                        mainRef.IsUpdating = true;
+                        Application.Exit();
+                    }
+                }
+                else
+                    MessageBox.Show("The latest update has been installed in the interface.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private int PreviewPreference(Color[] themePreference)
         {
             //Main Form Color Change
@@ -469,6 +519,9 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.pictureBox1.BackColor = Color.FromArgb(130, 200, 255);
                 libRef.addSTCart.FillColor = themePreference[3];
                 libRef.moreInfoLinkLabel.LinkColor = libRef.infoPanel.BackColor;
+                libRef.moreInfoLinkLabel.ActiveLinkColor = themePreference[1];
+                updateLinkLabel.LinkColor = libRef.infoPanel.BackColor;
+                updateLinkLabel.ActiveLinkColor = themePreference[1];
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Default_BackGround;
 
@@ -509,6 +562,9 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.pictureBox1.BackColor = Color.FromArgb(180, 80, 95);
                 libRef.addSTCart.FillColor = themePreference[3];
                 libRef.moreInfoLinkLabel.LinkColor = libRef.titleTextBox.ForeColor;
+                libRef.moreInfoLinkLabel.ActiveLinkColor = themePreference[1];
+                updateLinkLabel.LinkColor = libRef.infoPanel.BackColor;
+                updateLinkLabel.ActiveLinkColor = themePreference[1];
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Fire_BackGround;
 
@@ -549,6 +605,9 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.pictureBox1.BackColor = Color.FromArgb(155, 255, 165);
                 libRef.addSTCart.FillColor = themePreference[0];
                 libRef.moreInfoLinkLabel.LinkColor = libRef.infoPanel.BackColor;
+                libRef.moreInfoLinkLabel.ActiveLinkColor = themePreference[1];
+                updateLinkLabel.LinkColor = libRef.infoPanel.BackColor;
+                updateLinkLabel.ActiveLinkColor = themePreference[1];
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Meadow_BackGround;
 
@@ -592,6 +651,9 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.pictureBox1.BackColor = Color.FromArgb(105, 105, 115);
                 libRef.addSTCart.FillColor = themePreference[1];
                 libRef.moreInfoLinkLabel.LinkColor = libRef.infoPanel.BackColor;
+                libRef.moreInfoLinkLabel.ActiveLinkColor = themePreference[1];
+                updateLinkLabel.LinkColor = libRef.infoPanel.BackColor;
+                updateLinkLabel.ActiveLinkColor = themePreference[1];
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Dark_BackGround;
 
@@ -632,6 +694,9 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.pictureBox1.BackColor = Color.FromArgb(60, 70, 100);
                 libRef.addSTCart.FillColor = themePreference[0];
                 libRef.moreInfoLinkLabel.LinkColor = libRef.infoPanel.BackColor;
+                libRef.moreInfoLinkLabel.ActiveLinkColor = themePreference[1];
+                updateLinkLabel.LinkColor = libRef.infoPanel.BackColor;
+                updateLinkLabel.ActiveLinkColor = themePreference[1];
 
                 shRef.detailPanel.BackgroundImage = Media_Distro.Properties.Resources.detailPanel_Twilight_BackGround;
 
@@ -751,9 +816,12 @@ namespace Mobile_Service_Distribution.Forms
                 libRef.pictureBox1.BackColor = temp2Color;
                 libRef.addSTCart.FillColor = temp4Color;
                 libRef.moreInfoLinkLabel.LinkColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
-                if(Media_Distro.Properties.Settings.Default.Active_Theme_Preference == Media_Distro.Properties.Settings.Default.Fire_Theme_Preference)
+                libRef.moreInfoLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Active_Theme_SearchBar;
+                updateLinkLabel.LinkColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
+                updateLinkLabel.ActiveLinkColor = Media_Distro.Properties.Settings.Default.Active_Theme_SearchBar;
+                if (Media_Distro.Properties.Settings.Default.Active_Theme_Preference == Media_Distro.Properties.Settings.Default.Fire_Theme_Preference)
                     libRef.moreInfoLinkLabel.LinkColor = libRef.titleTextBox.ForeColor;
-
+                    
                 Media_Distro.Properties.Settings.Default.Active_Theme_InfoPanel = temp2Color;
 
                 //Share Form return active color

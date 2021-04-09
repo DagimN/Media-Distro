@@ -56,6 +56,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.selected = new System.Windows.Forms.PictureBox();
+            this.updateLinkLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.redColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkBlueColor)).BeginInit();
@@ -145,6 +146,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.updateLinkLabel);
             this.panel1.Controls.Add(this.fileLoadLabel);
             this.panel1.Controls.Add(this.mediaDistroLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -433,6 +435,17 @@
             this.selected.TabIndex = 12;
             this.selected.TabStop = false;
             // 
+            // updateLinkLabel
+            // 
+            this.updateLinkLabel.AutoSize = true;
+            this.updateLinkLabel.Location = new System.Drawing.Point(369, 12);
+            this.updateLinkLabel.Name = "updateLinkLabel";
+            this.updateLinkLabel.Size = new System.Drawing.Size(96, 13);
+            this.updateLinkLabel.TabIndex = 23;
+            this.updateLinkLabel.TabStop = true;
+            this.updateLinkLabel.Text = "Check for Updates";
+            this.updateLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.updateLinkLabel_LinkClicked);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -497,5 +510,6 @@
         private System.Windows.Forms.ContextMenuStrip removeURLContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem removeURLToolStripMenuItem;
         public Guna.UI2.WinForms.Guna2Button bonusButton;
+        public System.Windows.Forms.LinkLabel updateLinkLabel;
     }
 }
