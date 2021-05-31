@@ -33,7 +33,7 @@
             this.libraryPanel = new System.Windows.Forms.Panel();
             this.loadingLabel = new System.Windows.Forms.Label();
             this.genreListView = new System.Windows.Forms.ListView();
-            this.movieCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
+            this.genreCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.musicTabButton = new System.Windows.Forms.Button();
             this.seriesTabButton = new System.Windows.Forms.Button();
@@ -43,6 +43,7 @@
             this.musicSelected = new System.Windows.Forms.PictureBox();
             this.movieList = new System.Windows.Forms.ListView();
             this.movieTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.movieCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
             this.musicList = new System.Windows.Forms.ListView();
             this.musicTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.musicCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
@@ -87,7 +88,6 @@
             this.genreLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.genreCoverArtImageList = new System.Windows.Forms.ImageList(this.components);
             this.libraryPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.moviesSelected)).BeginInit();
@@ -151,12 +151,12 @@
             this.genreListView.Visible = false;
             this.genreListView.ItemActivate += new System.EventHandler(this.genreList_ItemActivate);
             // 
-            // movieCoverArtImageList
+            // genreCoverArtImageList
             // 
-            this.movieCoverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("movieCoverArtImageList.ImageStream")));
-            this.movieCoverArtImageList.Tag = "No";
-            this.movieCoverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.movieCoverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
+            this.genreCoverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("genreCoverArtImageList.ImageStream")));
+            this.genreCoverArtImageList.Tag = "No";
+            this.genreCoverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.genreCoverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
             // 
             // pictureBox2
             // 
@@ -267,6 +267,13 @@
             // 
             this.movieTitleColumnHeader.Text = "Title";
             this.movieTitleColumnHeader.Width = 500;
+            // 
+            // movieCoverArtImageList
+            // 
+            this.movieCoverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("movieCoverArtImageList.ImageStream")));
+            this.movieCoverArtImageList.Tag = "No";
+            this.movieCoverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.movieCoverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
             // 
             // musicList
             // 
@@ -585,12 +592,12 @@
             this.addSTCart.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.addSTCart.ForeColor = System.Drawing.Color.White;
             this.addSTCart.HoverState.Parent = this.addSTCart;
-            this.addSTCart.Location = new System.Drawing.Point(533, 42);
+            this.addSTCart.Location = new System.Drawing.Point(511, 42);
             this.addSTCart.Name = "addSTCart";
             this.addSTCart.ShadowDecoration.Parent = this.addSTCart;
-            this.addSTCart.Size = new System.Drawing.Size(34, 23);
+            this.addSTCart.Size = new System.Drawing.Size(56, 23);
             this.addSTCart.TabIndex = 13;
-            this.addSTCart.Text = "Send";
+            this.addSTCart.Text = "Add";
             this.addSTCart.Click += new System.EventHandler(this.addSTCart_Click);
             // 
             // hideInfoButton
@@ -824,13 +831,6 @@
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
-            // 
-            // genreCoverArtImageList
-            // 
-            this.genreCoverArtImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("genreCoverArtImageList.ImageStream")));
-            this.genreCoverArtImageList.Tag = "No";
-            this.genreCoverArtImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.genreCoverArtImageList.Images.SetKeyName(0, "coverart sample 2.png");
             // 
             // LibraryForm
             // 

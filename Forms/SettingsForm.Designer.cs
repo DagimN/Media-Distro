@@ -37,6 +37,7 @@
             this.defaultColor = new System.Windows.Forms.PictureBox();
             this.blackColor = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.updateLinkLabel = new System.Windows.Forms.LinkLabel();
             this.fileLoadLabel = new System.Windows.Forms.Label();
             this.mediaDistroLabel = new System.Windows.Forms.Label();
             this.bonusButton = new Guna.UI2.WinForms.Guna2Button();
@@ -56,7 +57,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.selected = new System.Windows.Forms.PictureBox();
-            this.updateLinkLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.redColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkBlueColor)).BeginInit();
@@ -154,6 +154,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(567, 35);
             this.panel1.TabIndex = 18;
+            // 
+            // updateLinkLabel
+            // 
+            this.updateLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateLinkLabel.AutoSize = true;
+            this.updateLinkLabel.Location = new System.Drawing.Point(369, 12);
+            this.updateLinkLabel.Name = "updateLinkLabel";
+            this.updateLinkLabel.Size = new System.Drawing.Size(96, 13);
+            this.updateLinkLabel.TabIndex = 23;
+            this.updateLinkLabel.TabStop = true;
+            this.updateLinkLabel.Text = "Check for Updates";
+            this.updateLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.updateLinkLabel_LinkClicked);
             // 
             // fileLoadLabel
             // 
@@ -434,17 +446,6 @@
             this.selected.Size = new System.Drawing.Size(45, 47);
             this.selected.TabIndex = 12;
             this.selected.TabStop = false;
-            // 
-            // updateLinkLabel
-            // 
-            this.updateLinkLabel.AutoSize = true;
-            this.updateLinkLabel.Location = new System.Drawing.Point(369, 12);
-            this.updateLinkLabel.Name = "updateLinkLabel";
-            this.updateLinkLabel.Size = new System.Drawing.Size(96, 13);
-            this.updateLinkLabel.TabIndex = 23;
-            this.updateLinkLabel.TabStop = true;
-            this.updateLinkLabel.Text = "Check for Updates";
-            this.updateLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.updateLinkLabel_LinkClicked);
             // 
             // SettingsForm
             // 

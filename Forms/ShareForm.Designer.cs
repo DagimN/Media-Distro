@@ -204,6 +204,7 @@
             this.sharePanel.Name = "sharePanel";
             this.sharePanel.Size = new System.Drawing.Size(545, 245);
             this.sharePanel.TabIndex = 10;
+            this.sharePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.sharePanel_Paint);
             this.sharePanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sharePanel_MouseClick);
             // 
             // progressLabel
@@ -562,7 +563,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button progressButton;
         public System.Windows.Forms.Panel devicePanel;
         public System.Windows.Forms.Panel sharePanel;
         public System.Windows.Forms.ListView cartsListView;
@@ -600,5 +600,6 @@
         private System.Windows.Forms.Label emptyCartLabel;
         public System.Windows.Forms.Label progressLabel;
         public System.Windows.Forms.Label deviceLabel;
+        public System.Windows.Forms.Button progressButton;
     }
 }

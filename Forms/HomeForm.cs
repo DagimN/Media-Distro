@@ -162,30 +162,33 @@ namespace Mobile_Service_Distribution.Forms
             {
                 foreach (DriveInfo hardDrive in DriveInfo.GetDrives())
                 {
-                    if ((hardDrive.DriveType == DriveType.Fixed) && hardDrive.IsReady)
+                    if ((hardDrive.DriveType == DriveType.Fixed || hardDrive.DriveType == DriveType.Removable) && hardDrive.IsReady)
                     {
                         hardDrives.Add(hardDrive);
 
-                        totalSize += hardDrive.TotalSize;
-                        availableSize += hardDrive.TotalFreeSpace;
+                        totalSize += (float)hardDrive.TotalSize;
+                        availableSize += (float)hardDrive.TotalFreeSpace;
                     }
                 }
+
+                float compWidth = ((totalSize - availableSize) / totalSize) * 204;
 
                 if (reference.sideMenuPanel.Width == 235)
                 {
                     foreach (DriveInfo hardDrive in hardDrives)
                     {
-                        driveFreeSpace = hardDrive.AvailableFreeSpace;
-                        driveSize = hardDrive.TotalSize;
+                        driveFreeSpace = (float)hardDrive.TotalFreeSpace;
+                        driveSize = (float)hardDrive.TotalSize;
+                        float interval = ((driveSize - driveFreeSpace) / driveSize) * compWidth;
 
-                        graphics.FillRectangle(brushes[(int)iter % 6], initial, 147, ((driveSize - driveFreeSpace) / driveSize) * ((totalSize - availableSize) / totalSize * 204), 14);
+                        graphics.FillRectangle(brushes[(int)iter % 6], initial, 147, interval, 14);
                         graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                         graphics.FillEllipse(brushes[(int)iter++ % 6], i, 175, 15, 15);
                         graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
                         graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
-                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 147));
                         i += 60;
                         initial += (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
+                        compWidth -= interval;
                     }
 
 
@@ -201,15 +204,16 @@ namespace Mobile_Service_Distribution.Forms
                     {
                         driveFreeSpace = hardDrive.AvailableFreeSpace;
                         driveSize = hardDrive.TotalSize;
+                        float interval = ((driveSize - driveFreeSpace) / driveSize) * compWidth;
 
-                        graphics.FillRectangle(brushes[(int)iter % 6], initial, 147, ((driveSize - driveFreeSpace) / driveSize) * ((totalSize - availableSize) / totalSize * 204), 14);
+                        graphics.FillRectangle(brushes[(int)iter % 6], initial, 147, interval, 14);
                         graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                         graphics.FillEllipse(brushes[(int)iter++ % 6], i, 175, 15, 15);
                         graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
                         graphics.DrawString(hardDrive.Name, new Font("Microsoft JhengHei", 10), Brushes.Black, new PointF(i + 20, 175));
-                        graphics.DrawString(String.Format("{0:F2}", (driveSize - driveFreeSpace) / 1000000000), new Font("Microsoft JhengHei", 8), Brushes.Black, new PointF(initial + 4, 148));
                         i += 60;
                         initial += (driveSize - driveFreeSpace) / driveSize * ((totalSize - availableSize) / totalSize * 204);
+                        compWidth -= interval;
                     }
 
 

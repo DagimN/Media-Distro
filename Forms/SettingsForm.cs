@@ -726,6 +726,7 @@ namespace Mobile_Service_Distribution.Forms
             shRef.BackColor = themePreference[4];
             shRef.cartsSelected.BackColor = themePreference[3];
             shRef.cartsButton.ForeColor = themePreference[3];
+            shRef.progressButton.ForeColor = themePreference[3];
             shRef.progressSelected.BackColor = themePreference[3];
             shRef.panel1.BackColor = themePreference[0];
             shRef.detailPanel.BackColor = themePreference[0];
@@ -829,6 +830,7 @@ namespace Mobile_Service_Distribution.Forms
                 shRef.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace;
                 shRef.cartsSelected.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
                 shRef.cartsButton.ForeColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
+                shRef.progressButton.ForeColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
                 shRef.progressSelected.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_TitleBar;
                 shRef.panel1.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Preference;
                 shRef.detailPanel.BackColor = Media_Distro.Properties.Settings.Default.Active_Theme_Preference;

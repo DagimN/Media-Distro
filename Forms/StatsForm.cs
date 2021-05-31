@@ -229,11 +229,11 @@ namespace Mobile_Service_Distribution.Forms
 
             if (zoomMaxDate.Ticks - zoomMinDate.Ticks > 2500000000000)
             {
-                xAxis.MinValue += TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
-                xAxis.MaxValue -= TimeSpan.FromDays(1).Ticks / TimeSpan.TicksPerDay;
-
-                minValue += TimeSpan.FromDays(1).Ticks;
-                maxValue -= TimeSpan.FromDays(1).Ticks;
+                xAxis.MinValue += TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
+                xAxis.MaxValue -= TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
+                
+                minValue += TimeSpan.FromDays(3).Ticks;
+                maxValue -= TimeSpan.FromDays(3).Ticks;
             }
         }
 
@@ -241,7 +241,7 @@ namespace Mobile_Service_Distribution.Forms
         {
             xAxis.MinValue -= TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
             xAxis.MaxValue += TimeSpan.FromDays(3).Ticks / TimeSpan.TicksPerDay;
-
+            
             minValue -= TimeSpan.FromDays(3).Ticks;
             maxValue += TimeSpan.FromDays(3).Ticks;
         }

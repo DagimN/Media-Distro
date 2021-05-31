@@ -7,9 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WMPLib;
-
 
 namespace Mobile_Service_Distribution
 {
@@ -78,6 +76,8 @@ namespace Mobile_Service_Distribution
             Descending
         }
 
+        public LibraryManager() { }
+
         public LibraryManager(string dir, MediaType media, bool onTop = false, bool temp = false)
         { 
             if(RetrieveMediaInfo(dir, media, onTop) == 1)
@@ -112,7 +112,11 @@ namespace Mobile_Service_Distribution
         {
             LibraryManager[] A = new LibraryManager[list.Count];
             int num = 0;
-            foreach (LibraryManager media in list) { A[num] = media; num++; }
+            foreach (LibraryManager media in list) 
+            { 
+                A[num] = media; 
+                num++; 
+            }
 
             int inner, numElements = A.Length;
             LibraryManager temp;
@@ -236,7 +240,7 @@ namespace Mobile_Service_Distribution
             foreach (LibraryManager media in A) list.Add(media);
         }
 
-        public static List<LibraryManager> SortPRS()
+        public static List<LibraryManager> SortPRS(int queueCount = 11)
         {
             ArrayList[] lists = { movieCatalogue, musicCatalogue, seriesCatalogue };
             ArrayList catalogue = new ArrayList();
@@ -248,7 +252,7 @@ namespace Mobile_Service_Distribution
 
             ShellSort(catalogue, SortType.PRS, Order.Descending);
 
-            for(int i = 0; i < 11; i++)
+            for (int i = 0; i < queueCount; i++)
                 prsList.Add((LibraryManager)catalogue[i]);
 
             return prsList;
@@ -584,7 +588,7 @@ namespace Mobile_Service_Distribution
             writer.Dispose();
         }
 
-        public static void RetrieveMediaDirectories(string dir, ArrayList list, mediaDistroFrame form = null)
+        public static void RetrieveMediaDirectories(string dir, ArrayList list, mediaDistroFrame form = null, bool isLoaded = false)
         {
             if (GetDirectories(dir) != null)
             {
@@ -631,24 +635,29 @@ namespace Mobile_Service_Distribution
                 
                 else
                 {
-                    foreach (string file in GetFiles(dir))
-                        if (GetExtension(file) == ".mp4" || GetExtension(file) == ".mkv" || GetExtension(file) == ".avi" ||
-                            GetExtension(file) == ".flv" || GetExtension(file) == ".wmv" || GetExtension(file) == ".f4v" ||
-                            GetExtension(file) == ".f4p" || GetExtension(file) == ".f4a" || GetExtension(file) == ".f4b" ||
-                            GetExtension(file) == ".3gp" || GetExtension(file) == ".m4v" || GetExtension(file) == ".mpeg" ||
-                            GetExtension(file) == ".mpg" || GetExtension(file) == ".mov" || GetExtension(file) == ".qt")
+                    if (!isLoaded)
+                    {
+                        foreach (string file in GetFiles(dir))
+                            if (GetExtension(file) == ".mp4" || GetExtension(file) == ".mkv" || GetExtension(file) == ".avi" ||
+                                GetExtension(file) == ".flv" || GetExtension(file) == ".wmv" || GetExtension(file) == ".f4v" ||
+                                GetExtension(file) == ".f4p" || GetExtension(file) == ".f4a" || GetExtension(file) == ".f4b" ||
+                                GetExtension(file) == ".3gp" || GetExtension(file) == ".m4v" || GetExtension(file) == ".mpeg" ||
+                                GetExtension(file) == ".mpg" || GetExtension(file) == ".mov" || GetExtension(file) == ".qt")
                                 list.Add(file);
+                    }
+                    
                     foreach (string subDir in GetDirectories(dir)) RetrieveMediaDirectories(subDir, list, form);
                 }
             }
         }
 
-        public static void ManageMediaReference(ArrayList dir)
+        public static LibraryManager ManageMediaReference(ArrayList dir)
         {
             string directory = Combine(musicFolder, GetFileName((string)dir[0]));
             FileInfo file;
             StreamWriter writer;
             TimeSpan albumDuration = new TimeSpan(), videoInfo = new TimeSpan();
+            LibraryManager libraryManager;
            
             CreateDirectory(directory);
             
@@ -660,8 +669,23 @@ namespace Mobile_Service_Distribution
                 
                 if (!file.Exists)
                 {
-                    videoInfo = TimeSpan.FromSeconds(mediaFile.newMedia((string)dir[i]).duration);
-
+                    double value = mediaFile.newMedia((string)dir[i]).duration;
+                    try
+                    {
+                        videoInfo = TimeSpan.FromSeconds(value);
+                    }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            videoInfo = TimeSpan.FromSeconds(value / 10);
+                        }
+                        catch (Exception)
+                        {
+                            videoInfo = new TimeSpan();
+                        }
+                    }
+                   
                     writer = File.CreateText(path);
                     writer.WriteLine("Name: " + GetFileName((string)dir[i]));
                     writer.WriteLine("Title: " + GetFileNameWithoutExtension((string)dir[i]));
@@ -696,14 +720,18 @@ namespace Mobile_Service_Distribution
                 writer.Close();
                 writer.Dispose();
             }
+
+            libraryManager = new LibraryManager(directory, MediaType.Music, true);
+            return libraryManager;
         }
 
-        public static void ManageMediaReference(string dir, MediaType type, string fileName)
+        public static LibraryManager ManageMediaReference(string dir, MediaType type, string fileName)
         {
             string directory;
             FileInfo file, seasonFile, episodeFile;
             StreamWriter writer;
-            
+            LibraryManager libraryManager = new LibraryManager();
+
             if (type == MediaType.Movie)
             {
                 directory = Combine(movieFolder, fileName + ".txt");
@@ -711,7 +739,23 @@ namespace Mobile_Service_Distribution
 
                 if (!file.Exists)
                 {
-                    TimeSpan videoInfo = TimeSpan.FromSeconds(mediaFile.newMedia(dir).duration);
+                    TimeSpan videoInfo;
+                    double value = mediaFile.newMedia(dir).duration;
+                    try
+                    {
+                        videoInfo = TimeSpan.FromSeconds(value);
+                    }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            videoInfo = TimeSpan.FromSeconds(value / 10);
+                        }
+                        catch (Exception)
+                        {
+                            videoInfo = new TimeSpan();
+                        }
+                    }
 
                     writer = File.CreateText(directory);
                     writer.WriteLine("Name: " + fileName);
@@ -726,6 +770,8 @@ namespace Mobile_Service_Distribution
                     writer.Close();
                     writer.Dispose();
                 }
+
+                return libraryManager = new LibraryManager(directory, MediaType.Movie);
             }
             else if (type == MediaType.Series)
             {
@@ -733,12 +779,12 @@ namespace Mobile_Service_Distribution
                 seasonFiles = new ArrayList();
                 directory = Combine(seriesFolder, fileName);
                 CreateDirectory(directory);
-                
+
                 RetrieveMediaDirectories(dir, seasonFiles);
 
-                foreach(ArrayList seasons in seasonFiles)
+                foreach (ArrayList seasons in seasonFiles)
                 {
-                    if(seasons.Count > 1)
+                    if (seasons.Count > 1)
                     {
                         string fileString = GetFileName((string)seasons[0]);
                         TimeSpan seasonDuration = new TimeSpan();
@@ -751,7 +797,23 @@ namespace Mobile_Service_Distribution
 
                             if (!episodeFile.Exists)
                             {
-                                TimeSpan videoInfo = TimeSpan.FromSeconds(mediaFile.newMedia((string)seasons[i]).duration);
+                                TimeSpan videoInfo;
+                                double value = mediaFile.newMedia((string)seasons[i]).duration;
+                                try
+                                {
+                                    videoInfo = TimeSpan.FromSeconds(value);
+                                }
+                                catch (Exception)
+                                {
+                                    try
+                                    {
+                                        videoInfo = TimeSpan.FromSeconds(value / 10);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        videoInfo = new TimeSpan();
+                                    }
+                                }
 
                                 writer = File.CreateText(episodeFile.FullName);
                                 writer.WriteLine("Name: " + episodeName);
@@ -789,7 +851,7 @@ namespace Mobile_Service_Distribution
                         }
 
                         seriesDuration += seasonDuration;
-                    }    
+                    }
                 }
 
                 seasonFile = new FileInfo(Combine(directory, fileName + ".txt"));
@@ -809,6 +871,8 @@ namespace Mobile_Service_Distribution
                     writer.Close();
                     writer.Dispose();
                 }
+
+                return libraryManager = new LibraryManager(directory, MediaType.Series, true);
             }
             else if (type == MediaType.Music)
             {
@@ -817,7 +881,23 @@ namespace Mobile_Service_Distribution
 
                 if (!file.Exists)
                 {
-                    TimeSpan videoInfo = TimeSpan.FromSeconds(mediaFile.newMedia(dir).duration);
+                    TimeSpan videoInfo;
+                    double value = mediaFile.newMedia(dir).duration;
+                    try
+                    {
+                        videoInfo = TimeSpan.FromSeconds(value);
+                    }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            videoInfo = TimeSpan.FromSeconds(value / 10);
+                        }
+                        catch (Exception)
+                        {
+                            videoInfo = new TimeSpan();
+                        }
+                    }
 
                     writer = File.CreateText(directory);
                     writer.WriteLine("Name: " + fileName);
@@ -832,7 +912,11 @@ namespace Mobile_Service_Distribution
                     writer.Close();
                     writer.Dispose();
                 }
+
+                return libraryManager = new LibraryManager(directory, MediaType.Music);
             }
+            else
+                return libraryManager;
         }
 
         public static List<LibraryManager> Search(string value, ArrayList list)

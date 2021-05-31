@@ -181,7 +181,7 @@ namespace Mobile_Service_Distribution
                     Guna2Button movieBrowseButton = new Guna2Button
                     {
                         Location = new Point(385, 113),
-                        Size = new Size(50, 21),
+                        Size = new Size(70, 21),
                         Text = "Browse",
                         BorderRadius = 8,
                         CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges
@@ -196,7 +196,7 @@ namespace Mobile_Service_Distribution
                     Guna2Button musicBrowseButton = new Guna2Button
                     {
                         Location = new Point(385, 152),
-                        Size = new Size(50, 21),
+                        Size = new Size(70, 21),
                         Text = "Browse",
                         BorderRadius = 8,
                         CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges
@@ -211,7 +211,7 @@ namespace Mobile_Service_Distribution
                     Guna2Button seriesBrowseButton = new Guna2Button
                     {
                         Location = new Point(385, 192),
-                        Size = new Size(50, 20),
+                        Size = new Size(70, 20),
                         Text = "Browse",
                         BorderRadius = 8,
                         CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges
@@ -241,11 +241,48 @@ namespace Mobile_Service_Distribution
                         Text = "×"
                     };
 
+                    //CheckBox
+
+                    Guna2CheckBox musicSkipCheck = new Guna2CheckBox
+                    {
+                        Animated = true,
+                        Text = "Skip",
+                        Location = new Point(470, 154),
+                        Appearance = Appearance.Normal,
+                        AutoSize = true,
+                        Font = new Font("Microsoft JhengHei", 9)
+                    };
+                    musicSkipCheck.UncheckedState.BorderColor = Color.Gray;
+                    musicSkipCheck.UncheckedState.BorderRadius = 2;
+                    musicSkipCheck.UncheckedState.BorderThickness = 1;
+                    musicSkipCheck.UncheckedState.FillColor = Color.White;
+                    musicSkipCheck.CheckedState.BorderRadius = 2;
+                    musicSkipCheck.CheckedState.BorderThickness = 1;
+
+                    Guna2CheckBox seriesSkipCheck = new Guna2CheckBox
+                    {
+                        Animated = true,
+                        Text = "Skip",
+                        Location = new Point(470, 194),
+                        Appearance = Appearance.Normal,
+                        AutoSize = true,
+                        Font = new Font("Microsoft JhengHei", 9)
+                    };
+                    seriesSkipCheck.UncheckedState.BorderColor = Color.Gray;
+                    seriesSkipCheck.UncheckedState.BorderRadius = 2;
+                    seriesSkipCheck.UncheckedState.BorderThickness = 1;
+                    seriesSkipCheck.UncheckedState.FillColor = Color.White;
+                    seriesSkipCheck.CheckedState.BorderRadius = 2;
+                    seriesSkipCheck.CheckedState.BorderThickness = 1;
+
                     movieBrowseButton.Click += browseButton_Click;
                     musicBrowseButton.Click += browseButton_Click;
                     seriesBrowseButton.Click += browseButton_Click;
                     continueButton.Click += continueButton_Click;
                     closeButton.Click += closeButton_Click;
+
+                    musicSkipCheck.CheckedChanged += skipChecked;
+                    seriesSkipCheck.CheckedChanged += skipChecked;
 
                     //Form
 
@@ -269,9 +306,19 @@ namespace Mobile_Service_Distribution
                     introForm.Controls.Add(musicBrowseButton);
                     introForm.Controls.Add(seriesBrowseButton);
                     introForm.Controls.Add(continueButton);
-
+                    introForm.Controls.Add(seriesSkipCheck);
+                    introForm.Controls.Add(musicSkipCheck);
+                    
                     introForm.ResumeLayout();
                     Application.Run(introForm);
+
+                    void skipChecked(object sender, EventArgs e)
+                    {
+                        if (movieURL.Lines.Length > 0 && (musicSkipCheck.Checked && seriesSkipCheck.Checked))
+                            continueButton.Enabled = true;
+                        else
+                            continueButton.Enabled = false;
+                    }
 
                     void browseButton_Click(object sender, EventArgs e)
                     {
@@ -298,10 +345,11 @@ namespace Mobile_Service_Distribution
 
                         folderBrowser.Dispose();
 
-                        if (movieURL.Lines.Length > 0 && musicURL.Lines.Length > 0 && seriesURL.Lines.Length > 0)
-                        {
+                        if ((movieURL.Lines.Length > 0 && musicURL.Lines.Length > 0 && seriesURL.Lines.Length > 0) ||
+                            (movieURL.Lines.Length > 0 && (seriesSkipCheck.Checked && musicSkipCheck.Checked)))
                             continueButton.Enabled = true;
-                        }   
+                        else
+                            continueButton.Enabled = false;
                     }
 
                     void continueButton_Click(object sender, EventArgs e)
@@ -560,12 +608,14 @@ namespace Mobile_Service_Distribution
                 this.homeForm.popularNowPanel.Width = 684;
                 this.homeForm.goRightButton.Location = new Point(730, 267);
                 this.homeForm.adsPanel.Size = new Size(521, 212);
-                this.homeForm.taskPieChart.Location = new Point(544, 3);
-                this.homeForm.tempPieChart.Location = new Point(544, 3);
+                this.homeForm.taskPieChart.Location = new Point(544, 58);
+                this.homeForm.tempPieChart.Location = new Point(544, 58);
                 this.homeForm.volumeLabel.Location = new Point(608, 106);
                 this.homeForm.mainGetLabel.Location = new Point(272, 20);
                 this.homeForm.subGetLabel.Location = new Point(308, 55);
                 this.homeForm.subGetLabel.Size = new Size(202, 52);
+                this.homeForm.pictureBox2.Location = new Point(15, 30);
+                this.homeForm.pictureBox2.Size = new Size(240, 150);
 
                 if (this.libraryForm.infoPanel.Visible) this.libraryForm.infoPanel.Visible = false;
                 this.libraryForm.Size = new Size(751, 452);
@@ -620,12 +670,14 @@ namespace Mobile_Service_Distribution
                 this.homeForm.popularNowPanel.Width = 501;
                 this.homeForm.goRightButton.Location = new Point(547, 267);
                 this.homeForm.adsPanel.Size = new Size(338, 212);
-                this.homeForm.taskPieChart.Location = new Point(360, 3);
-                this.homeForm.tempPieChart.Location = new Point(360, 3);
+                this.homeForm.taskPieChart.Location = new Point(360, 58);
+                this.homeForm.tempPieChart.Location = new Point(360, 58);
                 this.homeForm.volumeLabel.Location = new Point(424, 106);
                 this.homeForm.mainGetLabel.Location = new Point(139, 20);
                 this.homeForm.subGetLabel.Location = new Point(175, 55);
                 this.homeForm.subGetLabel.Size = new Size(152, 52);
+                this.homeForm.pictureBox2.Location = new Point(6, 55);
+                this.homeForm.pictureBox2.Size = new Size(163, 100);
 
                 if (this.libraryForm.infoPanel.Visible) this.libraryForm.infoPanel.Visible = false;
                 this.libraryForm.Size = new Size(567, 452);
@@ -685,12 +737,131 @@ namespace Mobile_Service_Distribution
             }
         }
 
-        public void ManageMedia()
+        private void LoadHomeMedia(int count)
         {
             int initial1 = 3;
+
+            foreach (LibraryManager media in SortPRS(count))
+            {
+                PictureBox coverArtPictureBox = new PictureBox
+                {
+                    Image = (media.CoverArtDirectory != null) ? Image.FromFile(media.CoverArtDirectory) :
+                            Media_Distro.Properties.Resources.coverart_sample_2,
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Size = new Size(116, 140),
+                    Location = new Point(initial1, 10),
+                    Tag = media,
+                    BorderStyle = BorderStyle.FixedSingle
+                };
+
+                homeForm.titleToolTip.SetToolTip(coverArtPictureBox, media.Title);
+
+                coverArtPictureBox.MouseEnter += new EventHandler(PRSItem_MouseEnter);
+
+                initial1 += 121;
+
+                homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Add(coverArtPictureBox); });
+            }
+        }
+
+        public void LoadLibraryMedia(LibraryManager media)
+        {
+            if(media.Type == MediaType.Movie)
+            {
+                if (media.CoverArtDirectory != null && File.Exists(media.CoverArtDirectory))
+                {
+                    libraryForm.movieList.Invoke((MethodInvoker)delegate { libraryForm.movieList.LargeImageList.Images.Add(Image.FromFile(media.CoverArtDirectory)); });
+
+                    libraryForm.movieList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.movieList.Items.Add(new ListViewItem
+                        {
+                            Text = media.Title,
+                            Tag = media,
+                            ImageIndex = libraryForm.moiter++
+                        });
+                    });
+                }
+                else
+                {
+                    libraryForm.movieList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.movieList.Items.Add(new ListViewItem
+                        {
+                            Text = media.Title,
+                            Tag = media,
+                            ImageIndex = 0
+                        });
+                    });
+                }
+            }
+            else if(media.Type == MediaType.Music)
+            {
+                if (media.CoverArtDirectory != null && File.Exists(media.CoverArtDirectory))
+                {
+                    libraryForm.musicList.Invoke((MethodInvoker)delegate { libraryForm.musicList.LargeImageList.Images.Add(Image.FromFile(media.CoverArtDirectory)); });
+
+                    libraryForm.musicList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.musicList.Items.Add(new ListViewItem
+                        {
+                            Text = media.Title,
+                            Tag = media,
+                            ImageIndex = libraryForm.muiter++
+                        });
+                    });
+                }
+                else
+                {
+                    libraryForm.musicList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.musicList.Items.Add(new ListViewItem
+                        {
+                            Text = media.Title,
+                            Tag = media,
+                            ImageIndex = 0
+                        });
+                    });
+                }
+            }   
+            else if(media.Type == MediaType.Series)
+            {
+                if (media.CoverArtDirectory != null && File.Exists(media.CoverArtDirectory))
+                {
+                    libraryForm.seriesList.Invoke((MethodInvoker)delegate { libraryForm.seriesList.LargeImageList.Images.Add(Image.FromFile(media.CoverArtDirectory)); });
+
+                    libraryForm.seriesList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.seriesList.Items.Add(new ListViewItem
+                        {
+                            Text = media.Title,
+                            Tag = media,
+                            ImageIndex = libraryForm.siter++
+                        });
+                    });
+                }
+                else
+                {
+                    libraryForm.seriesList.Invoke((MethodInvoker)delegate
+                    {
+                        libraryForm.seriesList.Items.Add(new ListViewItem
+                        {
+                            Text = media.Title,
+                            Tag = media,
+                            ImageIndex = 0
+                        });
+                    });
+                }
+            }
+        }
+
+        public void ManageMedia()
+        {
+            int initial1 = 3, count = 1;
             List<string> nonExistentMovDirs = new List<string>();
             List<string> nonExistentMusDirs = new List<string>();
             List<string> nonExistentSerDirs = new List<string>();
+            LibraryManager libraryManager = new LibraryManager();
 
             foreach (string dir in Media_Distro.Properties.Settings.Default.Movie_Media_Location)
             {
@@ -704,7 +875,7 @@ namespace Mobile_Service_Distribution
                                 GetExtension(file) == ".mpg" || GetExtension(file) == ".mov" || GetExtension(file) == ".qt")
                             movieDir.Add(file);
 
-                    RetrieveMediaDirectories(dir, movieDir, this);
+                    RetrieveMediaDirectories(dir, movieDir, this, true);
                     settingsForm.urlPathListBox.Invoke((MethodInvoker)delegate { settingsForm.urlPathListBox.Items.Add(dir); });
                 }
                 else
@@ -721,7 +892,7 @@ namespace Mobile_Service_Distribution
                 else
                     nonExistentSerDirs.Add(dir);
             }
-                
+
             foreach (string dir in Media_Distro.Properties.Settings.Default.Music_Media_Location)
             {
                 if (Exists(dir))
@@ -738,46 +909,82 @@ namespace Mobile_Service_Distribution
                     nonExistentMusDirs.Add(dir);
             }
 
-            foreach(string dir in nonExistentMovDirs)
+            foreach (string dir in nonExistentMovDirs)
             {
                 Media_Distro.Properties.Settings.Default.Movie_Media_Location.Remove(dir);
-                Media_Distro.Properties.Settings.Default.Save();
             }
 
             foreach (string dir in nonExistentMusDirs)
             {
                 Media_Distro.Properties.Settings.Default.Music_Media_Location.Remove(dir);
-                Media_Distro.Properties.Settings.Default.Save();
             }
 
             foreach (string dir in nonExistentSerDirs)
             {
                 Media_Distro.Properties.Settings.Default.Series_Media_Location.Remove(dir);
-                Media_Distro.Properties.Settings.Default.Save();
             }
 
-            foreach (string dir in movieDir) { ManageMediaReference(dir, MediaType.Movie, GetFileNameWithoutExtension(dir)); }
-            foreach (string dir in seriesDir) { ManageMediaReference(dir, MediaType.Series, GetFileName(dir)); }
+            Media_Distro.Properties.Settings.Default.Save();
+
+            libraryForm.loadingLabel.Invoke((MethodInvoker)delegate { libraryForm.loadingLabel.Visible = false; });
+            homeForm.loadingLabel.Invoke((MethodInvoker)delegate { homeForm.loadingLabel.Visible = false; });
+            foreach (string dir in movieDir) 
+            {
+                libraryManager = ManageMediaReference(dir, MediaType.Movie, GetFileNameWithoutExtension(dir));
+                LoadLibraryMedia(libraryManager);
+                homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Clear(); });
+                LoadHomeMedia((count < 11) ? count++ : 11);
+
+                GC.Collect();
+            }
+            foreach (string dir in seriesDir) 
+            { 
+                libraryManager = ManageMediaReference(dir, MediaType.Series, GetFileName(dir));
+                LoadLibraryMedia(libraryManager);
+                homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Clear(); });
+                LoadHomeMedia((count < 11) ? count++ : 11);
+
+                GC.Collect();
+            }
             foreach (object dir in musicDir)
             {
                 if (dir is string)
-                    ManageMediaReference((string)dir, MediaType.Music, GetFileNameWithoutExtension((string)dir));
+                    libraryManager = ManageMediaReference((string)dir, MediaType.Music, GetFileNameWithoutExtension((string)dir));
                 else if (dir is ArrayList)
-                    ManageMediaReference((ArrayList)dir);
+                    libraryManager = ManageMediaReference((ArrayList)dir);
+                
+                LoadLibraryMedia(libraryManager);
+                homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Clear(); });
+                LoadHomeMedia((count < 11) ? count++ : 11);
+                GC.Collect();
             }
-
-            foreach (string file in GetFiles(libraryForm.moviePath)) { libraryForm.libraryManager = new LibraryManager(file, MediaType.Movie); }
-            foreach (string file in GetFiles(libraryForm.musicPath)) { libraryForm.libraryManager = new LibraryManager(file, MediaType.Music); }
-            foreach (string file in GetDirectories(libraryForm.musicPath)) { libraryForm.libraryManager = new LibraryManager(file, MediaType.Music, true); }
-            foreach (string file in GetDirectories(libraryForm.seriesPath)) { libraryForm.libraryManager = new LibraryManager(file, MediaType.Series, true); }
-
+            
             SortMedia(null, SortType.Name, Order.Ascending);
 
             movieGenreCatalogue.Sort();
             foreach (string genre in movieGenreCatalogue)
                 libraryForm.arrangementToolStrip.BeginInvoke((MethodInvoker)delegate { libraryForm.genreToolStripDropDownButton.DropDownItems.Add(genre, null, new EventHandler(libraryForm.genreSelected_Click)); });
 
-            libraryForm.loadingLabel.Invoke((MethodInvoker)delegate { libraryForm.loadingLabel.Visible = false; });
+            libraryForm.movieList.Invoke((MethodInvoker)delegate { libraryForm.movieList.Clear(); });
+            libraryForm.movieList.Invoke((MethodInvoker)delegate
+            {
+                for (int i = libraryForm.movieList.LargeImageList.Images.Count - 1; i > 0; i--)
+                    libraryForm.movieList.LargeImageList.Images.RemoveAt(i);
+            });
+            libraryForm.musicList.Invoke((MethodInvoker)delegate { libraryForm.musicList.Clear(); });
+            libraryForm.musicList.Invoke((MethodInvoker)delegate 
+            {
+                for (int i = libraryForm.musicList.LargeImageList.Images.Count - 1; i > 0; i--)
+                    libraryForm.musicList.LargeImageList.Images.RemoveAt(i);
+            });
+            libraryForm.seriesList.Invoke((MethodInvoker)delegate { libraryForm.seriesList.Clear(); });
+            libraryForm.seriesList.Invoke((MethodInvoker)delegate 
+            {
+                for (int i = libraryForm.seriesList.LargeImageList.Images.Count - 1; i > 0; i--)
+                    libraryForm.seriesList.LargeImageList.Images.RemoveAt(i);
+            });
+            homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Clear(); });
+
             foreach (LibraryManager movie in movieCatalogue)
             {
                 if (movie.CoverArtDirectory != null && File.Exists(movie.CoverArtDirectory))
@@ -866,7 +1073,6 @@ namespace Mobile_Service_Distribution
                 }
             }
 
-            homeForm.loadingLabel.Invoke((MethodInvoker)delegate { homeForm.loadingLabel.Visible = false; });
             foreach (LibraryManager media in SortPRS())
             {
                 PictureBox coverArtPictureBox = new PictureBox
@@ -880,13 +1086,13 @@ namespace Mobile_Service_Distribution
                     BorderStyle = BorderStyle.FixedSingle
                 };
 
-                homeForm.titleToolTip.SetToolTip(coverArtPictureBox, media.Title);
+                    homeForm.titleToolTip.SetToolTip(coverArtPictureBox, media.Title);
 
-                coverArtPictureBox.MouseEnter += new EventHandler(PRSItem_MouseEnter);
+                    coverArtPictureBox.MouseEnter += new EventHandler(PRSItem_MouseEnter);
 
-                initial1 += 121;
+                    initial1 += 121;
 
-                homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Add(coverArtPictureBox); });
+                    homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Add(coverArtPictureBox); });
             }
 
             statsForm.mediaAmountChart.Invoke((MethodInvoker)delegate
@@ -1611,7 +1817,7 @@ namespace Mobile_Service_Distribution
                 if (key == GenerateKeyAlgorithm(key[0]) && key != Media_Distro.Properties.Settings.Default.activationKey)
                 {
                     Media_Distro.Properties.Settings.Default.activationKey = key;
-                    Media_Distro.Properties.Settings.Default.expirationDate = Media_Distro.Properties.Settings.Default.expirationDate.AddDays(7d);
+                    Media_Distro.Properties.Settings.Default.expirationDate = DateTime.Now.AddDays(7d);
                     StreamWriter dateCheckFile = File.CreateText(Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "akf"));
                     dateCheckFile.WriteLine(Media_Distro.Properties.Settings.Default.expirationDate.ToString());
                     dateCheckFile.Close();
@@ -1736,7 +1942,11 @@ namespace Mobile_Service_Distribution
             try
             {
                 if (cart != null && !cart.IsEmpty() && usbStorage.AvailableFreeSpace > cart.cartSize)
+                {
                     shareForm.progressListView.Add(cart, cartLabel.Text, usbStorage);
+                    shareForm.tasks++;
+                    shareForm.sharePanel.Refresh();
+                }
                 else throw new Exception();
             }
             catch (Exception)

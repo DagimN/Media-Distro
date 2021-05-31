@@ -53,11 +53,11 @@
             this.descriptionLabel = new System.Windows.Forms.Label();
             this.monthComboBox = new System.Windows.Forms.ComboBox();
             this.yearComboBox = new System.Windows.Forms.ComboBox();
-            this.zoomInButton1 = new Guna.UI2.WinForms.Guna2Button();
-            this.zoomOutButton1 = new Guna.UI2.WinForms.Guna2Button();
             this.resetChartButton = new Guna.UI2.WinForms.Guna2Button();
             this.previousButton = new Guna.UI2.WinForms.Guna2Button();
             this.nxtButton = new Guna.UI2.WinForms.Guna2Button();
+            this.zoomInButton1 = new Guna.UI2.WinForms.Guna2Button();
+            this.zoomOutButton1 = new Guna.UI2.WinForms.Guna2Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -333,41 +333,6 @@
             this.yearComboBox.TabIndex = 9;
             this.yearComboBox.TextChanged += new System.EventHandler(this.yearComboBox_TextChanged);
             // 
-            // zoomInButton1
-            // 
-            this.zoomInButton1.AutoRoundedCorners = true;
-            this.zoomInButton1.BorderRadius = 7;
-            this.zoomInButton1.CheckedState.Parent = this.zoomInButton1;
-            this.zoomInButton1.CustomImages.Parent = this.zoomInButton1;
-            this.zoomInButton1.Font = new System.Drawing.Font("Segoe Script", 10F, System.Drawing.FontStyle.Bold);
-            this.zoomInButton1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.zoomInButton1.HoverState.Parent = this.zoomInButton1;
-            this.zoomInButton1.Location = new System.Drawing.Point(17, 80);
-            this.zoomInButton1.Name = "zoomInButton1";
-            this.zoomInButton1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.zoomInButton1.ShadowDecoration.Parent = this.zoomInButton1;
-            this.zoomInButton1.Size = new System.Drawing.Size(30, 17);
-            this.zoomInButton1.TabIndex = 12;
-            this.zoomInButton1.Text = "+";
-            this.zoomInButton1.Click += new System.EventHandler(this.zoomInButton1_Click);
-            // 
-            // zoomOutButton1
-            // 
-            this.zoomOutButton1.AutoRoundedCorners = true;
-            this.zoomOutButton1.BorderRadius = 7;
-            this.zoomOutButton1.CheckedState.Parent = this.zoomOutButton1;
-            this.zoomOutButton1.CustomImages.Parent = this.zoomOutButton1;
-            this.zoomOutButton1.Font = new System.Drawing.Font("Segoe Script", 10F, System.Drawing.FontStyle.Bold);
-            this.zoomOutButton1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.zoomOutButton1.HoverState.Parent = this.zoomOutButton1;
-            this.zoomOutButton1.Location = new System.Drawing.Point(53, 80);
-            this.zoomOutButton1.Name = "zoomOutButton1";
-            this.zoomOutButton1.ShadowDecoration.Parent = this.zoomOutButton1;
-            this.zoomOutButton1.Size = new System.Drawing.Size(30, 17);
-            this.zoomOutButton1.TabIndex = 13;
-            this.zoomOutButton1.Text = "-";
-            this.zoomOutButton1.Click += new System.EventHandler(this.zoomOutButton1_Click);
-            // 
             // resetChartButton
             // 
             this.resetChartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -426,6 +391,40 @@
             this.nxtButton.TabIndex = 14;
             this.nxtButton.Click += new System.EventHandler(this.nxtButton_Click);
             // 
+            // zoomInButton1
+            // 
+            this.zoomInButton1.BorderRadius = 7;
+            this.zoomInButton1.CheckedState.Parent = this.zoomInButton1;
+            this.zoomInButton1.CustomImages.Parent = this.zoomInButton1;
+            this.zoomInButton1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.zoomInButton1.ForeColor = System.Drawing.Color.White;
+            this.zoomInButton1.HoverState.Parent = this.zoomInButton1;
+            this.zoomInButton1.Location = new System.Drawing.Point(15, 88);
+            this.zoomInButton1.Name = "zoomInButton1";
+            this.zoomInButton1.ShadowDecoration.Parent = this.zoomInButton1;
+            this.zoomInButton1.Size = new System.Drawing.Size(30, 17);
+            this.zoomInButton1.TabIndex = 17;
+            this.zoomInButton1.Text = "+";
+            this.zoomInButton1.TextOffset = new System.Drawing.Point(0, -3);
+            this.zoomInButton1.Click += new System.EventHandler(this.zoomInButton1_Click);
+            // 
+            // zoomOutButton1
+            // 
+            this.zoomOutButton1.BorderRadius = 7;
+            this.zoomOutButton1.CheckedState.Parent = this.zoomOutButton1;
+            this.zoomOutButton1.CustomImages.Parent = this.zoomOutButton1;
+            this.zoomOutButton1.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.zoomOutButton1.ForeColor = System.Drawing.Color.White;
+            this.zoomOutButton1.HoverState.Parent = this.zoomOutButton1;
+            this.zoomOutButton1.Location = new System.Drawing.Point(51, 88);
+            this.zoomOutButton1.Name = "zoomOutButton1";
+            this.zoomOutButton1.ShadowDecoration.Parent = this.zoomOutButton1;
+            this.zoomOutButton1.Size = new System.Drawing.Size(30, 17);
+            this.zoomOutButton1.TabIndex = 18;
+            this.zoomOutButton1.Text = "-";
+            this.zoomOutButton1.TextOffset = new System.Drawing.Point(0, -5);
+            this.zoomOutButton1.Click += new System.EventHandler(this.zoomOutButton1_Click);
+            // 
             // StatsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,11 +432,11 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(215)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(567, 452);
+            this.Controls.Add(this.zoomOutButton1);
+            this.Controls.Add(this.zoomInButton1);
             this.Controls.Add(this.resetChartButton);
             this.Controls.Add(this.previousButton);
             this.Controls.Add(this.nxtButton);
-            this.Controls.Add(this.zoomOutButton1);
-            this.Controls.Add(this.zoomInButton1);
             this.Controls.Add(this.yearComboBox);
             this.Controls.Add(this.monthComboBox);
             this.Controls.Add(this.panel1);
@@ -470,8 +469,6 @@
         public System.Windows.Forms.Label descriptionLabel;
         public System.Windows.Forms.ComboBox monthComboBox;
         public System.Windows.Forms.ComboBox yearComboBox;
-        public Guna.UI2.WinForms.Guna2Button zoomInButton1;
-        public Guna.UI2.WinForms.Guna2Button zoomOutButton1;
         public Guna.UI2.WinForms.Guna2Button nxtButton;
         public Guna.UI2.WinForms.Guna2Button previousButton;
         public Guna.UI2.WinForms.Guna2Button resetChartButton;
@@ -490,5 +487,7 @@
         private System.Windows.Forms.Label cartSentExt;
         private System.Windows.Forms.Label mediaSentExt;
         public LiveCharts.WinForms.CartesianChart mediaAmountChart;
+        public Guna.UI2.WinForms.Guna2Button zoomInButton1;
+        public Guna.UI2.WinForms.Guna2Button zoomOutButton1;
     }
 }

@@ -19,7 +19,7 @@ namespace Mobile_Service_Distribution.Forms
         private mediaDistroFrame reference;
         private Control activeList;
         public CartManager cart;
-        public int iter = 1;
+        public int iter = 1, tasks = 0;
 
         public ShareForm(mediaDistroFrame reference, HomeForm homeForm, StatsForm statsForm)
         {
@@ -383,7 +383,11 @@ namespace Mobile_Service_Distribution.Forms
             try
             {
                 if (!cart.IsEmpty() && usbStorage.AvailableFreeSpace > cart.cartSize)
+                {
                     progressListView.Add(cart, cartsListView.SelectedItems[0].Text, usbStorage);
+                    tasks++;
+                    sharePanel.Refresh();
+                }
                 else throw new Exception();
             }
             catch (Exception)
@@ -569,7 +573,12 @@ namespace Mobile_Service_Distribution.Forms
                     try
                     {
                         if (!newCart.IsEmpty() && usbStorage.AvailableFreeSpace > newCart.cartSize)
+                        {
                             progressListView.Add(newCart, usbStorage.VolumeLabel + " " + usbStorage.Name, usbStorage);
+                            tasks++;
+                            sharePanel.Refresh();
+                        }
+                            
                         else throw new Exception();
                     }
                     catch (Exception)
@@ -580,6 +589,32 @@ namespace Mobile_Service_Distribution.Forms
                             MessageBox.Show("There is no available space in the storage device.", "Low Available Storage", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+            }
+        }
+
+        private void sharePanel_Paint(object sender, PaintEventArgs e)
+        {
+            if(tasks > 0)
+            {
+                SolidBrush brush = new SolidBrush(Media_Distro.Properties.Settings.Default.Active_Theme_SearchBar);
+                SolidBrush fontColor;
+
+                if(Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace == Media_Distro.Properties.Settings.Default.Meadow_Theme_WorkPlace ||
+                    Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace == Media_Distro.Properties.Settings.Default.Twilight_Theme_WorkPlace ||
+                    Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace == Media_Distro.Properties.Settings.Default.Dark_Theme_WorkPlace)
+                    fontColor = new SolidBrush(Media_Distro.Properties.Settings.Default.Active_Theme_Selected);
+                else
+                    fontColor = new SolidBrush(Media_Distro.Properties.Settings.Default.Active_Theme_WorkPlace);
+
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                e.Graphics.FillEllipse(brush, 187, 4, 20, 20);
+         
+                if(tasks <= 9)
+                    e.Graphics.DrawString(tasks.ToString(), new Font("Microsoft JhengHei", 8), fontColor, new PointF(192, 7));
+                else if(tasks <= 99)
+                    e.Graphics.DrawString(tasks.ToString(), new Font("Microsoft JhengHei", 8), fontColor, new PointF(190, 7));
+                else if(tasks <= 999)
+                    e.Graphics.DrawString(tasks.ToString(), new Font("Microsoft JhengHei", 7), fontColor, new PointF(188, 7));
             }
         }
     }

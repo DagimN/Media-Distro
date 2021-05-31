@@ -233,6 +233,16 @@ namespace Media_Distro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Download_Folder_Ico {
+            get {
+                object obj = ResourceManager.GetObject("Download_Folder_Ico", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Download_Folder_Small_Icon {
             get {
                 object obj = ResourceManager.GetObject("Download_Folder_Small_Icon", resourceCulture);
