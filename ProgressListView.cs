@@ -455,9 +455,10 @@ namespace Media_Distro
                     }
                 }
 
+                notifyComp.tasks--;
                 completedTasks.customers--;
                 if (completedTasks.cartLabel.Tag == cart) completedTasks.cartToolStrip.Invoke((MethodInvoker)delegate { completedTasks.cartLabel.Text = null; });
-                
+                notifyComp.sharePanel.Invoke((MethodInvoker)delegate { notifyComp.sharePanel.Refresh(); });
                     
                 notifyComp.cartsListView.Invoke((MethodInvoker)delegate 
                 { 
@@ -645,7 +646,7 @@ namespace Media_Distro
                         this.list.Items.Remove(this);
                         this.list.Focus();
 
-                        completedTasks.completedTasks = completed;
+                        completedTasks.completedTasks = --completed;
                         completedTasks.sharesubMenu.Refresh();
                         if (completed == 0) pieChart.tempPieChart.Visible = true;
                     }
@@ -681,9 +682,12 @@ namespace Media_Distro
                             this.list.Focus();
 
                             pieChart.taskCompleted.Values = new ChartValues<int> { completed };
-                            completedTasks.completedTasks = completed;
+                            completedTasks.completedTasks = --completed;
                             completedTasks.sharesubMenu.Refresh();
                             if (completed == 0) pieChart.tempPieChart.Visible = true;
+
+                            notifyComp.tasks--;
+                            notifyComp.sharePanel.Refresh();
                         }
                     }
                 }
