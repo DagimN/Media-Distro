@@ -208,7 +208,7 @@ namespace Media_Distro
 
             public void Copy(FileStream source, string dest)
             {
-                const int final = 10 * 1024 * 1024;
+                const int final = 7 * 1024 * 1024;
                 FileStream destination = new FileStream(Combine(dest, GetFileName(source.Name)), FileMode.CreateNew, FileAccess.Write); ;
                 float destSize = destination.Length;
 
@@ -267,7 +267,7 @@ namespace Media_Distro
                 ListViewItem removeItem = new ListViewItem();
                 totalSSize = cart.cartSize;
                 int iter = 0;
-                string distroFolder = Combine(destination, "Your Media Files");
+                string distroFolder = Combine(destination, "Your Media Files"), adName = "NULL";
                 string[] ads = GetDirectories(adFolder);
 
                 CreateDirectory(distroFolder);
@@ -500,6 +500,8 @@ namespace Media_Distro
                                         File.Copy(adFile, Combine(distroFolder, GetFileName(adFile)));
                                 }
 
+                                adName = GetFileName(ads[i]);
+
                                 File.CreateText(Combine(ads[i], "Ad Info.txt"));
                                 break;
                             }
@@ -517,12 +519,13 @@ namespace Media_Distro
 
                     this.progressLabel.Invoke((MethodInvoker)delegate { progressLabel.Text = "Finished"; });
 
-                    File.AppendAllLines(statsFileURL, new string[] {$"Date Time: {DateTime.Now}",
+                    File.AppendAllLines(statsFileURL, new string[] {$"Date Time: {DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt")}",
                                                                 String.Format("Value: {0:F}", (totalSSize / (1024 * 1024 * 1024))),
                                                                 $"Movie Sent: {cart.movieNum}",
                                                                 $"Music Sent: {cart.musicNum}",
                                                                 $"Series Sent: {cart.seriesNum}",
                                                                 $"Price of Cart: {cart.cartPrice}",
+                                                                $"Ad: {adName}",
                                                                 " "});
 
                     pieChart.Invoke((MethodInvoker)delegate
