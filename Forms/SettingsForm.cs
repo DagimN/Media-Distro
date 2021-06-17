@@ -35,6 +35,8 @@ namespace Mobile_Service_Distribution.Forms
             this.stRef = stRef;
             this.hRef = hRef;
 
+            assemblyLabel.Text = typeof(mediaDistroFrame).Assembly.GetName().Version.ToString();
+
             if (Media_Distro.Properties.Settings.Default.bonusAvailable)
                 bonusButton.Visible = true;
             else
@@ -394,7 +396,7 @@ namespace Mobile_Service_Distribution.Forms
             OpenFileDialog updateFile = new OpenFileDialog();
             Version currentVersion = new Version(typeof(mediaDistroFrame).Assembly.GetName().Version.ToString());
             Version latestVersion = new Version(1, 0, 0, 0);
-
+            string versionInfo = null;
             updateFile.Title = "Locating Update";
             updateFile.Filter = "Zip Files (*.zip)|*.zip |All files (*.*)|*.*";
 
@@ -416,9 +418,10 @@ namespace Mobile_Service_Distribution.Forms
                 
                 foreach(string dir in GetFiles(newUpdateDir))
                 {
-                    if(GetFileName(dir) == "Version Number.txt")
+                    if(GetFileName(dir) == "Version Number.txt" || GetFileName(dir) == "Version Number.TXT")
                     {
                         latestVersion = new Version(File.ReadAllLines(dir)[0]);
+                        versionInfo = dir;
                         break;
                     }
                 }
@@ -430,6 +433,9 @@ namespace Mobile_Service_Distribution.Forms
                     if(result == DialogResult.Yes)
                     {
                         mainRef.IsUpdating = true;
+                        if (versionInfo != null)
+                            File.Delete(versionInfo);
+
                         Application.Exit();
                     }
                 }

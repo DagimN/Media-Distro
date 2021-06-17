@@ -67,14 +67,59 @@ namespace Mobile_Service_Distribution.Forms
             taskPieChart.Series.Add(pausedTasks);
 
             dashBoardPanel.Refresh();
-
-            foreach (string adDir in GetDirectories(adFolder))
+            try
             {
-                checkDate = DateTime.Parse(File.ReadAllLines(Combine(adDir, "Date Info.txt"))[0]);
+                foreach (string adDir in GetDirectories(adFolder))
+                {
+                    string dateLocation = Combine(adDir, "Date Info.txt");
+                    string adLimLocation = Combine(adDir, "Ad Limit.txt");
+                    string adDate = File.ReadAllLines(dateLocation)[0];
 
-                if (checkDate.Month != DateTime.Now.Month)
-                    if (DateTime.Now.DayOfYear - checkDate.DayOfYear > 30)
-                        Delete(adDir, true);
+                    if (File.Exists(adLimLocation))
+                    {
+                        string expDate = File.ReadAllLines(adLimLocation)[0];
+                        int day, month, year;
+
+                        int.TryParse(expDate.Substring(0, 2), out day);
+                        if(expDate[3] == '0' || expDate[3] == '1')
+                        {
+                            int.TryParse(expDate.Substring(3, 2), out month);
+                            int.TryParse(expDate.Substring(6, 4), out year);
+                        }
+                        else
+                        {
+                            int.TryParse(expDate.Substring(3, 1), out month);
+                            int.TryParse(expDate.Substring(5, 4), out year);
+                        }
+                        
+                        checkDate = new DateTime(year, month, day);
+
+                        if (checkDate.CompareTo(DateTime.Now) < 0)
+                            Delete(adDir, true);
+                    }
+                    else
+                    {
+                        checkDate = DateTime.Parse(File.ReadAllLines(dateLocation)[0]);
+
+                        if (checkDate.Month != DateTime.Now.Month)
+                            if (DateTime.Now.DayOfYear - checkDate.DayOfYear > 30)
+                                Delete(adDir, true);
+                    }
+                }
+            }
+            catch(FileNotFoundException)
+            {
+                StreamWriter dateFile;
+
+                foreach(string adDir in GetDirectories(adFolder))
+                {
+                    if(!File.Exists(Combine(adDir, "Date Info.txt")))
+                    {
+                        dateFile = File.CreateText(Combine(adDir, "Date Info.txt"));
+                        dateFile.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt"));
+                        dateFile.Close();
+                    }
+                }
             }
         }
 
@@ -253,37 +298,57 @@ namespace Mobile_Service_Distribution.Forms
                         if(GetFileName(zipFile.FileName) == "Distro Package")
                         {
                             string[] oldAds = GetDirectories(adFolder);
+                            string verificationFileURL = Combine(GetCurrentDirectory(), "Verification File");
                             zipPath = zipFile.FileName;
                                 
                             try
                             {
+                                foreach(string adDir in oldAds)
+                                    Delete(adDir, true);
+
                                 ZipFile.ExtractToDirectory(zipPath, adFolder);
 
                                 foreach (string adDir in GetDirectories(adFolder))
                                 {
                                     dateFile = File.CreateText(Combine(adDir, "Date Info.txt"));
-                                    dateFile.WriteLine(DateTime.Now.ToString());
+                                    dateFile.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt"));
                                     dateFile.Close();
                                 }
 
                                 verifyKeyFileLocation = new FolderBrowserDialog();
-                                result = MessageBox.Show("ZIP File Located. To proceed, send this key file into the telegram bot for verificatiion. Click OK to copy the file to your desired location.", "Distro Package Received", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                result = MessageBox.Show("ZIP File Located. To proceed, send this key file into the telegram bot for verificatiion." +
+                                                          " Click OK to copy the file to your desired location.", "Distro Package Received", MessageBoxButtons.OK, 
+                                                          MessageBoxIcon.Information);
 
-                                verifyFile = File.CreateText(Combine(GetCurrentDirectory(), "Verification File"));
-                                verifyFile.WriteLine(GenerateKeyAlgorithm());
-                                verifyFile.Close();
+                                try
+                                {
+                                    CreateDirectory(verificationFileURL);
 
-                                foreach (string adDir in oldAds)
-                                    Delete(adDir, true);
+                                    verifyFile = File.CreateText(Combine(verificationFileURL, "Verify Code"));
+                                    verifyFile.WriteLine(GenerateKeyAlgorithm());
+                                    verifyFile.Close();
 
-                                if (result == DialogResult.OK)
-                                    if (verifyKeyFileLocation.ShowDialog() == DialogResult.OK)
-                                        File.Move(Combine(GetCurrentDirectory(), "Verification File"), Combine(verifyKeyFileLocation.SelectedPath, "Verification File"));
+                                    File.Copy(Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Stats Record.txt"), Combine(verificationFileURL, "Stats Record.txt"));
+
+                                    if (result == DialogResult.OK)
+                                        if (verifyKeyFileLocation.ShowDialog() == DialogResult.OK)
+                                            ZipFile.CreateFromDirectory(verificationFileURL, Combine(verifyKeyFileLocation.SelectedPath, "Verification File"));
+
+                                    Delete(verificationFileURL, true);
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show("Error has been found with the on going process. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                    if (Exists(verificationFileURL))
+                                        Delete(verificationFileURL, true);
+                                }
                             }
                             catch (NotSupportedException)
                             {
-                                MessageBox.Show("This file is does not have a valid file format. Please choose the correct file that was sent to you via the telegram bot and try again.",
-                                    "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("This file is does not have a valid file format. Please choose the correct file that was sent to you via the telegram bot " +
+                                                "and try again.",
+                                                "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             catch (Exception ex)
                             {
@@ -291,6 +356,8 @@ namespace Mobile_Service_Distribution.Forms
                             }
                             
                         }
+                        else
+                            MessageBox.Show("This file is either in the wrong format or is corrupted. Please try again.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

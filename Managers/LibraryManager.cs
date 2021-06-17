@@ -85,7 +85,7 @@ namespace Mobile_Service_Distribution
                 this.Type = media;
                 if (media == MediaType.Movie)
                 {
-                    movieCatalogue.Add(this);
+                    if(!movieCatalogue.Contains(this)) movieCatalogue.Add(this);
                     if (this.Genre != null && !movieGenreCatalogue.Contains(this.Genre)) movieGenreCatalogue.Add(this.Genre);
                 }
 
@@ -93,7 +93,7 @@ namespace Mobile_Service_Distribution
                 {
                     if (!temp)
                     {
-                        musicCatalogue.Add(this);
+                        if(!musicCatalogue.Contains(this)) musicCatalogue.Add(this);
                         if (this.Genre != null && !musicGenreCatalogue.Contains(this.Genre)) musicGenreCatalogue.Add(this.Genre);
                     }
                 }
@@ -101,7 +101,7 @@ namespace Mobile_Service_Distribution
                 if (media == MediaType.Series)
                 {
                     if (onTop && !temp)
-                        seriesCatalogue.Add(this);
+                        if(!seriesCatalogue.Contains(this)) seriesCatalogue.Add(this);
 
                     if (this.Genre != null && !seriesGenreCatalogue.Contains(this.Genre)) seriesGenreCatalogue.Add(this.Genre);
                 }
@@ -275,9 +275,9 @@ namespace Mobile_Service_Distribution
         {
             if(type == MediaType.Movie)
             {
-                string[] info = File.ReadAllLines(dir);
                 try
                 {
+                    string[] info = File.ReadAllLines(dir);
                     this.OriginalDirectory = info[6].Substring(11);
 
                     if (File.Exists(this.OriginalDirectory))
@@ -306,7 +306,6 @@ namespace Mobile_Service_Distribution
                     File.Delete(dir);
                     return 0;
                 }
-                
             }
             else if(type == MediaType.Music)
             {
@@ -651,13 +650,12 @@ namespace Mobile_Service_Distribution
             }
         }
 
-        public static LibraryManager ManageMediaReference(ArrayList dir)
+        public static string ManageMediaReference(ArrayList dir)
         {
             string directory = Combine(musicFolder, GetFileName((string)dir[0]));
             FileInfo file;
             StreamWriter writer;
             TimeSpan albumDuration = new TimeSpan(), videoInfo = new TimeSpan();
-            LibraryManager libraryManager;
            
             CreateDirectory(directory);
             
@@ -721,16 +719,14 @@ namespace Mobile_Service_Distribution
                 writer.Dispose();
             }
 
-            libraryManager = new LibraryManager(directory, MediaType.Music, true);
-            return libraryManager;
+            return directory;
         }
 
-        public static LibraryManager ManageMediaReference(string dir, MediaType type, string fileName)
+        public static string ManageMediaReference(string dir, MediaType type, string fileName)
         {
             string directory;
             FileInfo file, seasonFile, episodeFile;
             StreamWriter writer;
-            LibraryManager libraryManager = new LibraryManager();
 
             if (type == MediaType.Movie)
             {
@@ -771,7 +767,7 @@ namespace Mobile_Service_Distribution
                     writer.Dispose();
                 }
 
-                return libraryManager = new LibraryManager(directory, MediaType.Movie);
+                return directory;
             }
             else if (type == MediaType.Series)
             {
@@ -872,7 +868,7 @@ namespace Mobile_Service_Distribution
                     writer.Dispose();
                 }
 
-                return libraryManager = new LibraryManager(directory, MediaType.Series, true);
+                return directory;
             }
             else if (type == MediaType.Music)
             {
@@ -913,10 +909,10 @@ namespace Mobile_Service_Distribution
                     writer.Dispose();
                 }
 
-                return libraryManager = new LibraryManager(directory, MediaType.Music);
+                return directory;
             }
             else
-                return libraryManager;
+                return null;
         }
 
         public static List<LibraryManager> Search(string value, ArrayList list)

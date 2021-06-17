@@ -57,6 +57,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.selected = new System.Windows.Forms.PictureBox();
+            this.assemblyLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.redColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkBlueColor)).BeginInit();
@@ -146,6 +147,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.assemblyLabel);
             this.panel1.Controls.Add(this.updateLinkLabel);
             this.panel1.Controls.Add(this.fileLoadLabel);
             this.panel1.Controls.Add(this.mediaDistroLabel);
@@ -159,7 +161,7 @@
             // 
             this.updateLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.updateLinkLabel.AutoSize = true;
-            this.updateLinkLabel.Location = new System.Drawing.Point(369, 12);
+            this.updateLinkLabel.Location = new System.Drawing.Point(335, 11);
             this.updateLinkLabel.Name = "updateLinkLabel";
             this.updateLinkLabel.Size = new System.Drawing.Size(96, 13);
             this.updateLinkLabel.TabIndex = 23;
@@ -189,7 +191,7 @@
             this.mediaDistroLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.mediaDistroLabel.AutoSize = true;
             this.mediaDistroLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mediaDistroLabel.Location = new System.Drawing.Point(471, 10);
+            this.mediaDistroLabel.Location = new System.Drawing.Point(437, 9);
             this.mediaDistroLabel.Name = "mediaDistroLabel";
             this.mediaDistroLabel.Size = new System.Drawing.Size(77, 15);
             this.mediaDistroLabel.TabIndex = 19;
@@ -447,6 +449,18 @@
             this.selected.TabIndex = 12;
             this.selected.TabStop = false;
             // 
+            // assemblyLabel
+            // 
+            this.assemblyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.assemblyLabel.AutoSize = true;
+            this.assemblyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.assemblyLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.assemblyLabel.Location = new System.Drawing.Point(512, 9);
+            this.assemblyLabel.Name = "assemblyLabel";
+            this.assemblyLabel.Size = new System.Drawing.Size(44, 15);
+            this.assemblyLabel.TabIndex = 24;
+            this.assemblyLabel.Text = "1.0.0.0";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -512,5 +526,6 @@
         private System.Windows.Forms.ToolStripMenuItem removeURLToolStripMenuItem;
         public Guna.UI2.WinForms.Guna2Button bonusButton;
         public System.Windows.Forms.LinkLabel updateLinkLabel;
+        private System.Windows.Forms.Label assemblyLabel;
     }
 }

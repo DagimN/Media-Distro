@@ -19,7 +19,6 @@ using LiveCharts.Wpf;
 using Guna.UI2.WinForms;
 using System.Diagnostics;
 
-
 namespace Mobile_Service_Distribution
 {
     public partial class mediaDistroFrame : Form
@@ -737,16 +736,19 @@ namespace Mobile_Service_Distribution
             }
         }
 
-        private void LoadHomeMedia(int count)
+        private Image[] LoadHomeMedia(int count)
         {
-            int initial1 = 3;
+            int initial1 = 3, i = 0;
+            Image[] temp = new Image[count];
 
             foreach (LibraryManager media in SortPRS(count))
             {
+                Image coverArt = (media.CoverArtDirectory != null) ? Image.FromFile(media.CoverArtDirectory) :
+                            Media_Distro.Properties.Resources.coverart_sample_2;
+                temp[i++] = coverArt;
                 PictureBox coverArtPictureBox = new PictureBox
                 {
-                    Image = (media.CoverArtDirectory != null) ? Image.FromFile(media.CoverArtDirectory) :
-                            Media_Distro.Properties.Resources.coverart_sample_2,
+                    Image = coverArt,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                     Size = new Size(116, 140),
                     Location = new Point(initial1, 10),
@@ -762,6 +764,8 @@ namespace Mobile_Service_Distribution
 
                 homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Add(coverArtPictureBox); });
             }
+
+            return temp;
         }
 
         public void LoadLibraryMedia(LibraryManager media)
@@ -861,7 +865,6 @@ namespace Mobile_Service_Distribution
             List<string> nonExistentMovDirs = new List<string>();
             List<string> nonExistentMusDirs = new List<string>();
             List<string> nonExistentSerDirs = new List<string>();
-            LibraryManager libraryManager = new LibraryManager();
 
             foreach (string dir in Media_Distro.Properties.Settings.Default.Movie_Media_Location)
             {
@@ -928,37 +931,36 @@ namespace Mobile_Service_Distribution
 
             libraryForm.loadingLabel.Invoke((MethodInvoker)delegate { libraryForm.loadingLabel.Visible = false; });
             homeForm.loadingLabel.Invoke((MethodInvoker)delegate { homeForm.loadingLabel.Visible = false; });
-            foreach (string dir in movieDir) 
+            Image[] temp = new Image[0];
+            foreach (string dir in movieDir)
             {
-                libraryManager = ManageMediaReference(dir, MediaType.Movie, GetFileNameWithoutExtension(dir));
-                LoadLibraryMedia(libraryManager);
+                string linkDir = ManageMediaReference(dir, MediaType.Movie, GetFileNameWithoutExtension(dir));
+                LoadLibraryMedia(new LibraryManager(linkDir, MediaType.Movie));
                 homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Clear(); });
-                LoadHomeMedia((count < 11) ? count++ : 11);
-
-                GC.Collect();
+                foreach (Image image in temp)
+                    image.Dispose();
+                temp = LoadHomeMedia((count < 11) ? count++ : 11);
             }
-            foreach (string dir in seriesDir) 
-            { 
-                libraryManager = ManageMediaReference(dir, MediaType.Series, GetFileName(dir));
-                LoadLibraryMedia(libraryManager);
-                homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Clear(); });
-                LoadHomeMedia((count < 11) ? count++ : 11);
-
-                GC.Collect();
+            foreach (string dir in seriesDir)
+            {
+                string linkDir = ManageMediaReference(dir, MediaType.Series, GetFileName(dir));
+                LoadLibraryMedia(new LibraryManager(linkDir, MediaType.Series, true));
             }
             foreach (object dir in musicDir)
             {
+                string linkDir = "";
                 if (dir is string)
-                    libraryManager = ManageMediaReference((string)dir, MediaType.Music, GetFileNameWithoutExtension((string)dir));
+                {
+                    linkDir = ManageMediaReference((string)dir, MediaType.Music, GetFileNameWithoutExtension((string)dir));
+                    LoadLibraryMedia(new LibraryManager(linkDir, MediaType.Music));
+                }
                 else if (dir is ArrayList)
-                    libraryManager = ManageMediaReference((ArrayList)dir);
-                
-                LoadLibraryMedia(libraryManager);
-                homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Clear(); });
-                LoadHomeMedia((count < 11) ? count++ : 11);
-                GC.Collect();
+                {
+                    linkDir = ManageMediaReference((ArrayList)dir);
+                    LoadLibraryMedia(new LibraryManager(linkDir, MediaType.Music, true));
+                }
             }
-            
+
             SortMedia(null, SortType.Name, Order.Ascending);
 
             movieGenreCatalogue.Sort();
@@ -972,13 +974,13 @@ namespace Mobile_Service_Distribution
                     libraryForm.movieList.LargeImageList.Images.RemoveAt(i);
             });
             libraryForm.musicList.Invoke((MethodInvoker)delegate { libraryForm.musicList.Clear(); });
-            libraryForm.musicList.Invoke((MethodInvoker)delegate 
+            libraryForm.musicList.Invoke((MethodInvoker)delegate
             {
                 for (int i = libraryForm.musicList.LargeImageList.Images.Count - 1; i > 0; i--)
                     libraryForm.musicList.LargeImageList.Images.RemoveAt(i);
             });
             libraryForm.seriesList.Invoke((MethodInvoker)delegate { libraryForm.seriesList.Clear(); });
-            libraryForm.seriesList.Invoke((MethodInvoker)delegate 
+            libraryForm.seriesList.Invoke((MethodInvoker)delegate
             {
                 for (int i = libraryForm.seriesList.LargeImageList.Images.Count - 1; i > 0; i--)
                     libraryForm.seriesList.LargeImageList.Images.RemoveAt(i);
@@ -1121,6 +1123,8 @@ namespace Mobile_Service_Distribution
                     Values = new ChartValues<int> { seriesCatalogue.Count }
                 });
             });
+
+            GC.Collect(GC.MaxGeneration);
         }
 
         private void PRSItem_MouseEnter(object sender, EventArgs e)
@@ -1808,10 +1812,19 @@ namespace Mobile_Service_Distribution
             keyCodeZip.Filter = "All Files (*.*)| *.*";
             keyCodeZip.Title = "Setting Activation Code";
 
-            if(result == DialogResult.OK)
+            if(result == DialogResult.OK && GetFileName(keyCodeZip.FileName) == "Key Code")
             {
+                StreamWriter dateFile;
+                foreach(string ads in GetDirectories(adFolder))
+                    Delete(ads, true);
+
                 ZipFile.ExtractToDirectory(keyCodeZip.FileName, adFolder);
-                activationTextBox.Text = keyCodeZip.FileName;
+                foreach (string adDir in GetDirectories(adFolder))
+                {
+                    dateFile = File.CreateText(Combine(adDir, "Date Info.txt"));
+                    dateFile.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt"));
+                    dateFile.Close();
+                }
                 key = File.ReadAllLines(keyFilePath)[0];
 
                 if (key == GenerateKeyAlgorithm(key[0]) && key != Media_Distro.Properties.Settings.Default.activationKey)
@@ -1835,6 +1848,8 @@ namespace Mobile_Service_Distribution
                 File.Delete(keyFilePath);
                 File.Delete(keyCodeZip.FileName);
             }
+            else
+                MessageBox.Show("This file is either in the wrong format or is corrupted. Please try again.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public static string GenerateKeyAlgorithm(char arbitChar = ' ')

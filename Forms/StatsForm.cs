@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Configurations;
 using LiveCharts.Wpf;
+using System.Globalization;
 
 namespace Mobile_Service_Distribution.Forms
 {
@@ -94,9 +95,10 @@ namespace Mobile_Service_Distribution.Forms
                 Separator = new Separator { StrokeThickness = 0 }
             });
             
-            for(int i = 0; i < statsFile.Length - 1; i += 7)
+            for(int i = 0; i < statsFile.Length - 1; i += 8)
             {
-                DateTime date = DateTime.Parse(statsFile.ElementAt(i).Substring(11));
+                string time = statsFile.ElementAt(i).Substring(11);
+                DateTime date = DateTime.Parse(time);
                 double price = double.Parse(statsFile.ElementAt(i + 5).Substring(14));
 
                 if (numYears > date.Year)
@@ -215,11 +217,13 @@ namespace Mobile_Service_Distribution.Forms
 
         private void resetChartButton_Click(object sender, EventArgs e)
         {
+            monthComboBox.Text = "Pick a month";
+
             xAxis.MinValue = currentDTMinValue;
             xAxis.MaxValue = currentDTMaxValue;
 
             minValue = MINVALUE;
-            maxValue = MAXVALUE;
+            maxValue = MAXVALUE;   
         }
 
         private void zoomInButton1_Click(object sender, EventArgs e)
@@ -569,6 +573,11 @@ namespace Mobile_Service_Distribution.Forms
                 maxValue = changedMonth.AddDays(30).Ticks;
 
                 monthCombo = monthComboBox.Text;
+            }
+            else if(monthComboBox.Text == "Pick a month")
+            {
+                monthCombo = monthComboBox.Text;
+                yearComboBox.Text = DateTime.Now.Year.ToString();
             }
             else
             {
