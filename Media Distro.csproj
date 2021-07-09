@@ -178,6 +178,7 @@
     </Compile>
     <Compile Include="Managers\CartManager.cs" />
     <Compile Include="Managers\LibraryManager.cs" />
+    <Compile Include="Managers\USBManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgressListView.cs">
       <SubType>UserControl</SubType>
@@ -462,6 +463,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo_ico.ico" />
+    <None Include="Resources\Spinner.gif" />
     <None Include="Resources\Download Folder Ico.png" />
     <None Include="Resources\logo icon 2.ico" />
     <None Include="Resources\Movie Icon.png" />

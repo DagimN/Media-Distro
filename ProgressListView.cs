@@ -15,6 +15,7 @@ using Mobile_Service_Distribution;
 using static Mobile_Service_Distribution.Forms.StatsForm;
 using static Mobile_Service_Distribution.LibraryManager;
 using static Mobile_Service_Distribution.Managers.CartManager;
+using Media_Distro.Managers;
 using LiveCharts;
 
 namespace Media_Distro
@@ -519,7 +520,13 @@ namespace Media_Distro
 
                     this.progressLabel.Invoke((MethodInvoker)delegate { progressLabel.Text = "Finished"; });
 
-                    File.AppendAllLines(statsFileURL, new string[] {$"Date Time: {DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt")}",
+                    USBManager device;
+
+                    if (USBManager.Exists(destination, out device))
+                    {
+                        if (device.Count < 3)
+                        {
+                            File.AppendAllLines(statsFileURL, new string[] {$"Date Time: {DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt")}",
                                                                 String.Format("Value: {0:F}", (totalSSize / (1024 * 1024 * 1024))),
                                                                 $"Movie Sent: {cart.movieNum}",
                                                                 $"Music Sent: {cart.musicNum}",
@@ -527,6 +534,10 @@ namespace Media_Distro
                                                                 $"Price of Cart: {cart.cartPrice}",
                                                                 $"Ad: {adName}",
                                                                 " "});
+
+                            device.Count++;
+                        }
+                    }
 
                     pieChart.Invoke((MethodInvoker)delegate
                     {
