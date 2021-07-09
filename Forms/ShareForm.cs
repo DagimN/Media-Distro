@@ -5,10 +5,9 @@ using Mobile_Service_Distribution.Managers;
 using static Mobile_Service_Distribution.LibraryManager;
 using static Mobile_Service_Distribution.Managers.CartManager;
 using System.Collections;
-using System.Collections.Generic;
+using Media_Distro.Managers;
 using System.ComponentModel;
 using System.Drawing;
-using System.Management;
 using System.Windows.Forms;
 
 
@@ -20,6 +19,7 @@ namespace Mobile_Service_Distribution.Forms
         private Control activeList;
         public CartManager cart;
         public int iter = 1, tasks = 0;
+        public USBManager deviceManager;
 
         public ShareForm(mediaDistroFrame reference, HomeForm homeForm, StatsForm statsForm)
         {
@@ -30,12 +30,14 @@ namespace Mobile_Service_Distribution.Forms
             activeList = cartsListView;
             progressListView.Link(this, homeForm, statsForm, reference);
 
+            deviceManager = new USBManager();
+         
             foreach (DriveInfo usbStorage in DriveInfo.GetDrives())
             {
                 if (usbStorage.IsReady && usbStorage.DriveType == DriveType.Removable)
                 {
                     ListViewItem usbDrive;
-
+                    
                     if (File.Exists(Combine(usbStorage.Name, "Distro List")))
                     {
                         usbDrive = new ListViewItem
@@ -57,7 +59,7 @@ namespace Mobile_Service_Distribution.Forms
 
                     deviceList.Items.Add(usbDrive);
                     sendToToolStripMenuItem.Enabled = true;
-                    sendToToolStripMenuItem.DropDownItems.Add(usbStorage.Name).Tag = usbStorage.Name;
+                    sendToToolStripMenuItem.DropDownItems.Add(usbDrive.Text).Tag = usbDrive.Tag;
 
                     reference.shareToolStripSplitButton.DropDownItems.Add(usbDrive.Text).Tag = usbDrive.Tag;
                     reference.shareToolStripSplitButton.ToolTipText = null;

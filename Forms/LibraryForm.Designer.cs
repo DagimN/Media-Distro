@@ -88,6 +88,7 @@
             this.genreLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.spinnerPictureBox = new System.Windows.Forms.PictureBox();
             this.libraryPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.moviesSelected)).BeginInit();
@@ -98,6 +99,7 @@
             this.removeCoverArtContextMenuStrip.SuspendLayout();
             this.infoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinnerPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // libraryPanel
@@ -115,6 +117,7 @@
             this.libraryPanel.Controls.Add(this.musicList);
             this.libraryPanel.Controls.Add(this.seriesList);
             this.libraryPanel.Controls.Add(this.arrangementToolStrip);
+            this.libraryPanel.Controls.Add(this.spinnerPictureBox);
             this.libraryPanel.Location = new System.Drawing.Point(12, 12);
             this.libraryPanel.Name = "libraryPanel";
             this.libraryPanel.Size = new System.Drawing.Size(546, 428);
@@ -832,6 +835,16 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
+            // spinnerPictureBox
+            // 
+            this.spinnerPictureBox.Image = global::Media_Distro.Properties.Resources.Spinner;
+            this.spinnerPictureBox.Location = new System.Drawing.Point(288, -20);
+            this.spinnerPictureBox.Name = "spinnerPictureBox";
+            this.spinnerPictureBox.Size = new System.Drawing.Size(65, 65);
+            this.spinnerPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.spinnerPictureBox.TabIndex = 14;
+            this.spinnerPictureBox.TabStop = false;
+            // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -862,6 +875,7 @@
             this.infoPanel.ResumeLayout(false);
             this.infoPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinnerPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -926,5 +940,6 @@
         private System.Windows.Forms.ImageList musicCoverArtImageList;
         private System.Windows.Forms.ImageList seriesCoverArtImageList;
         private System.Windows.Forms.ImageList genreCoverArtImageList;
+        public System.Windows.Forms.PictureBox spinnerPictureBox;
     }
 }

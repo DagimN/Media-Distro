@@ -449,8 +449,10 @@ namespace Mobile_Service_Distribution
                             {
                                 if (usbStorage.IsReady && usbStorage.DriveType == DriveType.Removable)
                                 {
+                                    //Check whether there is a distro list containing the desired media files
+                                    //and assign the correct ListViewItem
                                     ListViewItem usbDrive;
-
+     
                                     if(File.Exists(Combine(usbStorage.Name, "Distro List")))
                                     {
                                         usbDrive = new ListViewItem
@@ -469,7 +471,8 @@ namespace Mobile_Service_Distribution
                                             ImageIndex = 2
                                         };
                                     }
-                                   
+                                    
+                                    //Insert the ListViewItem in to shareListView with consistent data
                                     if(shareForm.deviceList.Items.Count == 0)
                                     {
                                         shareForm.sendToToolStripMenuItem.Enabled = true;
@@ -498,10 +501,13 @@ namespace Mobile_Service_Distribution
                                         if(!exist)
                                         {
                                             shareForm.deviceList.Items.Add(usbDrive);
-                                            shareForm.sendToToolStripMenuItem.DropDownItems.Add(usbStorage.Name).Tag = usbStorage.Name;
+                                            shareForm.sendToToolStripMenuItem.DropDownItems.Add(usbDrive.Text).Tag = usbDrive.Tag;
                                             shareToolStripSplitButton.DropDownItems.Add(usbDrive.Text).Tag = usbDrive.Tag;
                                         }
                                     }
+
+                                    Task deviceTask = new Task(() => shareForm.deviceManager.Add(usbStorage.Name));
+                                    deviceTask.Start();
                                 }
                             }
 
@@ -525,41 +531,84 @@ namespace Mobile_Service_Distribution
                             }
                             else
                             {
-                                foreach (DriveInfo usbStorage in DriveInfo.GetDrives())
+                                ListViewItem listDevice = null;
+                                ToolStripItem contextStripDevice = null;
+                                ToolStripItem mainStripDevice = null;
+                                List<ListViewItem> existingDevices = new List<ListViewItem>();
+                                List<ToolStripItem> stripExistingDevices = new List<ToolStripItem>();
+                                List<ToolStripItem> splitExistingDevices = new List<ToolStripItem>();
+
+                                //Device ListView
+                                foreach(ListViewItem usbName in shareForm.deviceList.Items)
                                 {
-                                    if (usbStorage.IsReady && usbStorage.DriveType == DriveType.Removable)
+                                    foreach(DriveInfo usbStorage in DriveInfo.GetDrives())
                                     {
-                                        foreach (ListViewItem usbName in shareForm.deviceList.Items)
+                                        if(usbStorage.IsReady && usbStorage.DriveType == DriveType.Removable)
                                         {
-                                            if (usbName.Text == usbStorage.VolumeLabel + " " + usbStorage.Name) continue;
-                                            else
+                                            if (usbName.Text == usbStorage.VolumeLabel + " " + usbStorage.Name)
                                             {
-                                                shareForm.deviceList.Items.Remove(usbName);
-                                                break;
-                                            } 
-                                        }
-
-                                        foreach (ToolStripItem usbName in shareForm.sendToToolStripMenuItem.DropDownItems)
-                                        {
-                                            if (usbName.Text == usbStorage.VolumeLabel + " " + usbStorage.Name) continue;
-                                            else
-                                            {
-                                                shareForm.sendToToolStripMenuItem.DropDownItems.Remove(usbName);
-                                                break;
-                                            }
-                                        }
-
-                                        foreach (ToolStripItem usbName in shareToolStripSplitButton.DropDownItems)
-                                        {
-                                            if (usbName.Text == usbStorage.VolumeLabel + " " + usbStorage.Name) continue;
-                                            else
-                                            {
-                                                shareToolStripSplitButton.DropDownItems.Remove(usbName);
+                                                existingDevices.Add(usbName);
                                                 break;
                                             }
                                         }
                                     }
                                 }
+
+                                foreach(ListViewItem item in shareForm.deviceList.Items)
+                                {
+                                    if (!existingDevices.Contains(item))
+                                        listDevice = item;
+                                }
+
+                                shareForm.deviceList.Items.Remove(listDevice);
+
+                                //Send-To ToolStripMenu
+                                foreach (ToolStripItem usbName in shareForm.sendToToolStripMenuItem.DropDownItems)
+                                {
+                                    foreach (DriveInfo usbStorage in DriveInfo.GetDrives())
+                                    {
+                                        if (usbStorage.IsReady && usbStorage.DriveType == DriveType.Removable)
+                                        {
+                                            if (usbName.Text == usbStorage.VolumeLabel + " " + usbStorage.Name)
+                                            {
+                                                stripExistingDevices.Add(usbName);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                foreach (ToolStripItem item in shareForm.sendToToolStripMenuItem.DropDownItems)
+                                {
+                                    if (!stripExistingDevices.Contains(item))
+                                        contextStripDevice = item;
+                                }
+
+                                shareForm.sendToToolStripMenuItem.DropDownItems.Remove(contextStripDevice);
+
+                                //Main ToolStripSplitButton
+                                foreach (ToolStripItem usbName in shareToolStripSplitButton.DropDownItems)
+                                {
+                                    foreach (DriveInfo usbStorage in DriveInfo.GetDrives())
+                                    {
+                                        if (usbStorage.IsReady && usbStorage.DriveType == DriveType.Removable)
+                                        {
+                                            if (usbName.Text == usbStorage.VolumeLabel + " " + usbStorage.Name)
+                                            {
+                                                splitExistingDevices.Add(usbName);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                foreach (ToolStripItem item in shareToolStripSplitButton.DropDownItems)
+                                {
+                                    if (!splitExistingDevices.Contains(item))
+                                        mainStripDevice = item;
+                                }
+                                
+                                shareToolStripSplitButton.DropDownItems.Remove(mainStripDevice);
                             }
 
                             if (shareForm.deviceList.Items.Count == 0)
@@ -973,18 +1022,21 @@ namespace Mobile_Service_Distribution
                 for (int i = libraryForm.movieList.LargeImageList.Images.Count - 1; i > 0; i--)
                     libraryForm.movieList.LargeImageList.Images.RemoveAt(i);
             });
+            libraryForm.moiter = 1;
             libraryForm.musicList.Invoke((MethodInvoker)delegate { libraryForm.musicList.Clear(); });
             libraryForm.musicList.Invoke((MethodInvoker)delegate
             {
                 for (int i = libraryForm.musicList.LargeImageList.Images.Count - 1; i > 0; i--)
                     libraryForm.musicList.LargeImageList.Images.RemoveAt(i);
             });
+            libraryForm.muiter = 1;
             libraryForm.seriesList.Invoke((MethodInvoker)delegate { libraryForm.seriesList.Clear(); });
             libraryForm.seriesList.Invoke((MethodInvoker)delegate
             {
                 for (int i = libraryForm.seriesList.LargeImageList.Images.Count - 1; i > 0; i--)
                     libraryForm.seriesList.LargeImageList.Images.RemoveAt(i);
             });
+            libraryForm.siter = 1;
             homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Clear(); });
 
             foreach (LibraryManager movie in movieCatalogue)
@@ -1075,6 +1127,8 @@ namespace Mobile_Service_Distribution
                 }
             }
 
+            libraryForm.spinnerPictureBox.Invoke((MethodInvoker)delegate { libraryForm.spinnerPictureBox.Visible = false; });
+
             foreach (LibraryManager media in SortPRS())
             {
                 PictureBox coverArtPictureBox = new PictureBox
@@ -1096,6 +1150,8 @@ namespace Mobile_Service_Distribution
 
                     homeForm.popularNowPanel.Invoke((MethodInvoker)delegate { homeForm.popularNowPanel.Controls.Add(coverArtPictureBox); });
             }
+
+            homeForm.spinnerPictureBox.Invoke((MethodInvoker)delegate { homeForm.spinnerPictureBox.Visible = false; });
 
             statsForm.mediaAmountChart.Invoke((MethodInvoker)delegate
             {

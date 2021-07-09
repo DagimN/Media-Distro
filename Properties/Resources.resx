@@ -118,214 +118,217 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="deviceList BackGround 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\deviceList BackGround 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stats background default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats background default.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="detailPanel_Fire_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sample background 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stats background twilight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats background twilight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="detailPanel_Default_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\detailPanel Default BackGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Pause_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Pause_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Entypo_25c2(0)_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Entypo_25c2(0)_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hide_Info_Fire_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hide Info Fire Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="USB_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\USB Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Search_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Search Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="detailPanel_Twilight_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\detailPanel Twilight BackGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hide_Info_Meadow_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hide Info Meadow Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Settings_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="coverart_sample_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\coverart sample 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logo_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Entypo_25b4(0)_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Entypo_25b4(0)_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Night" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Night.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hide Info Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hide Info Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Cart_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cart Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stats background 4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats background 4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="infoPanel_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\infoPanel_Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="infoPanel_DarkBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\infoPanel_DarkBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cart_list_view_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cart list view 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Share_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Share Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Add Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Stop_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Stop_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="configBackground 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\configBackground 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Close 2 Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Close 2 Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Entypo_2713(0)_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Entypo_2713(0)_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="resetIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\resetIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="themeBackGround 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\themeBackGround 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="trash 4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\trash 4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="info icon 3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\info icon 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Entypo_25b8(0)_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Entypo_25b8(0)_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Warning Icon 3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Warning Icon 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Home_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Home Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Play_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Play_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="seriesBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\seriesBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Library Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Library Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Close_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Close Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Twilight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Twilight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="detailPanel_Meadow_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\detailPanel Meadow BackGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="introBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\introBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="infoPanel_TwilightBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\infoPanel_TwilightBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logo 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="arrow_symbolic_link_15730" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\arrow_symbolic_link_15730.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Default.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stats background fire" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats background fire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MoreInfo Background 1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MoreInfo Background 1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Hide_Info_Dark_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Hide Info Dark Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stats background green" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stats background green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hide_Info_Twilight_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hide Info Twilight Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Stats Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Stats Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="detailPanel_Dark_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\detailPanel Dark BackGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="USB_Icon_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\USB Icon 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="infoPanel_FireBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\infoPanel_FireBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="infoPanel_MeadowBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\infoPanel_MeadowBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Material Icons_e80e(0)_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Material Icons_e80e(0)_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cart_list_view_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cart list view 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logo 3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Add_Media_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add Media Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_ico.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Download_Folder_Small_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Download Folder Small Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Default.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cart_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cart Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="USB_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\USB Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cart_list_view_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cart list view 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="detailPanel_Twilight_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\detailPanel Twilight BackGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="configBackground 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\configBackground 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="trash 4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\trash 4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hide_Info_Meadow_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hide Info Meadow Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="info icon 3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\info icon 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="deviceList BackGround 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\deviceList BackGround 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Movie_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Movie Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Music_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Music Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="arrow_symbolic_link_15730" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow_symbolic_link_15730.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="detailPanel_Meadow_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\detailPanel Meadow BackGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stats background fire" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stats background fire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Entypo_2713(0)_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Entypo_2713(0)_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="detailPanel_Fire_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sample background 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infoPanel_DarkBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\infoPanel_DarkBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infoPanel_MeadowBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\infoPanel_MeadowBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="seriesBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\seriesBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Entypo_25b4(0)_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Entypo_25b4(0)_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Download_Folder_Small_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Download Folder Small Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infoPanel_FireBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\infoPanel_FireBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="USB_Icon_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\USB Icon 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Download_Folder_Ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Download Folder Ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo 3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Settings_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Home_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Home Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="themeBackGround 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\themeBackGround 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hide Info Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hide Info Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infoPanel_TwilightBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\infoPanel_TwilightBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stats background 4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stats background 4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Series_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Series Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Warning Icon 3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Warning Icon 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Share_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Share Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add_Media_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add Media Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stats background green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stats background green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stats background default" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stats background default.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infoPanel_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\infoPanel_Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="detailPanel_Dark_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\detailPanel Dark BackGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hide_Info_Fire_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hide Info Fire Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pause_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Pause_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Material Icons_e80e(0)_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Material Icons_e80e(0)_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Stop_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Stop_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cart_list_view_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cart list view 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Entypo_25b8(0)_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Entypo_25b8(0)_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logo_icon_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo icon 2.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Download_Folder_Ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Download Folder Ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="resetIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\resetIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="coverart_sample_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\coverart sample 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="detailPanel_Default_BackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\detailPanel Default BackGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Twilight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Twilight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="introBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\introBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Library Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Library Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hide_Info_Twilight_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hide Info Twilight Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Play_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Close_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Close 2 Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close 2 Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stats background twilight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stats background twilight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Entypo_25c2(0)_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Entypo_25c2(0)_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Stats Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Stats Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Music_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Music Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Search_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Search Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Night.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoreInfo Background 1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoreInfo Background 1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Spinner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Spinner.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

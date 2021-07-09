@@ -45,11 +45,13 @@
             this.goLeftButton = new System.Windows.Forms.Button();
             this.goRightButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.spinnerPictureBox = new System.Windows.Forms.PictureBox();
             this.dashBoardPanel.SuspendLayout();
             this.adsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.popularNowPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinnerPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // taskPieChart
@@ -237,6 +239,16 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // spinnerPictureBox
+            // 
+            this.spinnerPictureBox.Image = global::Media_Distro.Properties.Resources.Spinner;
+            this.spinnerPictureBox.Location = new System.Drawing.Point(470, 205);
+            this.spinnerPictureBox.Name = "spinnerPictureBox";
+            this.spinnerPictureBox.Size = new System.Drawing.Size(65, 65);
+            this.spinnerPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.spinnerPictureBox.TabIndex = 4;
+            this.spinnerPictureBox.TabStop = false;
+            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,10 +256,11 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(215)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(567, 452);
+            this.Controls.Add(this.popularNowPanel);
+            this.Controls.Add(this.spinnerPictureBox);
             this.Controls.Add(this.popularNowLabel);
             this.Controls.Add(this.goLeftButton);
             this.Controls.Add(this.goRightButton);
-            this.Controls.Add(this.popularNowPanel);
             this.Controls.Add(this.dashBoardPanel);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
@@ -264,6 +277,7 @@
             this.popularNowPanel.ResumeLayout(false);
             this.popularNowPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinnerPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,5 +300,6 @@
         public System.Windows.Forms.Label subGetLabel;
         public System.Windows.Forms.Label mainGetLabel;
         public System.Windows.Forms.PictureBox pictureBox2;
+        public System.Windows.Forms.PictureBox spinnerPictureBox;
     }
 }

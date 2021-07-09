@@ -326,6 +326,7 @@ namespace Mobile_Service_Distribution.Forms
 
                                     verifyFile = File.CreateText(Combine(verificationFileURL, "Verify Code"));
                                     verifyFile.WriteLine(GenerateKeyAlgorithm());
+                                    verifyFile.WriteLine(DateTime.Now.ToString());
                                     verifyFile.Close();
 
                                     File.Copy(Combine(GetFolderPath(SpecialFolder.UserProfile), "Media Distro", "Stats Record.txt"), Combine(verificationFileURL, "Stats Record.txt"));

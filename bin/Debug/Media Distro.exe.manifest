@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Media Distro.exe" size="1439712">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Media Distro.exe" size="1609184">
       <assemblyIdentity name="Media Distro" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>7EJ2PApKCQ1eK1jf25I8qNVdlzozGuG+vZYtqrKz/OI=</dsig:DigestValue>
+        <dsig:DigestValue>6pt0q8pycz/EMLowAbnvhdSy9HyLCV+a/4Rhk0j2SVc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -122,7 +122,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Zl1P6c2CKGBgPkzJocSHypma5rpGSdTYruk8FYG1HFI=</dsig:DigestValue>
+        <dsig:DigestValue>QmpPItyablpv+HRcsQoMYtUbWJer3FZwvjJZMXJ2Gfo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
